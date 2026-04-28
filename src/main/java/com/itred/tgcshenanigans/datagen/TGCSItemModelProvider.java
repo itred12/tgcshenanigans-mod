@@ -16,5 +16,6 @@ public class TGCSItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
 
         withExistingParent(TGCSItems.DISC_FIREPLACE.getId().toString(), mcLoc("item/template_music_disc")).texture("layer0", "item/music_disc_fireplace");
+        basicItem(TGCSItems.DISC_AIZO.get());
     }
 }

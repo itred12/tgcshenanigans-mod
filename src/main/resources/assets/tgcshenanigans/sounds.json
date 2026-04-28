@@ -1,0 +1,11 @@
+{
+  "music.disc.aizo": {
+    "subtitle": "sounds.tgcshenanigans.aizo",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:aizo",
+        "stream": true
+      }
+    ]
+  }
+}

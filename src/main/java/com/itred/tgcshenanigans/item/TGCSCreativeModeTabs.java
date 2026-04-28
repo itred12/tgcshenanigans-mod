@@ -21,7 +21,9 @@ public class TGCSCreativeModeTabs {
                     .icon(() -> new ItemStack(Items.CAMPFIRE))
                     .title(Component.translatable("creativetab.tgcshenanigans.tgcs_items_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+                        // Add items here
                         output.accept(TGCSItems.DISC_FIREPLACE);
+                        output.accept(TGCSItems.DISC_AIZO);
                     })
                     .build()
             );
