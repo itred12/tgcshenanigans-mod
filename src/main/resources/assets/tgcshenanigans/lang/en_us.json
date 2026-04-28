@@ -9,5 +9,7 @@
   "tgcshenanigans.configuration.items": "Item List",
   "tgcshenanigans.configuration.logDirtBlock": "Log Dirt Block",
   "tgcshenanigans.configuration.magicNumberIntroduction": "Magic Number Text",
-  "tgcshenanigans.configuration.magicNumber": "Magic Number"
+  "tgcshenanigans.configuration.magicNumber": "Magic Number",
+
+  "creativetab.tgcshenanigans.tgcs_items_tab": "This GC's Shenanigans"
 }
