@@ -1,0 +1,13 @@
+{
+  "itemGroup.tgcshenanigans": "Example Mod Tab",
+  "block.tgcshenanigans.example_block": "Example Block",
+  "item.tgcshenanigans.example_item": "Example Item",
+
+  "tgcshenanigans.configuration.title": "This GC's Shenanigans Configs",
+  "tgcshenanigans.configuration.section.tgcshenanigans.common.toml": "This GC's Shenanigans Configs",
+  "tgcshenanigans.configuration.section.tgcshenanigans.common.toml.title": "This GC's Shenanigans Configs",
+  "tgcshenanigans.configuration.items": "Item List",
+  "tgcshenanigans.configuration.logDirtBlock": "Log Dirt Block",
+  "tgcshenanigans.configuration.magicNumberIntroduction": "Magic Number Text",
+  "tgcshenanigans.configuration.magicNumber": "Magic Number"
+}
