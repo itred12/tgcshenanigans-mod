@@ -16,7 +16,7 @@ public class TGCSItems {
             () -> new Item(
                     new Item.Properties()
                             .stacksTo(1)
-                            .rarity(Rarity.UNCOMMON)
+                            .rarity(Rarity.RARE)
                             .fireResistant()
                             // .jukeboxPlayable()
             ));
@@ -25,9 +25,19 @@ public class TGCSItems {
             () -> new Item(
                     new Item.Properties()
                             .stacksTo(1)
-                            .rarity(Rarity.UNCOMMON)
+                            .rarity(Rarity.RARE)
                             .fireResistant()
                             .jukeboxPlayable(TGCSSounds.MUSIC_DISC_AIZO_KEY)
+            ));
+
+    public static final DeferredItem<Item> AMETHYST_PLATE = ITEMS_REGISTRY.register("amethyst_plate",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> CRYSTALLINE_DISC = ITEMS_REGISTRY.register("crystalline_disc",
+            () -> new CrystallineDiscItem(
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .rarity(Rarity.UNCOMMON)
             ));
 
     public static void registerAll(IEventBus bus) {

@@ -1,19 +1,16 @@
 package com.itred.tgcshenanigans.datagen;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
+import com.itred.tgcshenanigans.datagen.create.TGCSPressingRecipeGen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -50,6 +47,9 @@ public class DataGenerators {
 
         // Recipes (serverside)
         generator.addProvider(event.includeServer(), new TGCSRecipeProvider(pack, lookupProvider));
+
+        // Create recipes
+        generator.addProvider(event.includeServer(), new TGCSPressingRecipeGen(pack, lookupProvider));
 
         // Datamapping (serverside)
         generator.addProvider(event.includeServer(), new TGCSDataMapProvider(pack, lookupProvider));

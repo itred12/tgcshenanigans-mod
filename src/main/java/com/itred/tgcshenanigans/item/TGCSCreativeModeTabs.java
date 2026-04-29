@@ -22,6 +22,10 @@ public class TGCSCreativeModeTabs {
                     .title(Component.translatable("creativetab.tgcshenanigans.tgcs_items_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
                         // Add items here
+
+                        output.accept(TGCSItems.AMETHYST_PLATE);
+                        output.accept(TGCSItems.CRYSTALLINE_DISC);
+
                         output.accept(TGCSItems.DISC_FIREPLACE);
                         output.accept(TGCSItems.DISC_AIZO);
                     })
