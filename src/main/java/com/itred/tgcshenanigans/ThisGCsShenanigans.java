@@ -1,9 +1,13 @@
 package com.itred.tgcshenanigans;
 
+import com.itred.tgcshenanigans.component.TGCSDataComponents;
+import com.itred.tgcshenanigans.datagen.recipe.CrystallineDiscApplyLabel;
 import com.itred.tgcshenanigans.item.TGCSCreativeModeTabs;
 import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -53,6 +57,11 @@ public class ThisGCsShenanigans {
                 output.accept(TGCSItems.DISC_FIREPLACE);
             }).build());
 
+    // Recipe serializer
+    private static final DeferredRegister<RecipeSerializer<?>> SERIALIZER_REGISTRY = DeferredRegister.create(Registries.RECIPE_SERIALIZER, ThisGCsShenanigans.MODID);
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CrystallineDiscApplyLabel>> CRYSTALLINE_DISC_LABEL_SERIALIZER = SERIALIZER_REGISTRY.register("crystalline_disc_label_crafting", (resourceLocation) -> new SimpleCraftingRecipeSerializer<>(CrystallineDiscApplyLabel::new));
+
+
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public ThisGCsShenanigans(IEventBus modEventBus, ModContainer modContainer) {
@@ -72,6 +81,12 @@ public class ThisGCsShenanigans {
 
         // Register sounds
         TGCSSounds.registerAll(modEventBus);
+
+        // Register data components
+        TGCSDataComponents.registerAll(modEventBus);
+
+        // Register recipe serializers
+        SERIALIZER_REGISTRY.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

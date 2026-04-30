@@ -27,7 +27,7 @@ public class DataGenerators {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        // Block loot tables (serverside)
+        // Block loot tables
         /*
         generator.addProvider(event.includeServer(), new LootTableProvider(
                 pack,
@@ -38,20 +38,23 @@ public class DataGenerators {
 
          */
 
-        // Block tags (serverside)
+        // Block tags
         BlockTagsProvider blockTagsProvider = new TGCSBlockTagProvider(pack, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagsProvider);
 
-        // Item tags (serverside)
+        // Item tags
         generator.addProvider(event.includeServer(), new TGCSItemTagProvider(pack, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
 
-        // Recipes (serverside)
-        generator.addProvider(event.includeServer(), new TGCSRecipeProvider(pack, lookupProvider));
+        // Biome tags
+        generator.addProvider(event.includeServer(), new TGCSBiomeTagProvider(pack, lookupProvider, existingFileHelper));
 
-        // Create recipes
+        // Recipes
+            // Vanilla
+        generator.addProvider(event.includeServer(), new TGCSRecipeProvider(pack, lookupProvider));
+            // Create
         generator.addProvider(event.includeServer(), new TGCSPressingRecipeGen(pack, lookupProvider));
 
-        // Datamapping (serverside)
+        // Datamapping
         generator.addProvider(event.includeServer(), new TGCSDataMapProvider(pack, lookupProvider));
 
         // Item models (client side)
