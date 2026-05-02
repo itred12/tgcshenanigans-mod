@@ -16,14 +16,16 @@ public class TGCSSounds {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS_REGISTRY = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, ThisGCsShenanigans.MODID);
 
-    public static final Supplier<SoundEvent> MUSIC_DISC_AIZO = registerLocalSoundEvent("music.disc.aizo");
+    public static final Supplier<SoundEvent> BLUEAXOLOTL_PLA = registerLocalSoundEvent("sound.blueaxolotl_pla");
+    public static final Supplier<SoundEvent> BLUEAXOLOTL_BW = registerLocalSoundEvent("sound.blueaxolotl_bw");
+
+    public static final Supplier<SoundEvent> MUSIC_DISC_AIZO = registerLocalSoundEvent("sound.disc.aizo");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_AIZO_KEY = createSong("aizo");
 
 
     private static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));
     }
-
 
     // Sound events registered this way tesselate as you move away from the source.
     // Anything non-game-music should use this.

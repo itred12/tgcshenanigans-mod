@@ -57,6 +57,9 @@ public class DataGenerators {
         // Datamapping
         generator.addProvider(event.includeServer(), new TGCSDataMapProvider(pack, lookupProvider));
 
+        // Advancements
+        generator.addProvider(event.includeServer(), new TGCSAdvancementProvider(pack, lookupProvider, existingFileHelper));
+
         // Item models (client side)
         generator.addProvider(event.includeClient(), new TGCSItemModelProvider(pack, existingFileHelper));
         // Blockstate models (client side)

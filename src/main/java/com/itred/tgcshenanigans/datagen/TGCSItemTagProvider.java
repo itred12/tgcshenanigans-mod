@@ -1,16 +1,16 @@
 package com.itred.tgcshenanigans.datagen;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
+import com.itred.tgcshenanigans.item.TGCSItems;
+import com.itred.tgcshenanigans.tag.TGCSBiomeTags;
+import com.itred.tgcshenanigans.tag.TGCSItemTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -22,19 +22,17 @@ public class TGCSItemTagProvider extends ItemTagsProvider {
         super(output, lookupProvider, blockTags, ThisGCsShenanigans.MODID, existingFileHelper);
     }
 
-    public static final TagKey<Item> PHANTASMAL_ITEMS = createItemTag("phantasmal_items");
-
-
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         // Add tags in the same way as block tags
-        tag(PHANTASMAL_ITEMS)
+        tag(TGCSItemTags.PHANTASMAL_ITEMS)
                 .add(Items.PHANTOM_MEMBRANE)
                 .add(Items.SOUL_SOIL);
 
+        tag(TGCSItemTags.CRYSTALLINE_DISC_ITEMS)
+                .add(TGCSItems.CRYSTALLINE_DISC_VOICELESS.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_AIZO.get());
+
     }
 
-    private static TagKey<Item> createItemTag(String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));
-    }
 }

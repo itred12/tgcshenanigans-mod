@@ -1,13 +1,19 @@
 package com.itred.tgcshenanigans;
 
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
-import com.itred.tgcshenanigans.datagen.recipe.CrystallineDiscApplyLabel;
 import com.itred.tgcshenanigans.item.TGCSCreativeModeTabs;
 import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -59,7 +65,6 @@ public class ThisGCsShenanigans {
 
     // Recipe serializer
     private static final DeferredRegister<RecipeSerializer<?>> SERIALIZER_REGISTRY = DeferredRegister.create(Registries.RECIPE_SERIALIZER, ThisGCsShenanigans.MODID);
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<CrystallineDiscApplyLabel>> CRYSTALLINE_DISC_LABEL_SERIALIZER = SERIALIZER_REGISTRY.register("crystalline_disc_label_crafting", (resourceLocation) -> new SimpleCraftingRecipeSerializer<>(CrystallineDiscApplyLabel::new));
 
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -90,6 +95,7 @@ public class ThisGCsShenanigans {
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -118,4 +124,14 @@ public class ThisGCsShenanigans {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
+
+    @SubscribeEvent
+    public void onPlayerCraft(PlayerEvent.ItemCraftedEvent event) {
+        Player player = event.getEntity();
+        Container container = event.getInventory();
+        ItemStack result = event.getCrafting();
+    }
+
+
+
 }

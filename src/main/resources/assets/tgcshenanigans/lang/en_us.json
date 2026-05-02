@@ -14,21 +14,26 @@
   "creativetab.tgcshenanigans.tgcs_items_tab": "This GC's Shenanigans",
 
   "item.tgcshenanigans.amethyst_plate": "Amethyst Plate",
-  "item.tgcshenanigans.crystalline_disc": "Crystalline Disc",
-  "item.tgcshenanigans.crystalline_disc.description": "It seeks inspiration...",
+  "item.tgcshenanigans.disc_label": "Disc Label",
+
+  "item.tgcshenanigans.crystalline_disc_voiceless": "Crystalline Disc",
+  "item.tgcshenanigans.crystalline_disc_voiceless.description": "It seeks inspiration...",
+  "item.tgcshenanigans.crystalline_disc_voiceless.description_aizo": "It's fixated on a powerful song.",
+
+  "item.tgcshenanigans.crystalline_disc_aizo": "Crystalline Disc",
+  "item.tgcshenanigans.crystalline_disc_aizo.description": "It hums with a powerful song.",
+
   "message.tgcshenanigans.crystalline_disc.start": "The disc is listening...",
-  "message.tgcshenanigans.crystalline_disc.end_wrongbiome": "The disc forgets its song...",
-
-  "item.tgcshenanigans.music_disc_aizo": "§4Music Disc§r",
-  "item.tgcshenanigans.music_disc_aizo.desc": "King Gnu – AIZO",
-
-
-  "sounds.tgcshenanigans.aizo": "AIZO by King Gnu plays",
   "message.tgcshenanigans.crystalline_disc.listen_1": "The disc takes in its surroundings...",
   "message.tgcshenanigans.crystalline_disc.listen_2": "The disc hums with the terrain...",
   "message.tgcshenanigans.crystalline_disc.listen_3": "The disc is ready.",
-  "item.tgcshenanigans.crystalline_disc.description_ready": "Apply a label and let it sing."
 
+  "item.tgcshenanigans.music_disc_aizo": "§4Music Disc§r",
+  "item.tgcshenanigans.music_disc_aizo.desc": "King Gnu – AIZO",
+  "sounds.tgcshenanigans.aizo": "AIZO by King Gnu plays",
 
+  "advancements.tgcshenanigans.craft_custom_disc.title": "Soundsmith",
+  "advancements.tgcshenanigans.craft_custom_disc.description": "Use a crystalline disc to pluck a song out of the air and print it to a record.",
 
+  "tgcshenanigans.config.client.blue_axolotl_ping": "Blue Axolotl Ping"
 }

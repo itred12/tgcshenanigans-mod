@@ -1,10 +1,28 @@
 {
-  "music.disc.aizo": {
+  "sound.disc.aizo": {
     "subtitle": "sounds.tgcshenanigans.aizo",
     "sounds": [
       {
-        "name": "tgcshenanigans:aizo",
+        "name": "tgcshenanigans:disc/aizo",
         "stream": true
+      }
+    ]
+  },
+
+  "sound.blueaxolotl_pla": {
+    "subtitle": "sounds.tgcshenanigans.blueaxoltlspawn",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:pla_shiny_quieter"
+      }
+    ]
+  },
+
+  "sound.blueaxolotl_bw": {
+    "subtitle": "sounds.tgcshenanigans.blueaxoltlspawn",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:bw_shiny_quieter"
       }
     ]
   }

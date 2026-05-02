@@ -24,7 +24,10 @@ public class TGCSCreativeModeTabs {
                         // Add items here
 
                         output.accept(TGCSItems.AMETHYST_PLATE);
-                        output.accept(TGCSItems.CRYSTALLINE_DISC);
+                        output.accept(TGCSItems.DISC_LABEL);
+
+                        output.accept(TGCSItems.CRYSTALLINE_DISC_VOICELESS);
+                        output.accept(TGCSItems.CRYSTALLINE_DISC_AIZO);
 
                         output.accept(TGCSItems.DISC_FIREPLACE);
                         output.accept(TGCSItems.DISC_AIZO);
