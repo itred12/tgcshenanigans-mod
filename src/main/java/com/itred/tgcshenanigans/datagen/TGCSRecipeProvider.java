@@ -41,9 +41,9 @@ public class TGCSRecipeProvider extends RecipeProvider implements IConditionBuil
 
 
         SmithingTransformRecipeBuilder.smithing(
-                Ingredient.EMPTY,
+                Ingredient.of(Items.PAPER), // Possibly temp
                 Ingredient.of(TGCSItems.CRYSTALLINE_DISC_AIZO),
-                Ingredient.of(TGCSItems.DISC_LABEL),
+                Ingredient.of(Items.RED_DYE), // Temp
                 RecipeCategory.MISC,
                 TGCSItems.DISC_AIZO.get()
         ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))

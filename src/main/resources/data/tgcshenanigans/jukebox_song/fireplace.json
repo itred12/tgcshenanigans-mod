@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.tgcshenanigans.music_disc_fireplace.desc"
+  },
+  "length_in_seconds": 215.0,
+  "sound_event": "tgcshenanigans:sound.disc.tobyfox_fireplace"
+}

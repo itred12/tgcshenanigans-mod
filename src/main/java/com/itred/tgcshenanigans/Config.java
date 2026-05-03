@@ -1,12 +1,12 @@
 package com.itred.tgcshenanigans;
 
-import java.util.List;
-
 import com.electronwill.nightconfig.core.EnumGetMethod;
 import com.itred.tgcshenanigans.config.BlueAxolotlSpawnSfx;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
+
+import java.util.List;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
@@ -36,15 +36,34 @@ public class Config {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
     }
 
+    private static final ModConfigSpec.Builder SERVER_CONFIG_BUILDER = new ModConfigSpec.Builder();
+
+    public static final ModConfigSpec.BooleanValue ENABLE_BLUE_AXOLOTL_PING = SERVER_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.blue_axolotl_ping_masterswitch")
+            .comment("Enable or disable the sound effect that plays whenever a player is near a blue axolotl.")
+            .worldRestart()
+            .define("blueAxolotlPingMasterswitch", true);
+
+    public static final ModConfigSpec.BooleanValue DISABLE_CRAB = SERVER_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.disable_crab")
+            .comment("Ninni's Spawn mod: prevent Spider Crabs from spawning. One of my friends really disliked them.",
+                    "",
+                    "WILL IRREVERSABLY DELETE ALL SPIDER CRABS CURRENTLY IN THE WORLD UPON RELOADING. YOU HAVE BEEN WARNED.")
+            .worldRestart()
+            .define("disableCrab", false);
+
+
+    static final ModConfigSpec SERVER_CONFIG = SERVER_CONFIG_BUILDER.build();
+
     private static final ModConfigSpec.Builder CLIENT_CONFIG_BUILDER = new ModConfigSpec.Builder();
 
     // If I wasn't getting copyright claimed before, I definitely will be now...
-    public static final ModConfigSpec.EnumValue<BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING = CLIENT_CONFIG_BUILDER
-            .translation("tgcshenanigans.config.client.blue_axolotl_ping")
+    public static final ModConfigSpec.EnumValue<BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING_SOUND = CLIENT_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.client.blue_axolotl_ping_client")
             .comment(
                     "Plays a fitting sound effect when you're near a blue axolotl, or when one spawns in near you.",
                     "",
-                    "blueAxolotlPing must be enabled in the server config for this to take effect.",
+                    "Blue Axolotl Ping must be enabled in the server config for this to take effect.",
                     "",
                     "Values:",
                     "",

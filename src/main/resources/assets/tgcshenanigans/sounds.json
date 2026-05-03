@@ -1,9 +1,29 @@
 {
   "sound.disc.aizo": {
-    "subtitle": "sounds.tgcshenanigans.aizo",
+    "subtitle": "sounds.tgcshenanigans.kinggnu_aizo",
     "sounds": [
       {
-        "name": "tgcshenanigans:disc/aizo",
+        "name": "tgcshenanigans:disc/kinggnu_aizo_mono",
+        "stream": true
+      }
+    ]
+  },
+
+  "sound.disc.fireplace": {
+    "subtitle": "sounds.tgcshenanigans.tobyfox_fireplace",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:disc/tobyfox_fireplace_mono",
+        "stream": true
+      }
+    ]
+  },
+
+  "sound.disc.icysanctum": {
+    "subtitle": "sounds.tgcshenanigans.drazorleaf_icysanctum",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:disc/drazorleaf_icysanctum_mono",
         "stream": true
       }
     ]
