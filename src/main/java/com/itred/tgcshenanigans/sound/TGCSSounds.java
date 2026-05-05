@@ -16,8 +16,8 @@ public class TGCSSounds {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS_REGISTRY = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, ThisGCsShenanigans.MODID);
 
-    public static final Supplier<SoundEvent> BLUEAXOLOTL_PLA = registerLocalSoundEvent("sound.blueaxolotl_pla");
-    public static final Supplier<SoundEvent> BLUEAXOLOTL_BW = registerLocalSoundEvent("sound.blueaxolotl_bw");
+    public static final Supplier<SoundEvent> BLUEAXOLOTL_PLA = registerLocalSoundEvent("sound.effect.blueaxolotl_pla");
+    public static final Supplier<SoundEvent> BLUEAXOLOTL_BW = registerLocalSoundEvent("sound.effect.blueaxolotl_bw");
 
     public static final Supplier<SoundEvent> MUSIC_DISC_AIZO = registerLocalSoundEvent("sound.disc.kinggnu_aizo");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_AIZO_KEY = createSong("aizo");
@@ -27,6 +27,8 @@ public class TGCSSounds {
 
     public static final Supplier<SoundEvent> MUSIC_DISC_ICYSANCTUM = registerLocalSoundEvent("sound.disc.drazorleaf_icysanctum");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_ICYSANCTUM_KEY = createSong("icysanctum");
+
+
 
 
     private static ResourceKey<JukeboxSong> createSong(String name) {

@@ -1,6 +1,6 @@
 {
   "sound.disc.kinggnu_aizo": {
-    "subtitle": "sounds.tgcshenanigans.kinggnu_aizo",
+    "subtitle": "sounds.tgcshenanigans.disc.kinggnu_aizo",
     "sounds": [
       {
         "name": "tgcshenanigans:disc/kinggnu_aizo_mono",
@@ -10,7 +10,7 @@
   },
 
   "sound.disc.tobyfox_fireplace": {
-    "subtitle": "sounds.tgcshenanigans.tobyfox_fireplace",
+    "subtitle": "sounds.tgcshenanigans.disc.tobyfox_fireplace",
     "sounds": [
       {
         "name": "tgcshenanigans:disc/tobyfox_fireplace_mono",
@@ -20,7 +20,7 @@
   },
 
   "sound.disc.drazorleaf_icysanctum": {
-    "subtitle": "sounds.tgcshenanigans.drazorleaf_icysanctum",
+    "subtitle": "sounds.tgcshenanigans.disc.drazorleaf_icysanctum",
     "sounds": [
       {
         "name": "tgcshenanigans:disc/drazorleaf_icysanctum_mono",
@@ -29,8 +29,40 @@
     ]
   },
 
-  "sound.blueaxolotl_pla": {
-    "subtitle": "sounds.tgcshenanigans.blueaxoltlspawn",
+  "sound.ambient.tobyfox_12am": {
+    "subtitle": "sounds.tgcshenanigans.ambient.tobyfox_12am",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_12am",
+        "stream": true
+      }
+    ]
+  },
+
+  "sound.ambient.tobyfox_alt_church_lobby": {
+    "subtitle": "sounds.tgcshenanigans.ambient.tobyfox_alt_church_lobby",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_alt_church_lobby_longerambient",
+        "stream": true
+      }
+    ]
+  },
+
+  "sound.ambient.tobyfox_with_hope_crossed_on_our_hearts": {
+    "subtitle": "sounds.tgcshenanigans.ambient.tobyfox_with_hope_crossed_on_our_hearts",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_with_hope_crossed_on_our_hearts",
+        "stream": true
+      }
+    ]
+  },
+
+
+
+  "sound.effect.blueaxolotl_pla": {
+    "subtitle": "sounds.tgcshenanigans.effect.blueaxoltlspawn",
     "sounds": [
       {
         "name": "tgcshenanigans:pla_shiny_quieter_mono"
@@ -38,8 +70,8 @@
     ]
   },
 
-  "sound.blueaxolotl_bw": {
-    "subtitle": "sounds.tgcshenanigans.blueaxoltlspawn",
+  "sound.effect.blueaxolotl_bw": {
+    "subtitle": "sounds.tgcshenanigans.effect.blueaxoltlspawn",
     "sounds": [
       {
         "name": "tgcshenanigans:bw_shiny_quieter_mono"

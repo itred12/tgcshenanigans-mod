@@ -19,7 +19,6 @@
   "item.tgcshenanigans.crystalline_disc_voiceless": "Amethyst Disc",
   "item.tgcshenanigans.crystalline_disc_voiceless.description": "It seeks inspiration...",
 
-
   "message.tgcshenanigans.crystalline_disc.hint": "The disc picks up on a song...",
   "message.tgcshenanigans.crystalline_disc.start": "The disc is listening...",
   "message.tgcshenanigans.crystalline_disc.listen_1": "The disc takes in its surroundings...",
@@ -36,23 +35,32 @@
 
   "item.tgcshenanigans.music_disc_aizo": "§4Music Disc§r",
   "item.tgcshenanigans.music_disc_aizo.desc": "King Gnu – AIZO",
-  "sounds.tgcshenanigans.kinggnu_aizo": "AIZO by King Gnu plays",
 
   "item.tgcshenanigans.music_disc_fireplace": "Music Disc",
   "item.tgcshenanigans.music_disc_fireplace.desc": "Toby Fox – Fireplace",
-  "sounds.tgcshenanigans.tobyfox_fireplace": "Fireplace by Toby Fox plays",
 
   "item.tgcshenanigans.music_disc_icysanctum": "Music Disc",
   "item.tgcshenanigans.music_disc_icysanctum.desc": "Drazorleaf – Icy Sanctum: Rearrangement",
   "item.tgcshenanigans.music_disc_icysanctum.tooltip_1": "From Pokemon Mystery Dungeon: Gates to Infinity.",
   "item.tgcshenanigans.music_disc_icysanctum.tooltip_2": "Originally composed by Keisuke Ito & Yasuhiro Kawagoe",
-  "sounds.tgcshenanigans.drazorleaf_icysanctum": "Icy Sanctum rearranged by Drazorleaf plays",
 
   "advancements.tgcshenanigans.craft_custom_disc.title": "Soundsmith",
   "advancements.tgcshenanigans.craft_custom_disc.description": "Use a crystalline disc to pluck a song out of the air and print it to a record.",
 
   "tgcshenanigans.config.client.blue_axolotl_ping_client": "Axolotl Ping Sound Effect",
   "tgcshenanigans.config.server.blue_axolotl_ping_masterswitch": "Blue Axolotl Ping",
-  "tgcshenanigans.config.server.disable_crab": "Ninni's Spawn mod: Disable Spider Crabs"
+  "tgcshenanigans.config.server.disable_crab": "Ninni's Spawn mod: Disable Spider Crabs",
+
+  "sounds.tgcshenanigans.disc.kinggnu_aizo": "AIZO by King Gnu plays",
+  "sounds.tgcshenanigans.disc.tobyfox_fireplace": "Fireplace by Toby Fox plays",
+  "sounds.tgcshenanigans.disc.drazorleaf_icysanctum": "Icy Sanctum rearranged by Drazorleaf plays",
+
+  "sounds.tgcshenanigans.ambient.tobyfox_12am": "12am by Toby Fox plays",
+  "sounds.tgcshenanigans.ambient.tobyfox_alt_church_lobby": "alt_church_lobby by Toby Fox plays",
+  "sounds.tgcshenanigans.ambient.tobyfox_with_hope_crossed_on_our_hearts": "With Hope Crossed On Our Hearts by Toby Fox plays",
+
+  "sounds.tgcshenanigans.effect.blueaxolotlspawn": "A blue axolotl spawns in"
+
+
 
 }
