@@ -6,8 +6,11 @@ import com.itred.tgcshenanigans.item.TGCSItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
+import org.spongepowered.asm.mixin.Pseudo;
 
 import java.util.concurrent.CompletableFuture;
+
+@Pseudo
 
 public class TGCSPressingRecipeGen extends com.simibubi.create.api.data.recipe.PressingRecipeGen {
 

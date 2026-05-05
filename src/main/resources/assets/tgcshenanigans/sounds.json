@@ -1,5 +1,5 @@
 {
-  "sound.disc.aizo": {
+  "sound.disc.kinggnu_aizo": {
     "subtitle": "sounds.tgcshenanigans.kinggnu_aizo",
     "sounds": [
       {
@@ -9,7 +9,7 @@
     ]
   },
 
-  "sound.disc.fireplace": {
+  "sound.disc.tobyfox_fireplace": {
     "subtitle": "sounds.tgcshenanigans.tobyfox_fireplace",
     "sounds": [
       {
@@ -19,7 +19,7 @@
     ]
   },
 
-  "sound.disc.icysanctum": {
+  "sound.disc.drazorleaf_icysanctum": {
     "subtitle": "sounds.tgcshenanigans.drazorleaf_icysanctum",
     "sounds": [
       {

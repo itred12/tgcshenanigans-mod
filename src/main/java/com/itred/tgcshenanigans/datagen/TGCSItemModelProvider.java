@@ -21,6 +21,7 @@ public class TGCSItemModelProvider extends ItemModelProvider {
 
         fromParent(TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
         fromParent(TGCSItems.CRYSTALLINE_DISC_AIZO, "template_music_disc");
+        fromParent(TGCSItems.CRYSTALLINE_DISC_FIREPLACE, "template_music_disc");
 
         basicItem(TGCSItems.AMETHYST_PLATE.get());
 

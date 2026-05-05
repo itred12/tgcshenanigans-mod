@@ -2,6 +2,7 @@ package com.itred.tgcshenanigans.component;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.CrystallineDiscItem;
+import com.itred.tgcshenanigans.item.CrystallineDiscItem.CrystallineDiscSong;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.bus.api.IEventBus;
@@ -16,12 +17,12 @@ public class TGCSDataComponents {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.createDataComponents(ThisGCsShenanigans.MODID);
 
     // Component used to store the crystalline disc's current song
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CrystallineDiscItem.CrystallineDiscSong>> CRYSTALLINE_DISC_SONG_COMPONENT = registerComponent(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CrystallineDiscSong>> CRYSTALLINE_DISC_SONG_COMPONENT = registerComponent(
             "crystalline_disc_song",
-            song -> song.persistent(CrystallineDiscItem.CrystallineDiscSong.CODEC).networkSynchronized(CrystallineDiscItem.CrystallineDiscSong.STREAM_CODEC));
+            song -> song.persistent(CrystallineDiscSong.CODEC).networkSynchronized(CrystallineDiscItem.CrystallineDiscSong.STREAM_CODEC));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CRYSTALLINE_DISC_COUNTER_COMPONENT = registerComponent(
-            "crystalline_disc_counter",
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CRYSTALLINE_DISC_PROGRESS = registerComponent(
+            "crystalline_disc_progress",
             builder -> builder.persistent(Codec.INT)
     );
 

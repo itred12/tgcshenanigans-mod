@@ -16,21 +16,31 @@
   "item.tgcshenanigans.amethyst_plate": "Amethyst Plate",
   "item.tgcshenanigans.disc_label": "Disc Label",
 
-  "item.tgcshenanigans.crystalline_disc_voiceless": "Crystalline Disc",
+  "item.tgcshenanigans.crystalline_disc_voiceless": "Amethyst Disc",
   "item.tgcshenanigans.crystalline_disc_voiceless.description": "It seeks inspiration...",
-  "item.tgcshenanigans.crystalline_disc_voiceless.description_aizo": "It's fixated on a powerful song.",
 
-  "item.tgcshenanigans.crystalline_disc_aizo": "Crystalline Disc",
-  "item.tgcshenanigans.crystalline_disc_aizo.description": "It hums with a powerful song.",
 
+  "message.tgcshenanigans.crystalline_disc.hint": "The disc picks up on a song...",
   "message.tgcshenanigans.crystalline_disc.start": "The disc is listening...",
   "message.tgcshenanigans.crystalline_disc.listen_1": "The disc takes in its surroundings...",
   "message.tgcshenanigans.crystalline_disc.listen_2": "The disc hums with the terrain...",
   "message.tgcshenanigans.crystalline_disc.listen_3": "The disc is ready.",
 
+  "item.tgcshenanigans.crystalline_disc_aizo": "Amethyst Disc",
+  "item.tgcshenanigans.crystalline_disc_voiceless.description_aizo": "It's fixated on a powerful song.",
+  "item.tgcshenanigans.crystalline_disc_aizo.description": "It hums with a powerful song.",
+
+  "item.tgcshenanigans.crystalline_disc_fireplace": "Amethyst Disc",
+  "item.tgcshenanigans.crystalline_disc_voiceless.description_fireplace": "It's fixated on a thoughtful song.",
+  "item.tgcshenanigans.crystalline_disc_fireplace.description": "It hums with a thoughtful song.",
+
   "item.tgcshenanigans.music_disc_aizo": "§4Music Disc§r",
   "item.tgcshenanigans.music_disc_aizo.desc": "King Gnu – AIZO",
   "sounds.tgcshenanigans.kinggnu_aizo": "AIZO by King Gnu plays",
+
+  "item.tgcshenanigans.music_disc_fireplace": "Music Disc",
+  "item.tgcshenanigans.music_disc_fireplace.desc": "Toby Fox – Fireplace",
+  "sounds.tgcshenanigans.tobyfox_fireplace": "Fireplace by Toby Fox plays",
 
   "item.tgcshenanigans.music_disc_icysanctum": "Music Disc",
   "item.tgcshenanigans.music_disc_icysanctum.desc": "Drazorleaf – Icy Sanctum: Rearrangement",
@@ -38,14 +48,11 @@
   "item.tgcshenanigans.music_disc_icysanctum.tooltip_2": "Originally composed by Keisuke Ito & Yasuhiro Kawagoe",
   "sounds.tgcshenanigans.drazorleaf_icysanctum": "Icy Sanctum rearranged by Drazorleaf plays",
 
-  "item.tgcshenanigans.music_disc_fireplace": "Music Disc",
-  "item.tgcshenanigans.music_disc_fireplace.desc": "Toby Fox – Fireplace",
-  "sounds.tgcshenanigans.tobyfox_fireplace": "Fireplace by Toby Fox plays",
-
   "advancements.tgcshenanigans.craft_custom_disc.title": "Soundsmith",
   "advancements.tgcshenanigans.craft_custom_disc.description": "Use a crystalline disc to pluck a song out of the air and print it to a record.",
 
   "tgcshenanigans.config.client.blue_axolotl_ping_client": "Axolotl Ping Sound Effect",
   "tgcshenanigans.config.server.blue_axolotl_ping_masterswitch": "Blue Axolotl Ping",
   "tgcshenanigans.config.server.disable_crab": "Ninni's Spawn mod: Disable Spider Crabs"
+
 }

@@ -2,7 +2,6 @@ package com.itred.tgcshenanigans.datagen;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.TGCSItems;
-import com.itred.tgcshenanigans.tag.TGCSBiomeTags;
 import com.itred.tgcshenanigans.tag.TGCSItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -32,6 +31,9 @@ public class TGCSItemTagProvider extends ItemTagsProvider {
         tag(TGCSItemTags.CRYSTALLINE_DISC_ITEMS)
                 .add(TGCSItems.CRYSTALLINE_DISC_VOICELESS.get())
                 .add(TGCSItems.CRYSTALLINE_DISC_AIZO.get());
+
+
+        // Aizo found in Bastion chests
 
     }
 

@@ -33,7 +33,7 @@ public class TGCSSounds {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));
     }
 
-    // Sound events registered this way tesselate as you move away from the source.
+    // Sound events registered this way tesselate as you move away from the source (as long as they're encoded in mono!).
     // Anything non-game-music should use this.
     private static Supplier<SoundEvent> registerLocalSoundEvent(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name);

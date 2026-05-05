@@ -1,14 +1,11 @@
 package com.itred.tgcshenanigans.item;
 
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
-import com.itred.tgcshenanigans.datagen.TGCSBiomeTagProvider;
 import com.itred.tgcshenanigans.tag.TGCSBiomeTags;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -33,12 +30,18 @@ import java.util.function.IntFunction;
 public class CrystallineDiscItem extends Item {
 
     // Interval, in ticks, that the item checks for being in a specific biome
-    private static final int CHECK_INTERVAL = 100;
+    private static final int CHECK_INTERVAL = 80;
     private int tickTimer = 0;
+    private int incrementTimer = 0;
+    private CrystallineDiscSong floatingSong;
+    private double storedX = 0.0;
+    private double storedY = 0.0;
+    private double storedZ = 0.0;
+
 
     public CrystallineDiscItem(Properties properties) {
         super(properties);
-        properties.component(TGCSDataComponents.CRYSTALLINE_DISC_COUNTER_COMPONENT, 0);
+        properties.component(TGCSDataComponents.CRYSTALLINE_DISC_PROGRESS, 0);
     }
 
 
@@ -56,13 +59,27 @@ public class CrystallineDiscItem extends Item {
 
     }
 
+    private boolean checkPlayerMovement(Player player) {
+        boolean hasStayedStill = false;
+
+        if (player.distanceToSqr(this.storedX, this.storedY, this.storedZ) < 0.010000000000000002) {
+            hasStayedStill = true;
+        } else {
+            this.storedX = player.position().x;
+            this.storedY = player.position().y;
+            this.storedZ = player.position().z;
+        }
+
+        return hasStayedStill;
+    }
+
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
 
-        if (stack.has(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT) && stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_COUNTER_COMPONENT, 0) >= 2) {
+        if (stack.has(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT)) {
 
             CrystallineDiscSong song = stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT, CrystallineDiscSong.AIZO);
-            tooltipComponents.add(Component.translatable(song.description)
+            tooltipComponents.add(Component.translatable("item.tgcshenanigans.crystalline_disc_voiceless.description_" + song.name)
                     .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 
         } else  {
@@ -84,7 +101,6 @@ public class CrystallineDiscItem extends Item {
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slotId, boolean isSelected) {
         super.inventoryTick(stack, level, entity, slotId, isSelected);
 
-
         // The check is kinda expensive, so only do it every once-in-a-while
         this.tickTimer++;
         if (tickTimer > CHECK_INTERVAL) {
@@ -101,63 +117,87 @@ public class CrystallineDiscItem extends Item {
 
                 // Get the biome and find which of the target tags its in
                 Holder<Biome> currentBiome = level.getBiome(player.blockPosition());
-                Optional<CrystallineDiscSong> foundSong = findTagFromCurrentBiome(currentBiome);
+                Optional<CrystallineDiscSong> biomeSong = findTagFromCurrentBiome(currentBiome);
 
-                if (foundSong.isPresent()) {
+                CrystallineDiscSong currentSong = stack.get(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT);
+                int currentProgress = stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_PROGRESS, 0);
 
-                    CrystallineDiscSong targetSong = foundSong.get();
-                    int currentCounter = stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_COUNTER_COMPONENT, 0);
-                    CrystallineDiscSong listeningTo = stack.get(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT);
+                // If the player enters a biome for a disc and doesnt have any song currently tied to the disc,
+                    // Store the biome temporarily, start counting up to 20 (4 cycles).
+                        // Reset this counter if the player exits the biome, stops holding the disc, or moves.
+                    // If no biome is stored or tied to the disc, hint the player that the biome is a disc biome.
 
-                    // If no biome is set, we can start listening.
-                    if (listeningTo == null) {
-                        stack.set(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT, targetSong);
-                    }
+                // If the 20 second counter reaches the end, lock the disc in, increment its counter if already locked. Continue as normal from there.
 
-                    // If the disc is held in its stored biome, increment the timer.
-                    if (listeningTo == targetSong) {
-                        stack.set(TGCSDataComponents.CRYSTALLINE_DISC_COUNTER_COMPONENT, currentCounter + 1);
+                if (biomeSong.isPresent()) {
+                    CrystallineDiscSong foundSong = biomeSong.get();
 
-                        switch (currentCounter + 1) {
-                            // 10 seconds
-                            case 2:
-                                player.sendSystemMessage(
-                                        Component.translatable("message.tgcshenanigans.crystalline_disc.start")
-                                                .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
-                                );
-                                break;
-                            // 30 seconds
-                            case 6:
-                                player.sendSystemMessage(
-                                        Component.translatable("message.tgcshenanigans.crystalline_disc.listen_1")
-                                                .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
-                                );
-                                break;
-
-                            // 50 seconds
-                            case 10:
-                                player.sendSystemMessage(
-                                        Component.translatable("message.tgcshenanigans.crystalline_disc.listen_2")
-                                                .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
-                                );
-                                break;
-
-                            // 70 seconds
-                            case 14:
-                                player.sendSystemMessage(
-                                        Component.translatable("message.tgcshenanigans.crystalline_disc.listen_3")
-                                                .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
-                                );
-                                ItemStack copy = stack.copyAndClear();
-                                ItemStack newDisc = new ItemStack(listeningTo.getItemTarget().get(), 1);
-                                player.getInventory().setItem(slotId, newDisc);
-                                break;
+                    // If the biome song is the equal to the stored song
+                    // OR there is a floating song and the floating song is equal to the biome song
+                    // AND for any of those the player hasn't moved,
+                    // Increment the timer.
+                    if ((foundSong == currentSong || (floatingSong != null && floatingSong == foundSong)) && checkPlayerMovement(player)) {
+                        incrementTimer++;
+                    } else {
+                        incrementTimer = 0;
+                        // Only give the hint if the player doesnt currently have a song on the disc
+                        if (currentSong == null && floatingSong == null) {
+                            player.sendSystemMessage(
+                                    Component.translatable("message.tgcshenanigans.crystalline_disc.hint").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+                            );
                         }
+                        floatingSong = foundSong;
+
+
+
+                    }
+
+                    if (incrementTimer > 4) {
+                        incrementTimer = 0;
+
+                        if (currentSong == null) {
+                            stack.set(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT, foundSong);
+                            stack.set(TGCSDataComponents.CRYSTALLINE_DISC_PROGRESS, 0);
+                            player.sendSystemMessage(
+                                    Component.translatable("message.tgcshenanigans.crystalline_disc.start").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+                            );
+                        } else {
+                            stack.set(TGCSDataComponents.CRYSTALLINE_DISC_PROGRESS, currentProgress + 1);
+
+                            switch (currentProgress + 1) {
+                                case 1:
+                                    player.sendSystemMessage(
+                                            Component.translatable("message.tgcshenanigans.crystalline_disc.listen_1").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+                                    );
+                                break;
+                                case 2:
+                                player.sendSystemMessage(
+                                        Component.translatable("message.tgcshenanigans.crystalline_disc.listen_2").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+                                );
+                                break;
+                                case 3:
+                                    player.sendSystemMessage(
+                                            Component.translatable("message.tgcshenanigans.crystalline_disc.listen_3").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
+                                    );
+                                    ItemStack copy = stack.copyAndClear();
+                                    ItemStack newDisc = new ItemStack(currentSong.getItemTarget().get(), 1);
+                                    player.getInventory().setItem(slotId, newDisc);
+                                break;
+
+                            }
+                        }
+
                     }
 
 
+
+                } else {
+                    incrementTimer = 0;
                 }
 
+
+            } else {
+                incrementTimer = 0;
             }
         }
 
@@ -167,7 +207,9 @@ public class CrystallineDiscItem extends Item {
     // Mostly referenced from net.minecraft.world.item.Rarity
     public enum CrystallineDiscSong implements StringRepresentable, IExtensibleEnum {
 
-        AIZO(0, "aizo", TGCSBiomeTags.AIZO_BIOMES, TGCSItems.CRYSTALLINE_DISC_AIZO, "item.tgcshenanigans.crystalline_disc_voiceless.description_aizo");
+        AIZO(0, "aizo", TGCSBiomeTags.AIZO_BIOMES, TGCSItems.CRYSTALLINE_DISC_AIZO),
+        FIREPLACE(1, "fireplace", TGCSBiomeTags.FIREPLACE_BIOMES, TGCSItems.CRYSTALLINE_DISC_FIREPLACE);
+
 
         public static final Codec<CrystallineDiscSong> CODEC = StringRepresentable.fromValues(CrystallineDiscSong::values);
         public static final IntFunction<CrystallineDiscSong> BY_ID = ByIdMap.continuous((component) -> component.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
@@ -176,15 +218,13 @@ public class CrystallineDiscItem extends Item {
         private final String name;
         private final TagKey<Biome> biomeTargets;
         private final DeferredItem<Item> itemTarget;
-        private final String description;
 
 
-        CrystallineDiscSong(int id, String name, TagKey<Biome> biomeTag, DeferredItem<Item> transformsInto, String description) {
+        CrystallineDiscSong(int id, String name, TagKey<Biome> biomeTag, DeferredItem<Item> transformsInto) {
             this.id = id;
             this.name = name;
             this.biomeTargets = biomeTag;
             this.itemTarget = transformsInto;
-            this.description = description;
         }
 
         @Override
@@ -199,8 +239,6 @@ public class CrystallineDiscItem extends Item {
         public DeferredItem<Item> getItemTarget() {
             return itemTarget;
         }
-
-        public String getDescription() {return description;}
 
 
 

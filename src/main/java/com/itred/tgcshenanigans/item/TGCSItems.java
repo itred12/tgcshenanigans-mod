@@ -3,7 +3,6 @@ package com.itred.tgcshenanigans.item;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -32,7 +31,7 @@ public class TGCSItems {
                             .stacksTo(1)
                             .rarity(Rarity.RARE)
                             .fireResistant()
-                            // .jukeboxPlayable()
+                            .jukeboxPlayable(TGCSSounds.MUSIC_DISC_FIREPLACE_KEY)
             ));
 
     public static final DeferredItem<Item> DISC_AIZO = ITEMS_REGISTRY.register("music_disc_aizo",
@@ -50,14 +49,12 @@ public class TGCSItems {
                             .stacksTo(1)
             ));
 
-    public static final DeferredItem<Item> CRYSTALLINE_DISC_AIZO = newCrystallineDiscOutput(
-            "crystalline_disc_aizo",
-            "item.tgcshenanigans.crystalline_disc_aizo.description"
-            );
+    public static final DeferredItem<Item> CRYSTALLINE_DISC_AIZO = newCrystallineDiscOutput("crystalline_disc_aizo");
+    public static final DeferredItem<Item> CRYSTALLINE_DISC_FIREPLACE = newCrystallineDiscOutput("crystalline_disc_fireplace");
 
 
 
-    public static DeferredItem<Item> newCrystallineDiscOutput(String name, String translationKey) {
+    public static DeferredItem<Item> newCrystallineDiscOutput(String name) {
         return ITEMS_REGISTRY.register(
                 name,
                 () -> new Item(
@@ -68,7 +65,7 @@ public class TGCSItems {
                 ) {
                     @Override
                     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-                        tooltipComponents.add(Component.translatable(translationKey).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                        tooltipComponents.add(Component.translatable("item.tgcshenanigans." + name + ".description").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                     }
                 }

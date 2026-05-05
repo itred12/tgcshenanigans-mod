@@ -3,17 +3,23 @@ package com.itred.tgcshenanigans;
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
 import com.itred.tgcshenanigans.item.TGCSCreativeModeTabs;
 import com.itred.tgcshenanigans.item.TGCSItems;
+import com.itred.tgcshenanigans.loot.TGCSLootTables;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -22,7 +28,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -126,13 +132,29 @@ public class ThisGCsShenanigans {
         LOGGER.info("HELLO from server starting");
     }
 
+
+
+    // Easiest way I could find to add items to existing loot tables
     @SubscribeEvent
-    public void onPlayerCraft(PlayerEvent.ItemCraftedEvent event) {
-        Player player = event.getEntity();
-        Container container = event.getInventory();
-        ItemStack result = event.getCrafting();
+    public void onLootTableLoad(LootTableLoadEvent event) {
+        ResourceLocation name = event.getName();
+        LootTable table = event.getTable();
+
+        if (name.equals(BuiltInLootTables.BASTION_TREASURE.location())) {
+            table.addPool(generateLootPool(TGCSLootTables.INJECT_BASTION_TREASURE));
+        }
     }
 
+    private static LootPool generateLootPool(ResourceKey<LootTable> lootKey) {
+        return LootPool.lootPool().add(generateLootEntry(lootKey))
+                .setBonusRolls(UniformGenerator.between(0, 1))
+                .name(ThisGCsShenanigans.MODID + "_inject")
+                .build();
+    }
+
+    private static LootPoolEntryContainer.Builder<?> generateLootEntry(ResourceKey<LootTable> tableKey) {
+        return NestedLootTable.lootTableReference(tableKey).setWeight(1);
+    }
 
 
 

@@ -23,7 +23,6 @@ public class TGCSRecipeProvider extends RecipeProvider implements IConditionBuil
     @Override
     protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
 
-
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TGCSItems.CRYSTALLINE_DISC_VOICELESS)
             .pattern("GPG")
             .pattern("PAP")
@@ -40,14 +39,27 @@ public class TGCSRecipeProvider extends RecipeProvider implements IConditionBuil
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, "crystalline_disc_clear"));
 
 
+        // Aizo smithing
         SmithingTransformRecipeBuilder.smithing(
                 Ingredient.of(Items.PAPER), // Possibly temp
-                Ingredient.of(TGCSItems.CRYSTALLINE_DISC_AIZO),
-                Ingredient.of(Items.RED_DYE), // Temp
-                RecipeCategory.MISC,
-                TGCSItems.DISC_AIZO.get()
-        ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))
+                        Ingredient.of(TGCSItems.CRYSTALLINE_DISC_AIZO),
+                        Ingredient.of(Items.BLACK_DYE), // Temp
+                        RecipeCategory.MISC,
+                        TGCSItems.DISC_AIZO.get()
+                ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, "crystalline_disc_label_smithing_aizo"));
+
+        // Fireplace smithing
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(Items.PAPER),
+                        Ingredient.of(TGCSItems.CRYSTALLINE_DISC_FIREPLACE),
+                        Ingredient.of(Items.GREEN_DYE),
+                        RecipeCategory.MISC,
+                        TGCSItems.DISC_FIREPLACE.get()
+                ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, "crystalline_disc_label_smithing_fireplace"));
+
+
 
 
     }

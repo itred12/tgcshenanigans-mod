@@ -144,6 +144,10 @@ dependencies {
     compileOnly("curse.maven:create-328085:7963363")
     localRuntime("curse.maven:create-328085:7963363")
 
+    // Spartan weaponry balancing changes
+    compileOnly("curse.maven:spartan-weaponry-unofficial-1450963:7841487")
+    localRuntime("curse.maven:spartan-weaponry-unofficial-1450963:7841487")
+
     // Example mod dependency using a file as dependency
     // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
 
