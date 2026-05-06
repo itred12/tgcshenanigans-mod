@@ -33,6 +33,14 @@
   "item.tgcshenanigans.crystalline_disc_voiceless.description_fireplace": "It's fixated on a thoughtful song.",
   "item.tgcshenanigans.crystalline_disc_fireplace.description": "It hums with a thoughtful song.",
 
+  "item.tgcshenanigans.crystalline_disc_catswing": "Amethyst Disc",
+  "item.tgcshenanigans.crystalline_disc_voiceless.description_catswing": "It's fixated on a funky song.",
+  "item.tgcshenanigans.crystalline_disc_catswing.description": "It hums with a funky song.",
+
+  "item.tgcshenanigans.crystalline_disc_fromnowon": "Amethyst Disc",
+  "item.tgcshenanigans.crystalline_disc_voiceless.description_fromnowon": "It's fixated on a resolute song.",
+  "item.tgcshenanigans.crystalline_disc_fromnowon.description": "It hums with a resolute song.",
+
   "item.tgcshenanigans.music_disc_aizo": "§4Music Disc§r",
   "item.tgcshenanigans.music_disc_aizo.desc": "King Gnu – AIZO",
 
@@ -44,6 +52,12 @@
   "item.tgcshenanigans.music_disc_icysanctum.tooltip_1": "From Pokemon Mystery Dungeon: Gates to Infinity.",
   "item.tgcshenanigans.music_disc_icysanctum.tooltip_2": "Originally composed by Keisuke Ito & Yasuhiro Kawagoe",
 
+  "item.tgcshenanigans.music_disc_catswing": "Music Disc",
+  "item.tgcshenanigans.music_disc_catswing.desc": "Toby Fox – Catswing",
+
+  "item.tgcshenanigans.music_disc_fromnowon": "Music Disc",
+  "item.tgcshenanigans.music_disc_fromnowon.desc": "Toby Fox – From Now On",
+
   "advancements.tgcshenanigans.craft_custom_disc.title": "Soundsmith",
   "advancements.tgcshenanigans.craft_custom_disc.description": "Use a crystalline disc to pluck a song out of the air and print it to a record.",
 
@@ -54,10 +68,13 @@
   "sounds.tgcshenanigans.disc.kinggnu_aizo": "AIZO by King Gnu plays",
   "sounds.tgcshenanigans.disc.tobyfox_fireplace": "Fireplace by Toby Fox plays",
   "sounds.tgcshenanigans.disc.drazorleaf_icysanctum": "Icy Sanctum rearranged by Drazorleaf plays",
+  "sounds.tgcshenanigans.disc.tobyfox_from_now_on": "From Now On by Toby Fox plays",
+  "sounds.tgcshenanigans.disc.tobyfox_catswing": "Catswing by Toby Fox plays",
 
   "sounds.tgcshenanigans.ambient.tobyfox_12am": "12am by Toby Fox plays",
   "sounds.tgcshenanigans.ambient.tobyfox_alt_church_lobby": "alt_church_lobby by Toby Fox plays",
   "sounds.tgcshenanigans.ambient.tobyfox_with_hope_crossed_on_our_hearts": "With Hope Crossed On Our Hearts by Toby Fox plays",
+
 
   "sounds.tgcshenanigans.effect.blueaxolotlspawn": "A blue axolotl spawns in"
 

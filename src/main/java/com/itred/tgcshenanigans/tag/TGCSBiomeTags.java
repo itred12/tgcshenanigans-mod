@@ -14,6 +14,7 @@ public class TGCSBiomeTags {
     public static final TagKey<Biome> CATSWING_BIOMES = createBiomeTag("catswing_biomes");
     public static final TagKey<Biome> FIREPLACE_BIOMES = createBiomeTag("fireplace_biomes");
     public static final TagKey<Biome> AIZO_BIOMES = createBiomeTag("aizo_biomes");
+    public static final TagKey<Biome> FROMNOWON_BIOMES = createBiomeTag("fromnowon_biomes");
 
     private static TagKey<Biome> createBiomeTag(String name) {
         return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));

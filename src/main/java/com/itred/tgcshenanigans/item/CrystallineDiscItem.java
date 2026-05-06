@@ -141,14 +141,12 @@ public class CrystallineDiscItem extends Item {
                     } else {
                         incrementTimer = 0;
                         // Only give the hint if the player doesnt currently have a song on the disc
-                        if (currentSong == null && floatingSong == null) {
+                        if (currentSong == null && (floatingSong == null || floatingSong != foundSong)) {
                             player.sendSystemMessage(
                                     Component.translatable("message.tgcshenanigans.crystalline_disc.hint").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY)
                             );
                         }
                         floatingSong = foundSong;
-
-
 
                     }
 
@@ -193,11 +191,13 @@ public class CrystallineDiscItem extends Item {
 
                 } else {
                     incrementTimer = 0;
+                    floatingSong = null;
                 }
 
 
             } else {
                 incrementTimer = 0;
+                floatingSong = null;
             }
         }
 
@@ -208,8 +208,9 @@ public class CrystallineDiscItem extends Item {
     public enum CrystallineDiscSong implements StringRepresentable, IExtensibleEnum {
 
         AIZO(0, "aizo", TGCSBiomeTags.AIZO_BIOMES, TGCSItems.CRYSTALLINE_DISC_AIZO),
-        FIREPLACE(1, "fireplace", TGCSBiomeTags.FIREPLACE_BIOMES, TGCSItems.CRYSTALLINE_DISC_FIREPLACE);
-
+        FIREPLACE(1, "fireplace", TGCSBiomeTags.FIREPLACE_BIOMES, TGCSItems.CRYSTALLINE_DISC_FIREPLACE),
+        CATSWING(2, "catswing", TGCSBiomeTags.CATSWING_BIOMES, TGCSItems.CRYSTALLINE_DISC_CATSWING),
+        FROMNOWON(3, "fromnowon", TGCSBiomeTags.FROMNOWON_BIOMES, TGCSItems.CRYSTALLINE_DISC_FROMNOWON);
 
         public static final Codec<CrystallineDiscSong> CODEC = StringRepresentable.fromValues(CrystallineDiscSong::values);
         public static final IntFunction<CrystallineDiscSong> BY_ID = ByIdMap.continuous((component) -> component.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);

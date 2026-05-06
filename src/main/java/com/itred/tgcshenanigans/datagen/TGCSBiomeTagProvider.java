@@ -3,12 +3,8 @@ package com.itred.tgcshenanigans.datagen;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.tag.TGCSBiomeTags;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -50,12 +46,19 @@ public class TGCSBiomeTagProvider extends BiomeTagsProvider {
                 .add(Biomes.BASALT_DELTAS)
                 .add(Biomes.SOUL_SAND_VALLEY);
 
+        // The ocean makes me think of the dark sanctuaries
+        tag(TGCSBiomeTags.FROMNOWON_BIOMES)
+                .add(Biomes.COLD_OCEAN)
+                .add(Biomes.DEEP_COLD_OCEAN);
+
+
         // A tag for all of these
         tag(TGCSBiomeTags.CRYSTALLINE_DISC_ALLBIOMES)
                 .addTag(TGCSBiomeTags.AIRWAVES_BIOMES)
                 .addTag(TGCSBiomeTags.CATSWING_BIOMES)
                 .addTag(TGCSBiomeTags.FIREPLACE_BIOMES)
-                .addTag(TGCSBiomeTags.AIZO_BIOMES);
+                .addTag(TGCSBiomeTags.AIZO_BIOMES)
+                .addTag(TGCSBiomeTags.FROMNOWON_BIOMES);
     }
 
 

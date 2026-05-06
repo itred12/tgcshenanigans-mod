@@ -1,9 +1,10 @@
 {
+
   "sound.disc.kinggnu_aizo": {
     "subtitle": "sounds.tgcshenanigans.disc.kinggnu_aizo",
     "sounds": [
       {
-        "name": "tgcshenanigans:disc/kinggnu_aizo_mono",
+        "name": "tgcshenanigans:disc/kinggnu_aizo_mono_left",
         "stream": true
       }
     ]
@@ -13,7 +14,7 @@
     "subtitle": "sounds.tgcshenanigans.disc.tobyfox_fireplace",
     "sounds": [
       {
-        "name": "tgcshenanigans:disc/tobyfox_fireplace_mono",
+        "name": "tgcshenanigans:disc/tobyfox_fireplace_mono_mixed",
         "stream": true
       }
     ]
@@ -29,36 +30,25 @@
     ]
   },
 
-  "sound.ambient.tobyfox_12am": {
-    "subtitle": "sounds.tgcshenanigans.ambient.tobyfox_12am",
+  "sound.disc.tobyfox_catswing": {
+    "subtitle": "sounds.tgcshenanigans.disc.tobyfox_catswing",
     "sounds": [
       {
-        "name": "tgcshenanigans:ambient/tobyfox_12am",
+        "name": "tgcshenanigans:disc/tobyfox_catswing_mono_mixed",
         "stream": true
       }
     ]
   },
 
-  "sound.ambient.tobyfox_alt_church_lobby": {
-    "subtitle": "sounds.tgcshenanigans.ambient.tobyfox_alt_church_lobby",
+  "sound.disc.tobyfox_from_now_on": {
+    "subtitle": "sounds.tgcshenanigans.disc.tobyfox_from_now_on",
     "sounds": [
       {
-        "name": "tgcshenanigans:ambient/tobyfox_alt_church_lobby_longerambient",
+        "name": "tgcshenanigans:disc/tobyfox_from_now_on_mono_mixed",
         "stream": true
       }
     ]
   },
-
-  "sound.ambient.tobyfox_with_hope_crossed_on_our_hearts": {
-    "subtitle": "sounds.tgcshenanigans.ambient.tobyfox_with_hope_crossed_on_our_hearts",
-    "sounds": [
-      {
-        "name": "tgcshenanigans:ambient/tobyfox_with_hope_crossed_on_our_hearts",
-        "stream": true
-      }
-    ]
-  },
-
 
 
   "sound.effect.blueaxolotl_pla": {

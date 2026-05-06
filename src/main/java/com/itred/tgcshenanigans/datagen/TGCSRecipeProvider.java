@@ -59,8 +59,25 @@ public class TGCSRecipeProvider extends RecipeProvider implements IConditionBuil
                 ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, "crystalline_disc_label_smithing_fireplace"));
 
+        // Catswing Smithing
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(Items.PAPER),
+                        Ingredient.of(TGCSItems.CRYSTALLINE_DISC_CATSWING),
+                        Ingredient.of(Items.PINK_DYE, Items.YELLOW_DYE),
+                        RecipeCategory.MISC,
+                        TGCSItems.DISC_CATSWING.get()
+                ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, "crystalline_disc_label_smithing_catswing"));
 
-
+        // From Now On smithing
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(Items.PAPER),
+                        Ingredient.of(TGCSItems.CRYSTALLINE_DISC_FROMNOWON),
+                        Ingredient.of(Items.PURPLE_DYE),
+                        RecipeCategory.MISC,
+                        TGCSItems.DISC_FROMNOWON.get()
+                ).unlocks("has_crystalline_disc", has(TGCSItems.CRYSTALLINE_DISC_VOICELESS))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, "crystalline_disc_label_smithing_fromnowon"));
 
     }
 }

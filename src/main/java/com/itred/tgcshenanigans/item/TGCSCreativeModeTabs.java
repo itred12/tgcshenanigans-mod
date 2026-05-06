@@ -27,11 +27,16 @@ public class TGCSCreativeModeTabs {
                         // output.accept(TGCSItems.DISC_LABEL);
 
                         output.accept(TGCSItems.CRYSTALLINE_DISC_VOICELESS);
+                        /*
                         output.accept(TGCSItems.CRYSTALLINE_DISC_AIZO);
                         output.accept(TGCSItems.CRYSTALLINE_DISC_FIREPLACE);
-
+                        output.accept(TGCSItems.CRYSTALLINE_DISC_CATSWING);
+                        output.accept(TGCSItems.CRYSTALLINE_DISC_FROMNOWON);
+                        */
                         output.accept(TGCSItems.DISC_FIREPLACE);
                         output.accept(TGCSItems.DISC_AIZO);
+                        output.accept(TGCSItems.DISC_CATSWING);
+                        output.accept(TGCSItems.DISC_FROMNOWON);
                     })
                     .build()
             );

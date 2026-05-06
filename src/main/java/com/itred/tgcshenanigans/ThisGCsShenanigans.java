@@ -118,6 +118,8 @@ public class ThisGCsShenanigans {
     }
 
 
+
+
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -155,6 +157,8 @@ public class ThisGCsShenanigans {
     private static LootPoolEntryContainer.Builder<?> generateLootEntry(ResourceKey<LootTable> tableKey) {
         return NestedLootTable.lootTableReference(tableKey).setWeight(1);
     }
+
+
 
 
 

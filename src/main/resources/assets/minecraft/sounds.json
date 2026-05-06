@@ -1,0 +1,54 @@
+{
+
+  "music.menu": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_with_hope_crossed_on_our_hearts",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 8
+
+      }
+    ]
+  },
+
+
+  "music.nether.warped_forest": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_alt_church_lobby_mixed",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      }
+    ]
+  },
+
+  "music.nether.soul_sand_valley": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_alt_church_lobby_mixed",
+        "stream": true,
+        "volume": 0.8,
+        "weight": 2
+      }
+    ]
+  },
+
+  "music.overworld.deep_dark": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "tgcshenanigans:ambient/tobyfox_12am_longernofadein",
+        "stream": true,
+        "volume": 0.35,
+        "weight": 4
+      }
+    ]
+  }
+
+
+}
