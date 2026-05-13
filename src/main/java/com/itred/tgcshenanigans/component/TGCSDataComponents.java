@@ -5,6 +5,7 @@ import com.itred.tgcshenanigans.item.CrystallineDiscItem;
 import com.itred.tgcshenanigans.item.CrystallineDiscItem.CrystallineDiscSong;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -41,11 +42,16 @@ public class TGCSDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DEEP_BREATH_STACKS = registerComponent(
             "deepbreath_damage_stacks",
-            builder -> builder.persistent(Codec.FLOAT)
+            builder -> builder.networkSynchronized(ByteBufCodecs.FLOAT)
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_LAST_DEALT_DAMAGE = registerComponent(
             "deepbreath_last_dealt_damage",
+            builder -> builder.networkSynchronized(ByteBufCodecs.INT)
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_STACK_CAP = registerComponent(
+            "deepbreath_stack_cap",
             builder -> builder.persistent(Codec.INT)
     );
 
