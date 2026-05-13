@@ -1,6 +1,7 @@
-package com.itred.tgcshenanigans.mechanic.client;
+package com.itred.tgcshenanigans.event.client;
 
 import com.itred.tgcshenanigans.Config;
+import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.config.BlueAxolotlSpawnSfx;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
@@ -71,8 +72,9 @@ public class BlueAxolotlPing {
                     continue;
                 }
 
-                if (axolotl.distanceTo(player) < 16) {
-                    axolotl.playSound(blueAxolotlPing.getSoundEffect().get().get(), 2, ((float) player.getRandom().nextInt(95, 105)) / 100);
+                if (axolotl.distanceTo(player) < 64) {
+                    axolotl.playSound(blueAxolotlPing.getSoundEffect().get().get(), 5f, ((float) player.getRandom().nextInt(95, 105)) / 100);
+                    ThisGCsShenanigans.LOGGER.info("Blue axolotl spawned!");
                     storedAxolotls.remove(axolotl);
                 }
 

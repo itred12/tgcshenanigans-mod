@@ -27,6 +27,9 @@ public class TGCSItems {
     public static final DeferredItem<Item> DISC_AIZO = newMusicDisc("music_disc_aizo", TGCSSounds.MUSIC_DISC_AIZO_KEY);
     public static final DeferredItem<Item> DISC_CATSWING = newMusicDisc("music_disc_catswing", TGCSSounds.MUSIC_DISC_CATSWING_KEY);
     public static final DeferredItem<Item> DISC_FROMNOWON = newMusicDisc("music_disc_fromnowon", TGCSSounds.MUSIC_DISC_FROMNOWON_KEY);
+    public static final DeferredItem<Item> DISC_DEATHODYSSEY = newMusicDisc("music_disc_deathodyssey", TGCSSounds.MUSIC_DISC_DEATHODYSSEY_KEY);
+    public static final DeferredItem<Item> DISC_DAUGHTEROFHALLOWNEST = newMusicDisc("music_disc_daughterofhallownest", TGCSSounds.MUSIC_DISC_DAUGHTEROFHALLOWNEST_KEY);
+    public static final DeferredItem<Item> DISC_REMEMBER = newMusicDisc("music_disc_remember", TGCSSounds.MUSIC_DISC_REMEMBER_KEY);
 
 
     public static final DeferredItem<Item> CRYSTALLINE_DISC_VOICELESS = ITEMS_REGISTRY.register("crystalline_disc_voiceless",
@@ -39,6 +42,9 @@ public class TGCSItems {
     public static final DeferredItem<Item> CRYSTALLINE_DISC_FIREPLACE = newCrystallineDiscOutput("crystalline_disc_fireplace");
     public static final DeferredItem<Item> CRYSTALLINE_DISC_CATSWING = newCrystallineDiscOutput("crystalline_disc_catswing");
     public static final DeferredItem<Item> CRYSTALLINE_DISC_FROMNOWON = newCrystallineDiscOutput("crystalline_disc_fromnowon");
+    public static final DeferredItem<Item> CRYSTALLINE_DISC_DEATHODYSSEY = newCrystallineDiscOutput("crystalline_disc_deathodyssey");
+    public static final DeferredItem<Item> CRYSTALLINE_DISC_DAUGHTEROFHALLOWNEST = newCrystallineDiscOutput("crystalline_disc_daughterofhallownest");
+    public static final DeferredItem<Item> CRYSTALLINE_DISC_REMEMBER = newCrystallineDiscOutput("crystalline_disc_remember");
 
 
     public static DeferredItem<Item> newMusicDisc(String name, ResourceKey<JukeboxSong> key) {

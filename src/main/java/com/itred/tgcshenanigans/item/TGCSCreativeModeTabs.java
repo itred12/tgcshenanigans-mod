@@ -1,6 +1,7 @@
 package com.itred.tgcshenanigans.item;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
+import com.itred.tgcshenanigans.block.TGCSBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,6 +22,10 @@ public class TGCSCreativeModeTabs {
                     .icon(() -> new ItemStack(Items.CAMPFIRE))
                     .title(Component.translatable("creativetab.tgcshenanigans.tgcs_items_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+                        // Add blocks ehre
+                        output.accept(TGCSBlocks.PROPHECY_PANEL);
+
+
                         // Add items here
 
                         output.accept(TGCSItems.AMETHYST_PLATE);
@@ -33,10 +38,14 @@ public class TGCSCreativeModeTabs {
                         output.accept(TGCSItems.CRYSTALLINE_DISC_CATSWING);
                         output.accept(TGCSItems.CRYSTALLINE_DISC_FROMNOWON);
                         */
-                        output.accept(TGCSItems.DISC_FIREPLACE);
                         output.accept(TGCSItems.DISC_AIZO);
+                        output.accept(TGCSItems.DISC_REMEMBER);
                         output.accept(TGCSItems.DISC_CATSWING);
+                        output.accept(TGCSItems.DISC_FIREPLACE);
                         output.accept(TGCSItems.DISC_FROMNOWON);
+                        output.accept(TGCSItems.DISC_DEATHODYSSEY);
+                        output.accept(TGCSItems.DISC_DAUGHTEROFHALLOWNEST);
+
                     })
                     .build()
             );

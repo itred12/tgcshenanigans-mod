@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.tgcshenanigans.music_disc_remember.desc"
+  },
+  "length_in_seconds": 243.0,
+  "sound_event": "tgcshenanigans:sound.disc.coldrain_remember"
+}

@@ -51,6 +51,17 @@ public class TGCSBiomeTagProvider extends BiomeTagsProvider {
                 .add(Biomes.COLD_OCEAN)
                 .add(Biomes.DEEP_COLD_OCEAN);
 
+        // Waves of the starless sea
+        tag(TGCSBiomeTags.DEATHODYSSEY_BIOMES)
+                .add(Biomes.LUKEWARM_OCEAN)
+                .add(Biomes.DEEP_LUKEWARM_OCEAN);
+
+        // Where they fought the death paintings in S1
+        tag(TGCSBiomeTags.REMEMBER_BIOMES)
+                .add(Biomes.FOREST)
+                .add(Biomes.BIRCH_FOREST)
+                .add(Biomes.RIVER);
+
 
         // A tag for all of these
         tag(TGCSBiomeTags.CRYSTALLINE_DISC_ALLBIOMES)

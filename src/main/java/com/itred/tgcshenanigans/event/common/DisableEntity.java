@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.mechanic.server;
+package com.itred.tgcshenanigans.event.common;
 
 import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.SubscribeEvent;

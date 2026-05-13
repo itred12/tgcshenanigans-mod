@@ -44,6 +44,29 @@ public class Config {
             .worldRestart()
             .define("blueAxolotlPingMasterswitch", true);
 
+    public static final ModConfigSpec.BooleanValue ALLOW_BLUE_AXOLOTLS_SPAWN_NATURALLY = SERVER_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.blue_axolotl_spawn_naturally")
+            .comment("Enable or disable blue axolotls spawning naturally.")
+            .comment("")
+            .comment("When disabled, blue axolotls will only spawn as offspring from other Axolotls (Vanilla behavior).")
+            .comment("")
+            .comment("When enabled, blue axolotls can spawn out in the wild.")
+            .define("blueAxolotNaturalSpawn", true);
+
+    public static final ModConfigSpec.IntValue BLUE_AXOLOTL_SPAWNCHANCE = SERVER_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.blue_axolotl_spawn_chance")
+            .comment("Modify the chance that a blue axolotl can spawn naturally. Default is 1 in 1200.")
+            .comment("")
+            .comment("Only takes effect if Blue Axolotl Natural Spawn is enabled.")
+            .defineInRange("blueAxolotlNaturalSpawnChance", 1200, 1, 8192);
+
+    public static final ModConfigSpec.IntValue BLUE_AXOLOTL_SPAWNCHANCE_OFFSPRING = SERVER_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.blue_axolotl_spawn_chance_offspring")
+            .comment("Modify the chance that a blue axolotl can spawn naturally as offspring from two other axolotl.")
+            .comment("")
+            .comment("Default is 1 in 1200 (Vanilla chance)")
+            .defineInRange("blueAxolotlNaturalSpawnChanceOffspring", 1200, 1, 8192);
+
     public static final ModConfigSpec.BooleanValue DISABLE_CRAB = SERVER_CONFIG_BUILDER
             .translation("tgcshenanigans.config.server.disable_crab")
             .comment("Ninni's Spawn mod: prevent Spider Crabs from spawning. One of my friends really disliked them.",
@@ -51,6 +74,9 @@ public class Config {
                     "WILL IRREVERSABLY DELETE ALL SPIDER CRABS CURRENTLY IN THE WORLD UPON RELOADING. YOU HAVE BEEN WARNED.")
             .worldRestart()
             .define("disableCrab", false);
+
+
+
 
 
     static final ModConfigSpec SERVER_CONFIG = SERVER_CONFIG_BUILDER.build();
@@ -86,6 +112,39 @@ public class Config {
     static final ModConfigSpec CLIENT_CONFIG = CLIENT_CONFIG_BUILDER.build();
 
 
+    // Registered as registries are, may have desync between server and client. Do NOT use to enable/disable features.
+    private static final ModConfigSpec.Builder STARTUP_CONFIG_BUILDER = new ModConfigSpec.Builder();
 
+
+    public static final ModConfigSpec.DoubleValue ENDER_DRAGON_HEALTH = STARTUP_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.enderdragon_health")
+            .comment("Changes the ender dragon's max health to this amount.",
+                    "",
+                    "Default: 200. Will be ignored if left at its default.",
+                    "",
+                    "NOTE: has no effect on already-spawned ender dragons.")
+            .defineInRange("enderDragonHealthModifier", 200.0, 1.0, 1024.0);
+
+    public static final ModConfigSpec.DoubleValue WITHER_HEALTH = STARTUP_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.wither_health")
+            .comment("Changes the wither's max health to this amount.",
+                    "",
+                    "Default: 300. Will be ignored if left at its default.",
+                    "",
+                    "NOTE: has no effect on already-spawned withers.")
+            .defineInRange("witherHealthModifier", 300, 1.0, 1024.);
+
+
+    public static final ModConfigSpec.DoubleValue WARDEN_HEALTH = STARTUP_CONFIG_BUILDER
+            .translation("tgcshenanigans.config.server.warden_health")
+            .comment("Changes the warden's max health to this amount.",
+                    "",
+                    "Default: 500. Will be ignored if left at its default.",
+                    "",
+                    "NOTE: has no effect on already-spawned wardens.")
+            .defineInRange("wardenHealthModifier", 500, 1.0, 1024.0);
+
+
+    static final ModConfigSpec STARTUP_CONFIG = STARTUP_CONFIG_BUILDER.build();
 
 }

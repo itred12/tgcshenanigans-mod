@@ -1,6 +1,9 @@
 package com.itred.tgcshenanigans;
 
+import com.itred.tgcshenanigans.block.TGCSBlocks;
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
+import com.itred.tgcshenanigans.enchantment.TGCSEnchantmentEffects;
+import com.itred.tgcshenanigans.event.TGCSCommonEvents;
 import com.itred.tgcshenanigans.item.TGCSCreativeModeTabs;
 import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.loot.TGCSLootTables;
@@ -10,6 +13,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
@@ -26,13 +32,17 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
+
+import java.util.Map;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ThisGCsShenanigans.MODID)
@@ -73,9 +83,11 @@ public class ThisGCsShenanigans {
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
+        modContainer.registerConfig(ModConfig.Type.STARTUP, Config.STARTUP_CONFIG);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::onBossAttributesLoaded);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ThisGCsShenanigans) to respond directly to events.
@@ -84,6 +96,9 @@ public class ThisGCsShenanigans {
 
         // Register items
         TGCSItems.registerAll(modEventBus);
+
+        // Blocks
+        TGCSBlocks.registerAll(modEventBus);
 
         // Register creative mode tabs
         TGCSCreativeModeTabs.registerAll(modEventBus);
@@ -97,6 +112,11 @@ public class ThisGCsShenanigans {
         // Register recipe serializers
         SERIALIZER_REGISTRY.register(modEventBus);
 
+        // Enchantments
+        TGCSEnchantmentEffects.registerAll(modEventBus);
+
+        // Events
+        TGCSCommonEvents.onBoot(modEventBus);
 
     }
 
@@ -115,7 +135,10 @@ public class ThisGCsShenanigans {
         Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
 
          */
+
+
     }
+
 
 
 
@@ -158,6 +181,31 @@ public class ThisGCsShenanigans {
         return NestedLootTable.lootTableReference(tableKey).setWeight(1);
     }
 
+
+    // Key-value pairs, where the key is an entity type, and the value is a double-config that holds a health modifier for that entity.
+    private static final Map<EntityType<? extends LivingEntity>, ModConfigSpec.DoubleValue> HEALTH_MODIFIERS = Map.of(
+            EntityType.ENDER_DRAGON, Config.ENDER_DRAGON_HEALTH,
+            EntityType.WITHER, Config.WITHER_HEALTH,
+            EntityType.WARDEN, Config.WARDEN_HEALTH
+    );
+
+    // Modify the health of entities in the above table
+    public void onBossAttributesLoaded(EntityAttributeModificationEvent event) {
+
+        for (Map.Entry<EntityType<? extends LivingEntity>, ModConfigSpec.DoubleValue> entry : HEALTH_MODIFIERS.entrySet()) {
+
+            EntityType<? extends LivingEntity> entity = entry.getKey();
+            ModConfigSpec.DoubleValue health = entry.getValue();
+
+            if (!health.get().equals(health.getDefault())) {
+                event.add(entity, Attributes.MAX_HEALTH, health.get());
+            }
+
+
+
+        }
+
+    }
 
 
 

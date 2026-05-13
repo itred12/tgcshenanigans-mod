@@ -148,11 +148,21 @@ dependencies {
     compileOnly("curse.maven:spartan-weaponry-unofficial-1450963:7841487")
     localRuntime("curse.maven:spartan-weaponry-unofficial-1450963:7841487")
 
+    // Neoorigins
+    //compileOnly("curse.maven:neoorigins-1495375:8072243")
+    //localRuntime("curse.maven:neoorigins-1495375:8072243")
+
     // Example mod dependency using a file as dependency
     // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
 
+    compileOnly("curse.maven:deeperdarker-659011:7940538")
+    // implementation(files("../neoorigins-2.0.35+1.21.1.jar"))
+    // implementation(files("../projectjjk-1.2.0-1.21.1-fabric-beta.jar"))
+    // implementation(files("../fabric-api-0.116.11+1.21.1.jar"))
+
     // Example project dependency using a sister or child project:
     // implementation project(":myproject")
+
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

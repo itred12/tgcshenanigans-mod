@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.tgcshenanigans.music_disc_deathodyssey.desc"
+  },
+  "length_in_seconds": 510.0,
+  "sound_event": "tgcshenanigans:sound.disc.heavenpierceher_deathodyssey"
+}

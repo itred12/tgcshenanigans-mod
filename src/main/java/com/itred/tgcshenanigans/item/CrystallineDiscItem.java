@@ -31,9 +31,6 @@ public class CrystallineDiscItem extends Item {
 
     // Interval, in ticks, that the item checks for being in a specific biome
     private static final int CHECK_INTERVAL = 80;
-    private int tickTimer = 0;
-    private int incrementTimer = 0;
-    private CrystallineDiscSong floatingSong;
     private double storedX = 0.0;
     private double storedY = 0.0;
     private double storedZ = 0.0;
@@ -99,31 +96,38 @@ public class CrystallineDiscItem extends Item {
     // Check biome while held to transform
     @Override
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull Entity entity, int slotId, boolean isSelected) {
+
         super.inventoryTick(stack, level, entity, slotId, isSelected);
 
-        // The check is kinda expensive, so only do it every once-in-a-while
-        this.tickTimer++;
-        if (tickTimer > CHECK_INTERVAL) {
-            this.tickTimer = 0;
+        if (level.getServer() == null) {
+            return;
+        }
 
-            if (level.isClientSide()) {
-                return;
-            }
+        if (level.isClientSide()) {
+            return;
+        }
+
+
+        // The check is kinda expensive, so only do it every once-in-a-while
+        int timeSinceBoot = level.getServer().getTickCount();
+
+        if (timeSinceBoot % CHECK_INTERVAL == 0) {
 
             // Mainhand or offhand
-            if (isSelected || (slotId == 40) && entity instanceof Player) {
-
-                Player player = (Player) entity;
+            if ((isSelected || (slotId == 40)) && entity instanceof Player player) {
 
                 // Get the biome and find which of the target tags its in
                 Holder<Biome> currentBiome = level.getBiome(player.blockPosition());
                 Optional<CrystallineDiscSong> biomeSong = findTagFromCurrentBiome(currentBiome);
 
                 CrystallineDiscSong currentSong = stack.get(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT);
+                CrystallineDiscSong floatingSong = stack.get(TGCSDataComponents.CRYSTALLINE_DISC_FLOATINGSONG);
                 int currentProgress = stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_PROGRESS, 0);
+                int incrementTimer = stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_LISTEN_COUNTER, 0);
+
 
                 // If the player enters a biome for a disc and doesnt have any song currently tied to the disc,
-                    // Store the biome temporarily, start counting up to 20 (4 cycles).
+                    // Store the biome temporarily, start counting up to 16 (3 cycles).
                         // Reset this counter if the player exits the biome, stops holding the disc, or moves.
                     // If no biome is stored or tied to the disc, hint the player that the biome is a disc biome.
 
@@ -150,7 +154,7 @@ public class CrystallineDiscItem extends Item {
 
                     }
 
-                    if (incrementTimer > 4) {
+                    if (incrementTimer > 3) {
                         incrementTimer = 0;
 
                         if (currentSong == null) {
@@ -190,19 +194,24 @@ public class CrystallineDiscItem extends Item {
 
 
                 } else {
-                    incrementTimer = 0;
-                    floatingSong = null;
+                    stack.set(TGCSDataComponents.CRYSTALLINE_DISC_LISTEN_COUNTER, 0);
+                    stack.set(TGCSDataComponents.CRYSTALLINE_DISC_FLOATINGSONG, null);
                 }
+
+                // Pack it back into the item
+                stack.set(TGCSDataComponents.CRYSTALLINE_DISC_LISTEN_COUNTER, incrementTimer);
+                stack.set(TGCSDataComponents.CRYSTALLINE_DISC_FLOATINGSONG, floatingSong);
 
 
             } else {
-                incrementTimer = 0;
-                floatingSong = null;
+                stack.set(TGCSDataComponents.CRYSTALLINE_DISC_LISTEN_COUNTER, 0);
+                stack.set(TGCSDataComponents.CRYSTALLINE_DISC_FLOATINGSONG, null);
+
             }
         }
 
-    }
 
+    }
 
     // Mostly referenced from net.minecraft.world.item.Rarity
     public enum CrystallineDiscSong implements StringRepresentable, IExtensibleEnum {
@@ -210,7 +219,9 @@ public class CrystallineDiscItem extends Item {
         AIZO(0, "aizo", TGCSBiomeTags.AIZO_BIOMES, TGCSItems.CRYSTALLINE_DISC_AIZO),
         FIREPLACE(1, "fireplace", TGCSBiomeTags.FIREPLACE_BIOMES, TGCSItems.CRYSTALLINE_DISC_FIREPLACE),
         CATSWING(2, "catswing", TGCSBiomeTags.CATSWING_BIOMES, TGCSItems.CRYSTALLINE_DISC_CATSWING),
-        FROMNOWON(3, "fromnowon", TGCSBiomeTags.FROMNOWON_BIOMES, TGCSItems.CRYSTALLINE_DISC_FROMNOWON);
+        FROMNOWON(3, "fromnowon", TGCSBiomeTags.FROMNOWON_BIOMES, TGCSItems.CRYSTALLINE_DISC_FROMNOWON),
+        DEATHODYSSEY(4, "deathodyssey", TGCSBiomeTags.DEATHODYSSEY_BIOMES, TGCSItems.CRYSTALLINE_DISC_DEATHODYSSEY),
+        REMEMBER(5, "remember", TGCSBiomeTags.REMEMBER_BIOMES, TGCSItems.CRYSTALLINE_DISC_REMEMBER);
 
         public static final Codec<CrystallineDiscSong> CODEC = StringRepresentable.fromValues(CrystallineDiscSong::values);
         public static final IntFunction<CrystallineDiscSong> BY_ID = ByIdMap.continuous((component) -> component.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);

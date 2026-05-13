@@ -23,13 +23,19 @@ public class TGCSSounds {
     public static final Supplier<SoundEvent> MUSIC_DISC_FIREPLACE = registerLocalSoundEvent("sound.disc.tobyfox_fireplace");
     public static final Supplier<SoundEvent> MUSIC_DISC_ICYSANCTUM = registerLocalSoundEvent("sound.disc.drazorleaf_icysanctum");
     public static final Supplier<SoundEvent> MUSIC_DISC_CATSWING = registerLocalSoundEvent("sound.disc.tobyfox_catswing");
-    public static final Supplier<SoundEvent> MUSIC_DISC_FROMNOWON = registerLocalSoundEvent("sound.disc.tobyfox_from_now_on");
+    public static final Supplier<SoundEvent> MUSIC_DISC_FROMNOWON = registerLocalSoundEvent("sound.disc.tobyfox_fromnowon");
+    public static final Supplier<SoundEvent> MUSIC_DISC_DEATHODYSSEY = registerLocalSoundEvent("sound.disc.heavenpierceher_deathodyssey");
+    public static final Supplier<SoundEvent> MUSIC_DISC_DAUGHTEROFHALLOWNEST = registerLocalSoundEvent("sound.disc.christopherlarkin_daughterofhallownest");
+    public static final Supplier<SoundEvent> MUSIC_DISC_REMEMBER = registerLocalSoundEvent("sound.disc.coldrain_remember");
 
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_AIZO_KEY = createSong("aizo");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_FIREPLACE_KEY = createSong("fireplace");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_ICYSANCTUM_KEY = createSong("icysanctum");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_CATSWING_KEY = createSong("catswing");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_FROMNOWON_KEY = createSong("fromnowon");
+    public static final ResourceKey<JukeboxSong> MUSIC_DISC_DEATHODYSSEY_KEY = createSong("deathodyssey");
+    public static final ResourceKey<JukeboxSong> MUSIC_DISC_DAUGHTEROFHALLOWNEST_KEY = createSong("daughterofhallownest");
+    public static final ResourceKey<JukeboxSong> MUSIC_DISC_REMEMBER_KEY = createSong("remember");
 
 
 

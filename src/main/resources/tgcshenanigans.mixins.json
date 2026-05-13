@@ -3,6 +3,8 @@
   "package": "com.itred.tgcshenanigans.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AxolotlMixin",
+    "AxolotlVariantMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -11,5 +13,6 @@
     "requireAnnotations": true
   },
   "client": [
+
   ]
 }

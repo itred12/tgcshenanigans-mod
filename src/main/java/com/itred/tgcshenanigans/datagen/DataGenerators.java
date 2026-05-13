@@ -66,10 +66,14 @@ public class DataGenerators {
         // Advancements
         generator.addProvider(event.includeServer(), new TGCSAdvancementProvider(pack, lookupProvider, existingFileHelper));
 
+        // Datapack
+        generator.addProvider(event.includeServer(), new TGCSDatapackProvider(pack, lookupProvider));
+
         // Item models (client side)
         generator.addProvider(event.includeClient(), new TGCSItemModelProvider(pack, existingFileHelper));
         // Blockstate models (client side)
         generator.addProvider(event.includeClient(), new TGCSBlockStateProvider(pack, existingFileHelper));
+
 
 
 

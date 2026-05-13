@@ -40,8 +40,8 @@
     ]
   },
 
-  "sound.disc.tobyfox_from_now_on": {
-    "subtitle": "sounds.tgcshenanigans.disc.tobyfox_from_now_on",
+  "sound.disc.tobyfox_fromnowon": {
+    "subtitle": "sounds.tgcshenanigans.disc.tobyfox_fromnowon",
     "sounds": [
       {
         "name": "tgcshenanigans:disc/tobyfox_from_now_on_mono_mixed",
@@ -50,9 +50,40 @@
     ]
   },
 
+  "sound.disc.heavenpierceher_deathodyssey": {
+    "subtitle": "sounds.tgcshenanigans.disc.heavenpierceher_deathodyssey",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:disc/heavenpierceher_death_odyssey_full",
+        "stream": true
+      }
+    ]
+  },
+
+  "sound.disc.christopherlarkin_daughterofhallownest": {
+    "subtitle": "sounds.tgcshenanigans.disc.christopherlarkin_daughterofhallownest",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:disc/christopherlarkin_daughterofhallownest",
+        "stream": true
+      }
+    ]
+  },
+
+  "sound.disc.coldrain_remember": {
+    "subtitle": "sounds.tgcshenanigans.disc.coldrain_remember",
+    "sounds": [
+      {
+        "name": "tgcshenanigans:disc/coldrain_remember",
+        "stream": true
+      }
+    ]
+  },
+
+
 
   "sound.effect.blueaxolotl_pla": {
-    "subtitle": "sounds.tgcshenanigans.effect.blueaxoltlspawn",
+    "subtitle": "sounds.tgcshenanigans.effect.blueaxolotlspawn",
     "sounds": [
       {
         "name": "tgcshenanigans:pla_shiny_quieter_mono"
@@ -61,7 +92,7 @@
   },
 
   "sound.effect.blueaxolotl_bw": {
-    "subtitle": "sounds.tgcshenanigans.effect.blueaxoltlspawn",
+    "subtitle": "sounds.tgcshenanigans.effect.blueaxolotlspawn",
     "sounds": [
       {
         "name": "tgcshenanigans:bw_shiny_quieter_mono"

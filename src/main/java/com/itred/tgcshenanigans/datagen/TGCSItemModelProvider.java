@@ -20,12 +20,18 @@ public class TGCSItemModelProvider extends ItemModelProvider {
         fromParent(TGCSItems.DISC_AIZO, "template_music_disc");
         fromParent(TGCSItems.DISC_CATSWING, "template_music_disc");
         fromParent(TGCSItems.DISC_FROMNOWON, "template_music_disc");
+        fromParent(TGCSItems.DISC_DEATHODYSSEY, "template_music_disc");
+        fromParent(TGCSItems.DISC_DAUGHTEROFHALLOWNEST, "template_music_disc");
+        fromParent(TGCSItems.DISC_REMEMBER, "template_music_disc");
 
         fromParent(TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
-        fromParent(TGCSItems.CRYSTALLINE_DISC_AIZO, "template_music_disc");
-        fromParent(TGCSItems.CRYSTALLINE_DISC_FIREPLACE, "template_music_disc");
-        fromParent(TGCSItems.CRYSTALLINE_DISC_CATSWING, "template_music_disc");
-        fromParent(TGCSItems.CRYSTALLINE_DISC_FROMNOWON, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_AIZO, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_FIREPLACE, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_CATSWING, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_FROMNOWON, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_DEATHODYSSEY, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_DAUGHTEROFHALLOWNEST, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
+        withOtherTexture(TGCSItems.CRYSTALLINE_DISC_REMEMBER, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
 
         basicItem(TGCSItems.AMETHYST_PLATE.get());
 
@@ -37,5 +43,14 @@ public class TGCSItemModelProvider extends ItemModelProvider {
                 mcLoc("item/" + parent)
         )
                 .texture("layer0", "item/" + item.getId().toString().substring(ThisGCsShenanigans.MODID.length() + 1)); // Snip out the namespace
+    }
+
+
+    private void withOtherTexture(DeferredItem<?> item, DeferredItem<?> otherTexture, String parent) {
+        withExistingParent(
+                item.getId().toString(),
+                mcLoc("item/" + parent)
+        )
+                .texture("layer0", "item/" + otherTexture.getId().toString().substring(ThisGCsShenanigans.MODID.length() + 1)); // Snip out the namespace
     }
 }
