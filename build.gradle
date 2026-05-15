@@ -149,20 +149,14 @@ dependencies {
     compileOnly("curse.maven:spartan-weaponry-unofficial-1450963:7841487")
     localRuntime("curse.maven:spartan-weaponry-unofficial-1450963:7841487")
 
-    // Neoorigins
-    //compileOnly("curse.maven:neoorigins-1495375:8072243")
-    //localRuntime("curse.maven:neoorigins-1495375:8072243")
-    //compileOnly(files("../neoorigins-2.0.35+1.21.1.jar"))
-    //localRuntime(files("../neoorigins-2.0.35+1.21.1.jar"))
-
-    //compileOnly("maven.modrinth:neo-origins:v2.0.36+1.21.1")
-    //localRuntime("maven.modrinth:neo-origins:v2.0.36+1.21.1")
+    // Origins neoforge
 
     compileOnly("maven.modrinth:origins-neoforge:0.1-beta.5")
-    localRuntime("maven.modrinth:origins-neoforge:0.1-beta.5")
+    // localRuntime("maven.modrinth:origins-neoforge:0.1-beta.5")
 
     compileOnly("maven.modrinth:jupiter:2.3.7-1.21.1-neoforge")
-    localRuntime("maven.modrinth:jupiter:2.3.7-1.21.1-neoforge")
+    // localRuntime("maven.modrinth:jupiter:2.3.7-1.21.1-neoforge")
+
 
     // Example mod dependency using a file as dependency
     // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")

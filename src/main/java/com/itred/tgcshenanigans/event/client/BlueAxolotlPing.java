@@ -72,7 +72,7 @@ public class BlueAxolotlPing {
                     continue;
                 }
 
-                if (axolotl.distanceTo(player) < 64) {
+                if (axolotl.distanceTo(player) <= 64) {
                     axolotl.playSound(blueAxolotlPing.getSoundEffect().get().get(), 5f, ((float) player.getRandom().nextInt(95, 105)) / 100);
                     ThisGCsShenanigans.LOGGER.info("Blue axolotl spawned!");
                     storedAxolotls.remove(axolotl);

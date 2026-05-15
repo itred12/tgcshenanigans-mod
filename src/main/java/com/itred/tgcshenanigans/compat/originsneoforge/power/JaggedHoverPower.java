@@ -43,8 +43,6 @@ public class JaggedHoverPower extends IntervalPower {
     @Override
     public void intervalTick(@NotNull Entity entity) {
 
-
-
         boolean value = this.getSettings().condition().test(entity);
 
         if (value ^ this.lastValue) {

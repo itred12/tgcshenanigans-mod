@@ -5,7 +5,7 @@
   "mixins": [
     "AxolotlMixin",
     "AxolotlVariantMixin",
-    "LivingEntityMixin",
+
     "compat.originsneoforge.ActionOverTimePowerMixin"
   ],
   "injectors": {

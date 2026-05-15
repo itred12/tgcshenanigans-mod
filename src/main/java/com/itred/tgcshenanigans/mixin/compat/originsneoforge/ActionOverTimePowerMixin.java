@@ -5,11 +5,9 @@ import com.iafenvoy.origins.data.power.IntervalPower;
 import com.iafenvoy.origins.data.power.builtin.action.ActionOverTimePower;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
+@Pseudo
 @Mixin(ActionOverTimePower.class)
 public abstract class ActionOverTimePowerMixin extends IntervalPower {
 

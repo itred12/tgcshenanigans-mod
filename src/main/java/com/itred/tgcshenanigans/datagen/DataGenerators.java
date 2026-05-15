@@ -40,34 +40,37 @@ public class DataGenerators {
 
          */
 
+        // Add entires to the lookup, this must now be used for further entries
+        CompletableFuture<HolderLookup.Provider> newLookup = ((TGCSRegistriesGenerator)generator.addProvider(event.includeServer(), new TGCSRegistriesGenerator(pack, lookupProvider))).getRegistryProvider();
+
         // Block tags
-        BlockTagsProvider blockTagsProvider = new TGCSBlockTagProvider(pack, lookupProvider, existingFileHelper);
+        BlockTagsProvider blockTagsProvider = new TGCSBlockTagProvider(pack, newLookup, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagsProvider);
 
         // Item tags
-        generator.addProvider(event.includeServer(), new TGCSItemTagProvider(pack, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new TGCSItemTagProvider(pack, newLookup, blockTagsProvider.contentsGetter(), existingFileHelper));
 
         // Biome tags
-        generator.addProvider(event.includeServer(), new TGCSBiomeTagProvider(pack, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new TGCSBiomeTagProvider(pack, newLookup, existingFileHelper));
 
         // Recipes
             // Vanilla
-        generator.addProvider(event.includeServer(), new TGCSRecipeProvider(pack, lookupProvider));
+        generator.addProvider(event.includeServer(), new TGCSRecipeProvider(pack, newLookup));
             // Create
-        generator.addProvider(event.includeServer(), new TGCSPressingRecipeGen(pack, lookupProvider));
+        generator.addProvider(event.includeServer(), new TGCSPressingRecipeGen(pack, newLookup));
 
 
         // Loot tables
-        generator.addProvider(true, new TGCSLootTableProvider(pack, Set.of(), lookupProvider));
+        generator.addProvider(true, new TGCSLootTableProvider(pack, Set.of(), newLookup));
 
         // Datamapping
-        generator.addProvider(event.includeServer(), new TGCSDataMapProvider(pack, lookupProvider));
+        generator.addProvider(event.includeServer(), new TGCSDataMapProvider(pack, newLookup));
 
         // Advancements
-        generator.addProvider(event.includeServer(), new TGCSAdvancementProvider(pack, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new TGCSAdvancementProvider(pack, newLookup, existingFileHelper));
 
         // Datapack
-        generator.addProvider(event.includeServer(), new TGCSDatapackProvider(pack, lookupProvider));
+        // generator.addProvider(event.includeServer(), new TGCSDatapackProvider(pack, lookupProvider));
 
         // Item models (client side)
         generator.addProvider(event.includeClient(), new TGCSItemModelProvider(pack, existingFileHelper));

@@ -1,0 +1,9 @@
+{
+  "order": 0,
+  "enabled": true,
+  "origins": [
+    "tgcshenanigans:dove"
+  ],
+  "allow_random": true
+
+}

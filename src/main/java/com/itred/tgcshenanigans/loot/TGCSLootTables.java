@@ -9,7 +9,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 public class TGCSLootTables {
     public static final ResourceKey<LootTable> INJECT_BASTION_TREASURE = lootTableFromExisting(BuiltInLootTables.BASTION_TREASURE);
-
+    public static final ResourceKey<LootTable> INJECT_ANCIENT_CITY = lootTableFromExisting(BuiltInLootTables.ANCIENT_CITY);
+    public static final ResourceKey<LootTable> INJECT_BURIED_TREASURE = lootTableFromExisting(BuiltInLootTables.ANCIENT_CITY);
 
     private static ResourceKey<LootTable> lootTableFromExisting(ResourceKey<LootTable> target) {
         return ResourceKey.create(

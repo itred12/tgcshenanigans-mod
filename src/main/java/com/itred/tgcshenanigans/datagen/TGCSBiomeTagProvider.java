@@ -69,7 +69,9 @@ public class TGCSBiomeTagProvider extends BiomeTagsProvider {
                 .addTag(TGCSBiomeTags.CATSWING_BIOMES)
                 .addTag(TGCSBiomeTags.FIREPLACE_BIOMES)
                 .addTag(TGCSBiomeTags.AIZO_BIOMES)
-                .addTag(TGCSBiomeTags.FROMNOWON_BIOMES);
+                .addTag(TGCSBiomeTags.FROMNOWON_BIOMES)
+                .addTag(TGCSBiomeTags.DEATHODYSSEY_BIOMES)
+                .addTag(TGCSBiomeTags.REMEMBER_BIOMES);
     }
 
 

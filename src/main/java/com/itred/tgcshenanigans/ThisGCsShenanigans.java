@@ -37,6 +37,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -129,8 +130,12 @@ public class ThisGCsShenanigans {
 
 
         // Origins stuff
-        OriginsRegistries.ENTITY_ACTION_REGISTRY.register(modEventBus);
-        OriginsRegistries.POWER_REGISTRY.register(modEventBus);
+        if (ModList.get().isLoaded("origins")) {
+            ThisGCsShenanigans.LOGGER.info("Activating origins compat!");
+            OriginsRegistries.ENTITY_ACTION_REGISTRY.register(modEventBus);
+            OriginsRegistries.POWER_REGISTRY.register(modEventBus);
+        }
+
 
     }
 
@@ -216,6 +221,7 @@ public class ThisGCsShenanigans {
     }
 
     // Easiest way I could find to add items to existing loot tables
+    // TODO: CLEAN THIS UP
     @SubscribeEvent
     public void onLootTableLoad(LootTableLoadEvent event) {
         ResourceLocation name = event.getName();
@@ -223,6 +229,14 @@ public class ThisGCsShenanigans {
 
         if (name.equals(BuiltInLootTables.BASTION_TREASURE.location())) {
             table.addPool(generateLootPool(TGCSLootTables.INJECT_BASTION_TREASURE));
+        }
+
+        if (name.equals(BuiltInLootTables.ANCIENT_CITY.location())) {
+            table.addPool(generateLootPool(TGCSLootTables.INJECT_ANCIENT_CITY));
+        }
+
+        if (name.equals(BuiltInLootTables.BURIED_TREASURE.location())) {
+            table.addPool(generateLootPool(TGCSLootTables.INJECT_BURIED_TREASURE));
         }
     }
 
