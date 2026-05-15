@@ -1,0 +1,32 @@
+{
+  "icon": {
+    "id": "minecraft:feather",
+    "components": {
+      "minecraft:enchantments": {
+        "levels": {
+          "minecraft:protection": 1
+        }
+      }
+    }
+  },
+  "impact": 2,
+  "order": 3,
+  "powers": [
+    "tgcshenanigans:dove/dove_lightbody",
+    "tgcshenanigans:dove/dove_lightbody_falldamageimmune",
+
+    "tgcshenanigans:dove/dove_airefficiency",
+
+    "tgcshenanigans:dove/dove_stamina_resource",
+
+    "tgcshenanigans:dove/dove_winged",
+    "tgcshenanigans:dove/dove_winged_toggle",
+
+    "tgcshenanigans:dove/dove_winged_flaptimer",
+
+    "tgcshenanigans:space_held",
+
+    "tgcshenanigans:test"
+
+  ]
+}

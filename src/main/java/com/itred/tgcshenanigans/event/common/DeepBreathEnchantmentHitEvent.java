@@ -90,6 +90,8 @@ public class DeepBreathEnchantmentHitEvent {
     public static final int DAMAGE_CAP_PER_LEVEL = 20;
     public static final float DAMAGE_PER_LEVEL = 2.5f;
 
+    // TODO: Particle effects on hit? Mono-wielding by making it only activate on crit???
+    // TODO 2: see about modifying the tooltip to reflect current damage only client-side?
     private static float deepBreathOnDamage(Level level, MinecraftServer server, int enchantmentLevel, ItemStack stack, Entity target, Entity owner, float currentDamage) {
 
         double damageBonus = enchantmentLevel * DAMAGE_PER_LEVEL;
@@ -100,7 +102,6 @@ public class DeepBreathEnchantmentHitEvent {
         // 50 at level 3,
         // 65 at level 4,
         // 80 at level 5
-        // TODO: buff cap, nerf charge, nerf damage?? (against players???)
         int damageCap = enchantmentLevel * DAMAGE_CAP_PER_LEVEL + ((1 - enchantmentLevel) * 5);
         stack.set(TGCSDataComponents.DEEP_BREATH_STACK_CAP, damageCap);
 

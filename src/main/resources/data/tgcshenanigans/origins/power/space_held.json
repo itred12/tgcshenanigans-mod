@@ -1,0 +1,11 @@
+{
+  "hidden": true,
+  "description": "Manually set through a client event. If 1, the player is holding space at that given moment. If 0, they aren't. Grant this power as you please.",
+  "type": "origins:resource",
+  "min": 0,
+  "max": 1,
+  "hud_render": {
+    "should_render": true
+  }
+
+}

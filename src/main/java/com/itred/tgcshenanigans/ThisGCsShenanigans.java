@@ -1,6 +1,7 @@
 package com.itred.tgcshenanigans;
 
 import com.itred.tgcshenanigans.block.TGCSBlocks;
+import com.itred.tgcshenanigans.compat.originsneoforge.OriginsRegistries;
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
 import com.itred.tgcshenanigans.enchantment.TGCSEnchantmentEffects;
 import com.itred.tgcshenanigans.event.TGCSCommonEvents;
@@ -9,17 +10,24 @@ import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.loot.TGCSLootTables;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -37,6 +45,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -118,6 +127,11 @@ public class ThisGCsShenanigans {
         // Events
         TGCSCommonEvents.onBoot(modEventBus);
 
+
+        // Origins stuff
+        OriginsRegistries.ENTITY_ACTION_REGISTRY.register(modEventBus);
+        OriginsRegistries.POWER_REGISTRY.register(modEventBus);
+
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -139,10 +153,6 @@ public class ThisGCsShenanigans {
 
     }
 
-
-
-
-
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -158,6 +168,52 @@ public class ThisGCsShenanigans {
     }
 
 
+    // TODO: fix damage reduction applying for old bow shots– try to interpret damage timestamp
+    @SubscribeEvent
+    public void crossbowModify(LivingIncomingDamageEvent event) {
+        Entity entity = event.getEntity();
+        ThisGCsShenanigans.LOGGER.info(entity.toString());
+
+        DamageSource source = event.getSource();
+        ItemStack stack = source.getWeaponItem();
+
+        if (stack != null && stack.is(ItemTags.CROSSBOW_ENCHANTABLE) && testForEnchant(stack, Enchantments.MULTISHOT) && !source.isDirect()) {
+
+            event.setInvulnerabilityTicks(0);
+
+
+            if (entity instanceof LivingEntity livingEntity) {
+                DamageSource lastSource = livingEntity.getLastDamageSource();
+
+                if (lastSource != null) {
+                    ItemStack lastWeapon = lastSource.getWeaponItem();
+
+                    ThisGCsShenanigans.LOGGER.info(String.valueOf(livingEntity.getLastHurtByMobTimestamp()));
+
+                    if (lastWeapon != null && lastWeapon.is(ItemTags.CROSSBOW_ENCHANTABLE) && testForEnchant(lastWeapon, Enchantments.MULTISHOT)) {
+
+                        event.setAmount(event.getOriginalAmount() / 2);
+
+                    }
+                }
+            }
+
+
+        }
+    }
+
+
+    public boolean testForEnchant(ItemStack stack, ResourceKey<Enchantment> enchant) {
+
+        for (Holder<Enchantment> itemEnchantment : stack.getTagEnchantments().keySet()) {
+            if (itemEnchantment.is(enchant)) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
     // Easiest way I could find to add items to existing loot tables
     @SubscribeEvent
@@ -206,6 +262,7 @@ public class ThisGCsShenanigans {
         }
 
     }
+
 
 
 

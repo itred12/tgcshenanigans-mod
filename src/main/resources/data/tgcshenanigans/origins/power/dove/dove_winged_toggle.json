@@ -1,0 +1,15 @@
+{
+  "type": "origins:toggle",
+
+  "hidden": true,
+  "description": "DEBUG - If you're wondering, the slowfall effect given by this power is handled via mixin. May change this in the future.",
+
+  "active_by_default": false,
+  "retain_state": false,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "tgcshenanigans:dove/dove_stamina_resource",
+    "comparison": ">",
+    "compare_to": 0
+  }
+}

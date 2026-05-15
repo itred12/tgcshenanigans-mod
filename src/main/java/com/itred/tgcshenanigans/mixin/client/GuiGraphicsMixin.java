@@ -1,6 +1,5 @@
 package com.itred.tgcshenanigans.mixin.client;
 
-import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
 import com.itred.tgcshenanigans.event.common.DeepBreathEnchantmentHitEvent;
 import net.minecraft.client.Minecraft;
@@ -70,7 +69,7 @@ public abstract class GuiGraphicsMixin {
 
             float cooldownProgress = 1 - (currentDamageStacks / deepBreathStackCap);
 
-            ThisGCsShenanigans.LOGGER.info(String.valueOf(currentDamageStacks));
+            // ThisGCsShenanigans.LOGGER.info(String.valueOf(currentDamageStacks));
             if (cooldownProgress > 1) {
                 return;
             }

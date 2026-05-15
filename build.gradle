@@ -38,6 +38,7 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven { url "https://api.modrinth.com/maven" }
 }
 
 base {
@@ -151,12 +152,23 @@ dependencies {
     // Neoorigins
     //compileOnly("curse.maven:neoorigins-1495375:8072243")
     //localRuntime("curse.maven:neoorigins-1495375:8072243")
+    //compileOnly(files("../neoorigins-2.0.35+1.21.1.jar"))
+    //localRuntime(files("../neoorigins-2.0.35+1.21.1.jar"))
+
+    //compileOnly("maven.modrinth:neo-origins:v2.0.36+1.21.1")
+    //localRuntime("maven.modrinth:neo-origins:v2.0.36+1.21.1")
+
+    compileOnly("maven.modrinth:origins-neoforge:0.1-beta.5")
+    localRuntime("maven.modrinth:origins-neoforge:0.1-beta.5")
+
+    compileOnly("maven.modrinth:jupiter:2.3.7-1.21.1-neoforge")
+    localRuntime("maven.modrinth:jupiter:2.3.7-1.21.1-neoforge")
 
     // Example mod dependency using a file as dependency
     // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
 
     compileOnly("curse.maven:deeperdarker-659011:7940538")
-    // implementation(files("../neoorigins-2.0.35+1.21.1.jar"))
+
     // implementation(files("../projectjjk-1.2.0-1.21.1-fabric-beta.jar"))
     // implementation(files("../fabric-api-0.116.11+1.21.1.jar"))
 

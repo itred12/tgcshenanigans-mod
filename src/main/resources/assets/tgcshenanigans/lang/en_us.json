@@ -110,9 +110,15 @@
 
   "tgcshenanigans.config.server.enderdragon_health": "Enderdragon Health Modifier",
   "tgcshenanigans.config.server.wither_health": "Wither Health Modifier",
-  "tgcshenanigans.config.server.warden_health": "Warden Health Modifier"
+  "tgcshenanigans.config.server.warden_health": "Warden Health Modifier",
 
+  "origin.tgcshenanigans.dove.name":  "Colombe d'Marie",
+  "origin.tgcshenanigans.dove.description":  "A holy, rarely-seen distant cousin of the Avian. Attunement to that above has allowed them to keep their wings, but has consequently made them a target of the eldritch and decaying.",
 
+  "power.tgcshenanigans.dove/dove_lightbody.name": "Lightweight",
+  "power.tgcshenanigans.dove/dove_lightbody.description": "Your body is much lighter, designed for flight. You don't take any fall damage, and exhaust slower from moving around.",
 
+  "power.tgcshenanigans.dove/dove_airefficiency.name": "Catch the Winds",
+  "power.tgcshenanigans.dove/dove_airefficiency.description": "You can move just as fast in the air as you can on the ground– any movement speed bonuses will also apply to air speed."
 
 }

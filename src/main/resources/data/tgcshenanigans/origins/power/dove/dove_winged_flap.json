@@ -1,0 +1,61 @@
+{
+  "hidden": true,
+  "interval": 1,
+  "type": "origins:action_over_time",
+  "rising_action": {
+    "type": "origins:change_resource",
+    "resource": "tgcshenanigans:dove/dove_winged_flaptimer",
+    "change": 0,
+    "operation": "set"
+  },
+  "entity_action":  {
+    "type": "origins:if_else",
+    "if_action": {
+      "type": "origins:and",
+      "actions": [
+        {
+          "type": "origins:change_resource",
+          "resource": "tgcshenanigans:dove/dove_winged_flaptimer",
+          "change": 0,
+          "operation": "set"
+        },
+        {
+          "type": "tgcshenanigans:add_velocity",
+          "y": 0.3
+        }
+      ]
+    },
+    "else_action":  {
+      "type": "origins:change_resource",
+      "resource": "tgcshenanigans:dove/dove_winged_flaptimer",
+      "change": 1
+    },
+    "condition": {
+      "type": "origins:resource",
+      "resource": "tgcshenanigans:dove/dove_winged_flaptimer",
+      "comparison": ">=",
+      "compare_to": 12
+    }
+  },
+  "condition": {
+    "type": "origins:and",
+    "conditions": [
+      {
+        "type": "origins:power_active",
+        "power": "tgcshenanigans:dove/dove_winged_toggle"
+      },
+      {
+        "type": "origins:resource",
+        "resource": "tgcshenanigans:space_held",
+        "comparison": "==",
+        "compare_to": 1
+      },
+      {
+        "type": "origins:not",
+        "condition": {
+          "type": "origins:on_block"
+        }
+      }
+    ]
+  }
+}

@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AxolotlMixin",
-    "AxolotlVariantMixin"
+    "AxolotlVariantMixin",
+    "LivingEntityMixin",
+    "compat.originsneoforge.ActionOverTimePowerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,0 +1,10 @@
+{
+  "type": "tgcshenanigans:jagged_hover",
+  "interval": 1,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "tgcshenanigans:space_held",
+    "comparison": "==",
+    "compare_to": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "origins:modify_velocity",
+  "modifier": {
+    "value": -2,
+    "operation": "multiply_total"
+  },
+  "axes": [
+    "y"
+  ]
+}
