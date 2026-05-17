@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TGCSBiomeTagProvider extends BiomeTagsProvider {
+public class    TGCSBiomeTagProvider extends BiomeTagsProvider {
 
     public TGCSBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, provider, ThisGCsShenanigans.MODID, existingFileHelper);
@@ -30,7 +30,6 @@ public class TGCSBiomeTagProvider extends BiomeTagsProvider {
         // "Field of pink and gold"
         tag(TGCSBiomeTags.CATSWING_BIOMES)
                 .add(Biomes.SUNFLOWER_PLAINS)
-                .add(Biomes.PLAINS)
                 .add(Biomes.MEADOW)
                 .add(Biomes.FLOWER_FOREST);
 

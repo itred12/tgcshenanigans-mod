@@ -25,6 +25,7 @@ public class ThisGCsShenanigansClient {
 
         TGCSClientEvents.onBoot(bus);
 
+
     }
 
     @SubscribeEvent
@@ -33,7 +34,9 @@ public class ThisGCsShenanigansClient {
         ThisGCsShenanigans.LOGGER.info("HELLO FROM CLIENT SETUP");
         ThisGCsShenanigans.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
+
     }
+
 
 
 

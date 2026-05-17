@@ -24,6 +24,13 @@ public class TGCSBlocks {
             )
     );
 
+    public static final DeferredBlock<Block> PROPHECY_PANEL_NEW = registerBlock("panel_prophecy",
+            () -> new ProphecyPanelBlock(BlockBehaviour.Properties.of()
+                    .sound(SoundType.GLASS)
+                    .noOcclusion()
+            )
+    );
+
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS_REGISTRY.register(name, block);

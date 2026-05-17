@@ -1,6 +1,8 @@
 package com.itred.tgcshenanigans;
 
+import com.itred.tgcshenanigans.block.TGCSBlockEntities;
 import com.itred.tgcshenanigans.block.TGCSBlocks;
+import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRenderer;
 import com.itred.tgcshenanigans.compat.originsneoforge.OriginsRegistries;
 import com.itred.tgcshenanigans.component.TGCSDataComponents;
 import com.itred.tgcshenanigans.enchantment.TGCSEnchantmentEffects;
@@ -28,6 +30,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -41,6 +44,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -128,6 +132,10 @@ public class ThisGCsShenanigans {
         // Events
         TGCSCommonEvents.onBoot(modEventBus);
 
+        modEventBus.addListener(ThisGCsShenanigans::registerRenderers);
+
+        TGCSBlockEntities.register(modEventBus);
+
 
         // Origins stuff
         if (ModList.get().isLoaded("origins")) {
@@ -177,7 +185,6 @@ public class ThisGCsShenanigans {
     @SubscribeEvent
     public void crossbowModify(LivingIncomingDamageEvent event) {
         Entity entity = event.getEntity();
-        ThisGCsShenanigans.LOGGER.info(entity.toString());
 
         DamageSource source = event.getSource();
         ItemStack stack = source.getWeaponItem();
@@ -218,6 +225,11 @@ public class ThisGCsShenanigans {
 
         return false;
 
+    }
+
+
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer((BlockEntityType) TGCSBlockEntities.PROPHECY_PANEL.get(), ProphecyPanelBlockEntityRenderer::new);
     }
 
     // Easiest way I could find to add items to existing loot tables
