@@ -5,6 +5,8 @@
   "mixins": [
     "AxolotlMixin",
     "AxolotlVariantMixin",
+    "IItemExtensionMixin",
+    "ItemStackMixin",
     "compat.originsneoforge.ActionOverTimePowerMixin"
   ],
   "injectors": {

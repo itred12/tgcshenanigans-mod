@@ -87,10 +87,16 @@
 
   "tgcshenanigans.config.client.blue_axolotl_ping_client": "Axolotl Ping Sound Effect",
   "tgcshenanigans.config.server.blue_axolotl_ping_masterswitch": "Blue Axolotl Ping",
-  "tgcshenanigans.config.server.disable_crab": "Ninni's Spawn mod: Disable Spider Crabs",
   "tgcshenanigans.config.server.blue_axolotl_spawn_naturally": "Blue Axolotl Natural Spawn",
   "tgcshenanigans.config.server.blue_axolotl_spawn_chance": "Blue Axolotl Natural Odds",
   "tgcshenanigans.config.server.blue_axolotl_spawn_chance_offspring": "Blue Axolotl Offspring Odds",
+  "tgcshenanigans.config.server.disabled_entities": "Disabled Entities",
+  "tgcshenanigans.config.server.enable_durability_rework": "Durability Rework",
+
+  "tgcshenanigans.config.startup.enderdragon_health": "Enderdragon Health Modifier",
+  "tgcshenanigans.config.startup.wither_health": "Wither Health Modifier",
+  "tgcshenanigans.config.startup.warden_health": "Warden Health Modifier",
+
 
   "sounds.tgcshenanigans.disc.kinggnu_aizo": "AIZO by King Gnu plays",
   "sounds.tgcshenanigans.disc.tobyfox_fireplace": "Fireplace by Toby Fox plays",
@@ -105,12 +111,9 @@
   "sounds.tgcshenanigans.ambient.tobyfox_alt_church_lobby": "alt_church_lobby by Toby Fox plays",
   "sounds.tgcshenanigans.ambient.tobyfox_with_hope_crossed_on_our_hearts": "With Hope Crossed On Our Hearts by Toby Fox plays",
 
-
   "sounds.tgcshenanigans.effect.blueaxolotlspawn": "Blue axolotl shines",
 
-  "tgcshenanigans.config.server.enderdragon_health": "Enderdragon Health Modifier",
-  "tgcshenanigans.config.server.wither_health": "Wither Health Modifier",
-  "tgcshenanigans.config.server.warden_health": "Warden Health Modifier",
+
 
   "origin.tgcshenanigans.dove.name":  "Colombe d'Marie",
   "origin.tgcshenanigans.dove.description":  "A holy, rarely-seen distant cousin of the Avian. Attunement to that above has allowed them to keep their wings, but has consequently made them a target of the eldritch and decaying.",

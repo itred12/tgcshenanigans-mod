@@ -2,8 +2,8 @@ package com.itred.tgcshenanigans.event;
 
 import com.itred.tgcshenanigans.Config;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.event.client.BlueAxolotlPing;
 import com.itred.tgcshenanigans.event.client.OriginsKeyPressListener;
+import com.itred.tgcshenanigans.event.client.configurable.BlueAxolotlPing;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;

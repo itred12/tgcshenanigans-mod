@@ -1,11 +1,8 @@
-package com.itred.tgcshenanigans.datagen;
+package com.itred.tgcshenanigans.datagen.loot;
 
-import com.jcraft.jorbis.Block;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Item;
 
 import java.util.Set;
 

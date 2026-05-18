@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.event.client;
+package com.itred.tgcshenanigans.event.client.configurable;
 
 import com.itred.tgcshenanigans.Config;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;

@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.datagen;
+package com.itred.tgcshenanigans.datagen.recipe;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.TGCSItems;

@@ -22,4 +22,5 @@ public class TGCSRegistriesGenerator extends DatapackBuiltinEntriesProvider {
         BUILDER = (new RegistrySetBuilder())
                 .add(Registries.ENCHANTMENT, TGCSEnchantments::bootstrap);
     }
+
 }

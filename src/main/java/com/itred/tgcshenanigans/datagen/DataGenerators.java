@@ -1,7 +1,12 @@
 package com.itred.tgcshenanigans.datagen;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.datagen.create.TGCSPressingRecipeGen;
+import com.itred.tgcshenanigans.datagen.loot.TGCSLootTableProvider;
+import com.itred.tgcshenanigans.datagen.recipe.TGCSRecipeProvider;
+import com.itred.tgcshenanigans.datagen.recipe.create.TGCSPressingRecipeGen;
+import com.itred.tgcshenanigans.datagen.tag.TGCSBiomeTagProvider;
+import com.itred.tgcshenanigans.datagen.tag.TGCSBlockTagProvider;
+import com.itred.tgcshenanigans.datagen.tag.TGCSItemTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

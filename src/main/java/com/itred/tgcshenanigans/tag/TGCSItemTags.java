@@ -10,6 +10,11 @@ public class TGCSItemTags {
 
     public static final TagKey<Item> PHANTASMAL_ITEMS = createItemTag("phantasmal_items");
     public static final TagKey<Item> CRYSTALLINE_DISC_ITEMS = createItemTag("crystalline_disc_items");
+    public static final TagKey<Item> UNBREAKABLE_ITEMS = createItemTag("unbreakable_items");
+    public static final TagKey<Item> UNBREAKABLE_MATERIALS = createItemTag("unbreakable_materials");
+
+
+
 
     private static TagKey<Item> createItemTag(String name) {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));

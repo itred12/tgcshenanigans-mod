@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.datagen;
+package com.itred.tgcshenanigans.datagen.tag;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.TGCSItems;
@@ -30,7 +30,21 @@ public class TGCSItemTagProvider extends ItemTagsProvider {
 
         tag(TGCSItemTags.CRYSTALLINE_DISC_ITEMS)
                 .add(TGCSItems.CRYSTALLINE_DISC_VOICELESS.get())
-                .add(TGCSItems.CRYSTALLINE_DISC_AIZO.get());
+                .add(TGCSItems.CRYSTALLINE_DISC_AIZO.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_FIREPLACE.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_CATSWING.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_FROMNOWON.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_DEATHODYSSEY.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_DAUGHTEROFHALLOWNEST.get())
+                .add(TGCSItems.CRYSTALLINE_DISC_REMEMBER.get());
+
+        tag(TGCSItemTags.UNBREAKABLE_ITEMS)
+                .add(Items.ELYTRA)
+                .add(Items.TRIDENT)
+                .add(Items.MACE);
+
+        tag(TGCSItemTags.UNBREAKABLE_MATERIALS)
+                .add(Items.NETHERITE_INGOT);
 
 
         // Aizo found in Bastion chests

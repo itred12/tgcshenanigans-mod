@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.datagen;
+package com.itred.tgcshenanigans.datagen.tag;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import net.minecraft.core.HolderLookup;

@@ -1,7 +1,6 @@
-package com.itred.tgcshenanigans.datagen;
+package com.itred.tgcshenanigans.datagen.loot;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.datagen.loot.TGCSChestLootProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
