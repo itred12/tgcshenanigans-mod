@@ -2,6 +2,7 @@ package com.itred.tgcshenanigans.data;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -25,5 +26,9 @@ public class TGCSAttachments {
                     .sync(ByteBufCodecs.FLOAT)
                     .build()
     );
+
+    public static void register(IEventBus bus) {
+        ATTACHMENT_REGISTER.register(bus);
+    }
 
 }

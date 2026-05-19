@@ -2,6 +2,7 @@ package com.itred.tgcshenanigans.client.render;
 
 import com.itred.tgcshenanigans.Util;
 import com.itred.tgcshenanigans.data.TGCSAttachments;
+import com.itred.tgcshenanigans.item.BluntCleaverItem;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
@@ -28,7 +29,6 @@ public class CustomCrosshairRenderer {
 
     public static final ResourceLocation LINE_LOCATION_WITH_MARKER = Util.modLocation("textures/gui/ratiocrosshairtex.png");
     public static final ResourceLocation LINE_LOCATION = Util.modLocation("textures/gui/ratiocrosshairtexnored.png");
-    public static final ResourceLocation TEST = Util.modLocation("textures/gui/img.png");
 
     protected static boolean isVanillaCrosshairDisabled = false;
 
@@ -53,7 +53,6 @@ public class CustomCrosshairRenderer {
         if (player.getData(TGCSAttachments.NANAMI_CROSSHAIR_ATTACHMENT)) {
 
 
-
             int offset = Mth.floor((double)mc.getWindow().getGuiScaledHeight() / (double)10.0F);
 
             Camera camera = mc.gameRenderer.getMainCamera();
@@ -65,49 +64,46 @@ public class CustomCrosshairRenderer {
             modelViewStack.scale(-1.0F, -1.0F, -1.0F);
             RenderSystem.renderCrosshair(10);
 
-
-            int centreOriginX = (mc.getWindow().getGuiScaledWidth() - 3) / 2;
-            int centreOriginY = (mc.getWindow().getGuiScaledHeight() - 3) / 2;
-
+            int centreOriginX = (mc.getWindow().getGuiScaledWidth() - 2) / 2;
+            int centreOriginY = (mc.getWindow().getGuiScaledHeight() - 1) / 2;
 
             int width = 256;
             int height = 128;
 
-            guiGraphics.blit(LINE_LOCATION_WITH_MARKER, centreOriginX - (width / 2), centreOriginY - (height / 2) + 2, 0f, 0f, width, height, width, height);
+            guiGraphics.blit(LINE_LOCATION, centreOriginX - (width / 2), centreOriginY - (height / 2) + 2, 0f, 0f, width, height, width, height);
 
+            int xOffset = (int) BluntCleaverItem.getRatioOffset(player);
 
-            float storedRotation = player.getData(TGCSAttachments.NANAMI_CROSSHAIR_STARTANGLE);
-            float currentRotation = player.getYRot();
+            int color = BluntCleaverItem.canTriggerRatio(player) ?
+                    FastColor.ARGB32.color(255, 255, 0, 0)
+                    : FastColor.ARGB32.color(255, 255, 255, 255);
 
-            int XOffset = (int) ((storedRotation - currentRotation) * 2);
 
             // Draw the ring
+            /*
             drawHollowSquare(guiGraphics,
-                    centreOriginX + XOffset,
+                    centreOriginX + xOffset + 1,
                     centreOriginY,
                     4,
                     1,
-                    FastColor.ARGB32.color(255, 255, 0, 0)
+                    color
                     );
+
+             */
+
+            drawVerticalLine(
+                    guiGraphics,
+                    centreOriginY + 7,
+                    centreOriginY - 5,
+                    centreOriginX + xOffset + 1,
+                    0,
+                    color
+            );
 
             //
 
-            /*
-            guiGraphics.blit(HudCrosshair.CROSSHAIR_TEXTURES, centreOriginX, centreOriginY, 4, 4, 3, 3);
-            guiGraphics.blit(HudCrosshair.CROSSHAIR_TEXTURES, centreOriginX + 1, centreOriginY - 4 - offset, 5, 0, 1, 4);
-            guiGraphics.blit(HudCrosshair.CROSSHAIR_TEXTURES, centreOriginX + 1, centreOriginY + 3 + offset, 5, 7, 1, 4);
-            guiGraphics.blit(HudCrosshair.CROSSHAIR_TEXTURES, centreOriginX - 4 - offset, centreOriginY + 1, 0, 5, 4, 1);
-            guiGraphics.blit(HudCrosshair.CROSSHAIR_TEXTURES, centreOriginX + 3 + offset, centreOriginY + 1, 0, 5, 4, 1);
-            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-
-
-             */
             modelViewStack.popMatrix();
         }
-
-
-
-
 
     }
 
@@ -124,7 +120,10 @@ public class CustomCrosshairRenderer {
         } else if (hitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos blockpos = ((BlockHitResult)hitResult).getBlockPos();
             Level level = mc.level;
-            return level.getBlockState(blockpos).getMenuProvider(level, blockpos) != null;
+            if (level != null) {
+                return level.getBlockState(blockpos).getMenuProvider(level, blockpos) != null;
+            }
+            return false;
         } else {
             return false;
         }
@@ -135,7 +134,7 @@ public class CustomCrosshairRenderer {
     }
 
     private static void drawVerticalLine(GuiGraphics guiGraphics, int startY, int endY, int xLocation, int thickness, int color) {
-        guiGraphics.fill(RenderType.GUI, xLocation - thickness, startY, xLocation + thickness, endY, color);
+        guiGraphics.fill(RenderType.GUI, xLocation - thickness + 1, startY, xLocation + thickness, endY, color);
     }
 
     private static void drawHollowSquare(GuiGraphics guiGraphics, int startX, int startY, int endX, int endY, int lineThickness, int color) {
@@ -143,8 +142,8 @@ public class CustomCrosshairRenderer {
         // Top side
         drawHorizontalLine(
                 guiGraphics,
-                startX - 1,
-                endX + 1,
+                startX + 1,
+                endX - 1,
                 startY,
                 lineThickness,
                 color
@@ -153,8 +152,8 @@ public class CustomCrosshairRenderer {
         // Bottom side
         drawHorizontalLine(
                 guiGraphics,
-                startX - 1,
-                endX + 1,
+                startX + 1,
+                endX - 1,
                 endY,
                 lineThickness,
                 color
@@ -184,7 +183,7 @@ public class CustomCrosshairRenderer {
     }
 
     private static void drawHollowSquare(GuiGraphics guiGraphics, int centerX, int centerY, int size, int lineThickness, int color) {
-        drawHollowSquare(guiGraphics, centerX - size, centerY - size, centerX + size, centerY + size, lineThickness, color);
+        drawHollowSquare(guiGraphics, centerX - size, centerY - size, centerX + size + 1, centerY + size + 1, lineThickness, color);
     }
 
 }

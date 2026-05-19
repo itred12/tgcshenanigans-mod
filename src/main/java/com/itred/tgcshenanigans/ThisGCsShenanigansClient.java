@@ -3,6 +3,8 @@ package com.itred.tgcshenanigans;
 import com.itred.tgcshenanigans.client.render.CustomArmorModelRenderer;
 import com.itred.tgcshenanigans.client.render.CustomCrosshairRenderer;
 import com.itred.tgcshenanigans.event.TGCSClientEvents;
+import com.itred.tgcshenanigans.particle.RatioParticle;
+import com.itred.tgcshenanigans.particle.TGCSParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -20,6 +22,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -86,6 +89,11 @@ public class ThisGCsShenanigansClient {
     public static void registerHudOverlays(RegisterGuiLayersEvent ev) {
 
         ev.registerAbove(VanillaGuiLayers.CROSSHAIR, Util.modLocation("custom_crosshair"), NEW_CROSSHAIR);
+    }
+
+    @SubscribeEvent
+    public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(TGCSParticles.RATIO_PARTICLE.get(), RatioParticle.Provider::new);
     }
 
 

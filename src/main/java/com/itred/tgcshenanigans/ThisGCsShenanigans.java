@@ -11,6 +11,7 @@ import com.itred.tgcshenanigans.event.TGCSCommonEvents;
 import com.itred.tgcshenanigans.item.TGCSCreativeModeTabs;
 import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.loot.TGCSLootTables;
+import com.itred.tgcshenanigans.particle.TGCSParticles;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.Holder;
@@ -123,7 +124,7 @@ public class ThisGCsShenanigans {
 
         // Register data components
         TGCSDataComponents.registerAll(modEventBus);
-        TGCSAttachments.ATTACHMENT_REGISTER.register(modEventBus);
+        TGCSAttachments.register(modEventBus);
 
         // Register recipe serializers
         SERIALIZER_REGISTRY.register(modEventBus);
@@ -133,6 +134,9 @@ public class ThisGCsShenanigans {
 
         // Events
         TGCSCommonEvents.onBoot(modEventBus);
+
+        // Particles
+        TGCSParticles.register(modEventBus);
 
         modEventBus.addListener(ThisGCsShenanigans::registerRenderers);
 
