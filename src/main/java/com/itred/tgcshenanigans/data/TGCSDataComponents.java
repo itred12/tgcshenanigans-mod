@@ -42,12 +42,14 @@ public class TGCSDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DEEP_BREATH_STACKS = registerComponent(
             "deepbreath_damage_stacks",
-            builder -> builder.networkSynchronized(ByteBufCodecs.FLOAT)
+            builder ->
+                    builder.networkSynchronized(ByteBufCodecs.FLOAT)
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_LAST_DEALT_DAMAGE = registerComponent(
             "deepbreath_last_dealt_damage",
-            builder -> builder.networkSynchronized(ByteBufCodecs.INT)
+            builder ->
+                    builder.networkSynchronized(ByteBufCodecs.INT)
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_STACK_CAP = registerComponent(

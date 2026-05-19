@@ -111,7 +111,7 @@ public class DeepBreathEnchantmentHitEvent {
 
         // "Refill" the player's damage stacks by taking the difference of the current server time and when they last dealt damage with the weapon
         int lastDamage = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, 0);
-        int currentTime = server.getTickCount();
+        int currentTime = owner.tickCount;
 
 
         float secondsSinceLastStrike = (float) (currentTime - lastDamage) / 20;
