@@ -1,6 +1,6 @@
 package com.itred.tgcshenanigans.mixin.client;
 
-import com.itred.tgcshenanigans.component.TGCSDataComponents;
+import com.itred.tgcshenanigans.data.TGCSDataComponents;
 import com.itred.tgcshenanigans.event.common.DeepBreathEnchantmentHitEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

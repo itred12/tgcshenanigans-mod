@@ -2,6 +2,7 @@ package com.itred.tgcshenanigans.event;
 
 import com.itred.tgcshenanigans.Config;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
+import com.itred.tgcshenanigans.event.client.BluntCleaverClientUtils;
 import com.itred.tgcshenanigans.event.client.OriginsKeyPressListener;
 import com.itred.tgcshenanigans.event.client.configurable.BlueAxolotlPing;
 import net.neoforged.api.distmarker.Dist;
@@ -21,6 +22,9 @@ public class TGCSClientEvents {
             ThisGCsShenanigans.LOGGER.info("Client event: registering OriginsKeyPressListener");
             NeoForge.EVENT_BUS.register(OriginsKeyPressListener.class);
         }
+
+        NeoForge.EVENT_BUS.register(BluntCleaverClientUtils.class);
+
     }
 
     @SubscribeEvent

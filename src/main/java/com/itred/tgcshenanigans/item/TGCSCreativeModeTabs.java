@@ -22,11 +22,14 @@ public class TGCSCreativeModeTabs {
                     .icon(() -> new ItemStack(Items.CAMPFIRE))
                     .title(Component.translatable("creativetab.tgcshenanigans.tgcs_items_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+
                         // Add blocks ehre
                         output.accept(TGCSBlocks.PROPHECY_PANEL);
 
 
                         // Add items here
+                        output.accept(TGCSItems.BLUNT_CLEAVER);
+                        output.accept(TGCSItems.SPOTTED_TIE);
 
                         output.accept(TGCSItems.AMETHYST_PLATE);
                         // output.accept(TGCSItems.DISC_LABEL);

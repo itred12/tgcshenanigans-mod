@@ -4,7 +4,8 @@ import com.itred.tgcshenanigans.block.TGCSBlockEntities;
 import com.itred.tgcshenanigans.block.TGCSBlocks;
 import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRenderer;
 import com.itred.tgcshenanigans.compat.originsneoforge.OriginsRegistries;
-import com.itred.tgcshenanigans.component.TGCSDataComponents;
+import com.itred.tgcshenanigans.data.TGCSAttachments;
+import com.itred.tgcshenanigans.data.TGCSDataComponents;
 import com.itred.tgcshenanigans.enchantment.TGCSEnchantmentEffects;
 import com.itred.tgcshenanigans.event.TGCSCommonEvents;
 import com.itred.tgcshenanigans.item.TGCSCreativeModeTabs;
@@ -122,6 +123,7 @@ public class ThisGCsShenanigans {
 
         // Register data components
         TGCSDataComponents.registerAll(modEventBus);
+        TGCSAttachments.ATTACHMENT_REGISTER.register(modEventBus);
 
         // Register recipe serializers
         SERIALIZER_REGISTRY.register(modEventBus);

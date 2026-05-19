@@ -6,7 +6,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,6 +22,25 @@ import java.util.List;
 public class TGCSItems {
 
     public static final DeferredRegister.Items ITEMS_REGISTRY = DeferredRegister.createItems(ThisGCsShenanigans.MODID);
+
+    // Weapons
+    public static final DeferredItem<Item> BLUNT_CLEAVER = ITEMS_REGISTRY.register("blunt_cleaver", () -> new BluntCleaverItem(Tiers.IRON ,
+            new Item.Properties().attributes(ItemAttributeModifiers.builder()
+                    .add(
+                            Attributes.ATTACK_DAMAGE,
+                            new AttributeModifier(ResourceLocation.withDefaultNamespace("base_attack_damage"), 7, AttributeModifier.Operation.ADD_VALUE),
+                            EquipmentSlotGroup.MAINHAND
+                    )
+                    .add(
+                            Attributes.ATTACK_SPEED,
+                            new AttributeModifier(ResourceLocation.withDefaultNamespace("base_attack_speed"), -3.0D, AttributeModifier.Operation.ADD_VALUE),
+                            EquipmentSlotGroup.MAINHAND
+                        )
+                    .build())
+    ));
+
+    // ""Armor""
+    public static final DeferredItem<Item> SPOTTED_TIE = ITEMS_REGISTRY.register("spotted_tie", () -> new SpottedTieItem(new Item.Properties()));
 
     // Materials
     public static final DeferredItem<Item> AMETHYST_PLATE = ITEMS_REGISTRY.register("amethyst_plate", () -> new Item(new Item.Properties()));

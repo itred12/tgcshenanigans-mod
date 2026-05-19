@@ -63,6 +63,9 @@ neoForge {
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
+
+
+        accessTransformers.from 'src/main/resources/META-INF/accesstransformer.cfg'
         client {
             client()
 

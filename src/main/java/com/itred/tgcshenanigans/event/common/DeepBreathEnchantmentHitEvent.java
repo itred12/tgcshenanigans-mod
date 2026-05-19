@@ -1,7 +1,7 @@
 package com.itred.tgcshenanigans.event.common;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.component.TGCSDataComponents;
+import com.itred.tgcshenanigans.data.TGCSDataComponents;
 import com.itred.tgcshenanigans.enchantment.TGCSEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.server.MinecraftServer;

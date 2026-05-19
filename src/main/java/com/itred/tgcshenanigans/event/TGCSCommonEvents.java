@@ -2,6 +2,7 @@ package com.itred.tgcshenanigans.event;
 
 import com.itred.tgcshenanigans.Config;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
+import com.itred.tgcshenanigans.event.common.BluntCleaverUtils;
 import com.itred.tgcshenanigans.event.common.DeepBreathEnchantmentHitEvent;
 import com.itred.tgcshenanigans.event.common.configurable.DisableEntity;
 import com.itred.tgcshenanigans.event.common.configurable.DurabilityRework;
@@ -19,6 +20,7 @@ public class TGCSCommonEvents {
     public static void onBoot(IEventBus modBus) {
         // Deep breath enchantment
         NeoForge.EVENT_BUS.register(DeepBreathEnchantmentHitEvent.class);
+        NeoForge.EVENT_BUS.register(BluntCleaverUtils.class);
     }
 
     @SubscribeEvent

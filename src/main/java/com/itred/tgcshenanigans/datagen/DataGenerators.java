@@ -46,7 +46,7 @@ public class DataGenerators {
          */
 
         // Add entires to the lookup, this must now be used for further entries
-        CompletableFuture<HolderLookup.Provider> newLookup = ((TGCSRegistriesGenerator)generator.addProvider(event.includeServer(), new TGCSRegistriesGenerator(pack, lookupProvider))).getRegistryProvider();
+        CompletableFuture<HolderLookup.Provider> newLookup = (( TGCSRegistriesGenerator)generator.addProvider(event.includeServer(), new TGCSRegistriesGenerator(pack, lookupProvider))).getRegistryProvider();
 
         // Block tags
         BlockTagsProvider blockTagsProvider = new TGCSBlockTagProvider(pack, newLookup, existingFileHelper);

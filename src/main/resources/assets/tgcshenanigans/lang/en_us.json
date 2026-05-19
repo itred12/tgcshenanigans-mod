@@ -17,6 +17,9 @@
 
   "item.tgcshenanigans.amethyst_plate": "Amethyst Plate",
   "item.tgcshenanigans.disc_label": "Disc Label",
+  "item.tgcshenanigans.blunt_cleaver": "Blunt Cleaver",
+  "item.tgcshenanigans.blunt_cleaver.tooltip_1": " Cannot critical hit",
+  "item.tgcshenanigans.spotted_tie": "Spotted Tie",
 
   "item.tgcshenanigans.crystalline_disc_voiceless": "Amethyst Disc",
   "item.tgcshenanigans.crystalline_disc_voiceless.description": "It seeks inspiration...",

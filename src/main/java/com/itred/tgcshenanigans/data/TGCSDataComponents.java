@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.component;
+package com.itred.tgcshenanigans.data;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.CrystallineDiscItem;

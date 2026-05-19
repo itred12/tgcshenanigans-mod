@@ -1,7 +1,7 @@
 package com.itred.tgcshenanigans.enchantment.custom;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.component.TGCSDataComponents;
+import com.itred.tgcshenanigans.data.TGCSDataComponents;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
