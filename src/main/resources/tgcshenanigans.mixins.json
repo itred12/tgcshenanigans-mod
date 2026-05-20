@@ -7,7 +7,8 @@
     "AxolotlVariantMixin",
     "IItemExtensionMixin",
     "ItemStackMixin",
-    "compat.originsneoforge.ActionOverTimePowerMixin"
+    "compat.originsneoforge.ActionOverTimePowerMixin",
+    "compat.spartanweaponry.DamageBonusWeaponTraitMixin"
   ],
   "injectors": {
     "defaultRequire": 1

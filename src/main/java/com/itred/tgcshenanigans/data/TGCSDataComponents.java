@@ -46,10 +46,10 @@ public class TGCSDataComponents {
                     builder.networkSynchronized(ByteBufCodecs.FLOAT)
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_LAST_DEALT_DAMAGE = registerComponent(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> DEEP_BREATH_LAST_DEALT_DAMAGE = registerComponent(
             "deepbreath_last_dealt_damage",
             builder ->
-                    builder.networkSynchronized(ByteBufCodecs.INT)
+                    builder.networkSynchronized(ByteBufCodecs.VAR_LONG)
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_STACK_CAP = registerComponent(

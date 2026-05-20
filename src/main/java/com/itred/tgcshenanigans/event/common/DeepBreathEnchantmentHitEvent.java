@@ -8,7 +8,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -20,6 +19,10 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 public class DeepBreathEnchantmentHitEvent {
 
 
+    public static final int MAX_RECHARGE_TIME = 20;
+    public static final int DAMAGE_CAP_PER_LEVEL = 30;
+    public static final float DAMAGE_PER_LEVEL = 2.5f;
+    public static final float RECHARGE_DELAY = 1;
 
 
     // TODO 2: Add indicator for current stack charge (maybe using the cooldown indicator w/ mixin nonsense?)
@@ -47,11 +50,13 @@ public class DeepBreathEnchantmentHitEvent {
                 return;
             }
 
-            event.setNewDamage(event.getOriginalDamage() + deepBreathOnDamage(level, level.getServer(), i, stack, entity, owner, event.getOriginalDamage()));
+            event.setNewDamage(event.getNewDamage() + deepBreathOnDamage(level, level.getServer(), i, stack, entity, owner, event.getNewDamage()));
 
         });
 
     }
+
+
 
 
     // Quick fix to reset the data components of the item, so it doesnt get stuck with the overlay at a certain amount when disenchanting
@@ -86,15 +91,12 @@ public class DeepBreathEnchantmentHitEvent {
 
 
 
-    public static final int MAX_RECHARGE_TIME = 20;
-    public static final int DAMAGE_CAP_PER_LEVEL = 20;
-    public static final float DAMAGE_PER_LEVEL = 2.5f;
-
     // TODO: Particle effects on hit? Mono-wielding by making it only activate on crit???
     // TODO 2: see about modifying the tooltip to reflect current damage only client-side?
     private static float deepBreathOnDamage(Level level, MinecraftServer server, int enchantmentLevel, ItemStack stack, Entity target, Entity owner, float currentDamage) {
 
         double damageBonus = enchantmentLevel * DAMAGE_PER_LEVEL;
+
 
         // Makes the damage-per-level a bit less extreme
         // 20 at level 1,
@@ -104,50 +106,20 @@ public class DeepBreathEnchantmentHitEvent {
         // 80 at level 5
         int damageCap = enchantmentLevel * DAMAGE_CAP_PER_LEVEL + ((1 - enchantmentLevel) * 5);
         stack.set(TGCSDataComponents.DEEP_BREATH_STACK_CAP, damageCap);
-
         float currentDamageStacks = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACKS, (float) damageCap);
 
-        // ThisGCsShenanigans.LOGGER.info("Starting stacks: " + String.valueOf(currentDamageStacks));
 
-        // "Refill" the player's damage stacks by taking the difference of the current server time and when they last dealt damage with the weapon
-        int lastDamage = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, 0);
-        int currentTime = owner.tickCount;
-
-
-        float secondsSinceLastStrike = (float) (currentTime - lastDamage) / 20;
-
-        // Start recharging 1 second after the last strike
-        if (secondsSinceLastStrike >= 1) {
-
-            float rechargeTime = secondsSinceLastStrike - 1;
-            // "Give back" stacks to the weapon based on this math.
-            // If the recharge time is 15, and they last used the weapon 10 seconds ago,
-            // then they'll have "recharged" 2/3 of the Deep Breath stacks
-            float giveBack = Math.min(1, rechargeTime / MAX_RECHARGE_TIME);
-            currentDamageStacks = Math.min(
-                    damageCap,
-                    currentDamageStacks + (damageCap * giveBack)
-            );
-
-            // Also debug
-            // ThisGCsShenanigans.LOGGER.info("Stacks given back: " + String.valueOf((damageCap * giveBack)));
-
-        }
 
         // Now all we need to do is take the percentage of stacks from the maximum and use that as a multiplier to the maximum damage bonus.
         // The weapon will get the full bonus if it hasn't attacked in 15 seconds,
         // The bonus diminishes as the weapon deals damage according to the damage dealt,
         // At level 5, the bonus recharges at a rate of 2 damage per second.
         // Does that make sense? I hope it makes sense.
-        double actualDamage = (currentDamageStacks / damageCap) * damageBonus;
+        double actualDamage = getDeepBreathStackMultiplier(level, stack, damageCap) * damageBonus;
 
         // Subtract the amount from the damage stacks and reapply it on the item– we can only modify components here, since durability is being modified anyways (probably)
-
-        // This accounts for the damage of the sword as well (minus other enchantments that potentially boost damage)
-        double entityDamage = (owner instanceof LivingEntity) ? ((LivingEntity) owner).getAttributeValue(Attributes.ATTACK_DAMAGE) : 0;
-
         stack.set(TGCSDataComponents.DEEP_BREATH_STACKS, Math.max(0, (float) (currentDamageStacks - (currentDamage + actualDamage))));
-        stack.set(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, currentTime);
+        stack.set(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, level.getGameTime());
 
         // Now we can *actually* deal damage.
         return (float) actualDamage;
@@ -163,8 +135,43 @@ public class DeepBreathEnchantmentHitEvent {
             ThisGCsShenanigans.LOGGER.info("Min total damage: " + String.valueOf( entityDamage ));
             ThisGCsShenanigans.LOGGER.info("Max total damage: " + String.valueOf( entityDamage + damageBonus));
             ThisGCsShenanigans.LOGGER.info("Max damage stacks: " + String.valueOf(damageCap));
-             */
+            */
 
     }
 
+
+
+    public static float getDeepBreathStackMultiplier(Level level, ItemStack stack) {
+        int deepBreathStackCap = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACK_CAP, 10);
+        return getDeepBreathStackMultiplier(level, stack, deepBreathStackCap);
+    }
+
+    public static float getDeepBreathStackMultiplier(Level level, ItemStack stack, int deepBreathStackCap) {
+
+        long time = level.getGameTime();
+        long lastDamageTime = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, 0L);
+
+        // "Refill" the player's damage stacks by taking the difference of the current server time and when they last dealt damage with the weapon
+        float differenceInSeconds = (float) (time - lastDamageTime) / 20;
+
+        float currentDamageStacks = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACKS, (float) deepBreathStackCap);
+
+        // Start recharging 1 second after the last strike
+        if (differenceInSeconds >= RECHARGE_DELAY) {
+
+            // "Give back" stacks to the weapon based on this math.
+            // If the recharge time is 15, and they last used the weapon 10 seconds ago,
+            // then they'll have "recharged" 2/3 of the Deep Breath stacks
+            float rechargeTime = differenceInSeconds - RECHARGE_DELAY;
+            float giveBack = Math.min(1, rechargeTime / DeepBreathEnchantmentHitEvent.MAX_RECHARGE_TIME);
+            currentDamageStacks = Math.min(
+                    deepBreathStackCap,
+                    currentDamageStacks + (deepBreathStackCap * giveBack)
+            );
+        }
+
+
+        return (currentDamageStacks / deepBreathStackCap);
+
+    }
 }
