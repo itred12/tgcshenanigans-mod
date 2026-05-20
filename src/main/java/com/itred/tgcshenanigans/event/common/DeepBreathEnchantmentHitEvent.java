@@ -20,9 +20,9 @@ public class DeepBreathEnchantmentHitEvent {
 
 
     public static final int MAX_RECHARGE_TIME = 20;
-    public static final int DAMAGE_CAP_PER_LEVEL = 30;
-    public static final float DAMAGE_PER_LEVEL = 2.5f;
-    public static final float RECHARGE_DELAY = 1;
+    public static final int DAMAGE_CAP_PER_LEVEL = 20;
+    public static final float DAMAGE_PER_LEVEL = 2f;
+    public static final float RECHARGE_DELAY = 0;
 
 
     // TODO 2: Add indicator for current stack charge (maybe using the cooldown indicator w/ mixin nonsense?)
@@ -106,8 +106,9 @@ public class DeepBreathEnchantmentHitEvent {
         // 80 at level 5
         int damageCap = enchantmentLevel * DAMAGE_CAP_PER_LEVEL + ((1 - enchantmentLevel) * 5);
         stack.set(TGCSDataComponents.DEEP_BREATH_STACK_CAP, damageCap);
-        float currentDamageStacks = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACKS, (float) damageCap);
+        float currentDamageStacks = getDeepBreathStacks(level, stack, damageCap);
 
+        ThisGCsShenanigans.LOGGER.debug(String.valueOf(currentDamageStacks));
 
 
         // Now all we need to do is take the percentage of stacks from the maximum and use that as a multiplier to the maximum damage bonus.
@@ -115,10 +116,18 @@ public class DeepBreathEnchantmentHitEvent {
         // The bonus diminishes as the weapon deals damage according to the damage dealt,
         // At level 5, the bonus recharges at a rate of 2 damage per second.
         // Does that make sense? I hope it makes sense.
-        double actualDamage = getDeepBreathStackMultiplier(level, stack, damageCap) * damageBonus;
+        double actualDamage = (currentDamageStacks / damageCap) * damageBonus;
 
         // Subtract the amount from the damage stacks and reapply it on the item– we can only modify components here, since durability is being modified anyways (probably)
-        stack.set(TGCSDataComponents.DEEP_BREATH_STACKS, Math.max(0, (float) (currentDamageStacks - (currentDamage + actualDamage))));
+        stack.set(TGCSDataComponents.DEEP_BREATH_STACKS,
+                Math.max(0, (float)
+                        (currentDamageStacks -
+                                // try and prevent overkill
+                                (target instanceof LivingEntity livingEntity ?
+                                        Math.min(currentDamage + actualDamage, livingEntity.getHealth())
+                                        : currentDamage + actualDamage))
+                )
+        );
         stack.set(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, level.getGameTime());
 
         // Now we can *actually* deal damage.
@@ -141,12 +150,9 @@ public class DeepBreathEnchantmentHitEvent {
 
 
 
-    public static float getDeepBreathStackMultiplier(Level level, ItemStack stack) {
-        int deepBreathStackCap = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACK_CAP, 10);
-        return getDeepBreathStackMultiplier(level, stack, deepBreathStackCap);
-    }
 
-    public static float getDeepBreathStackMultiplier(Level level, ItemStack stack, int deepBreathStackCap) {
+
+    public static float getDeepBreathStacks(Level level, ItemStack stack, int deepBreathStackCap) {
 
         long time = level.getGameTime();
         long lastDamageTime = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, 0L);
@@ -171,7 +177,8 @@ public class DeepBreathEnchantmentHitEvent {
         }
 
 
-        return (currentDamageStacks / deepBreathStackCap);
+
+        return currentDamageStacks;
 
     }
 }

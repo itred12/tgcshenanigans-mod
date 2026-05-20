@@ -16,6 +16,8 @@ public class CustomCooldownHandler {
 
         if (stack.has(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE) && stack.has(TGCSDataComponents.DEEP_BREATH_STACK_CAP)) {
 
+            int damageCap = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACK_CAP, 10);
+
             // Using the player's tick counter since we dont have server access
             // Seems to be tracked... Decently equally between both sides???
             // At worst I can switch Deep Breath to using this counter serverside to keep things aligned
@@ -24,7 +26,8 @@ public class CustomCooldownHandler {
             long time = player.level().getGameTime();
             long lastDamageTime = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, 0L);
 
-            float cooldownProgress = 1 - DeepBreathEnchantmentHitEvent.getDeepBreathStackMultiplier(player.level(), stack);
+
+            float cooldownProgress = 1 - (DeepBreathEnchantmentHitEvent.getDeepBreathStacks(player.level(), stack, damageCap) / damageCap);
 
             // ThisGCsShenanigans.LOGGER.info("Progress: " + String.valueOf(cooldownProgress));
             // ThisGCsShenanigans.LOGGER.info("Current time: " + String.valueOf(time));
