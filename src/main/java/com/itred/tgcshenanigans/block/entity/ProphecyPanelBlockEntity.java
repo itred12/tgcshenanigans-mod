@@ -15,7 +15,7 @@ public class ProphecyPanelBlockEntity extends BlockEntity {
     }
 
     public boolean shouldRenderFace(Direction face) {
-        return face.getAxis() == Direction.Axis.Y;
+        return true;
     }
 
 

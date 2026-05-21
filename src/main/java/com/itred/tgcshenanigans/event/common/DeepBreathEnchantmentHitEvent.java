@@ -20,9 +20,9 @@ public class DeepBreathEnchantmentHitEvent {
 
 
     public static final int MAX_RECHARGE_TIME = 20;
-    public static final int DAMAGE_CAP_PER_LEVEL = 20;
+    public static final int DAMAGE_CAP_PER_LEVEL = 25;
     public static final float DAMAGE_PER_LEVEL = 2f;
-    public static final float RECHARGE_DELAY = 0;
+    public static final float RECHARGE_DELAY = 0.75f;
 
 
     // TODO 2: Add indicator for current stack charge (maybe using the cooldown indicator w/ mixin nonsense?)
@@ -108,7 +108,7 @@ public class DeepBreathEnchantmentHitEvent {
         stack.set(TGCSDataComponents.DEEP_BREATH_STACK_CAP, damageCap);
         float currentDamageStacks = getDeepBreathStacks(level, stack, damageCap);
 
-        ThisGCsShenanigans.LOGGER.debug(String.valueOf(currentDamageStacks));
+        // ThisGCsShenanigans.LOGGER.debug(String.valueOf(currentDamageStacks));
 
 
         // Now all we need to do is take the percentage of stacks from the maximum and use that as a multiplier to the maximum damage bonus.

@@ -1,0 +1,53 @@
+package com.itred.tgcshenanigans.client.render;
+
+import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRenderer;
+import com.itred.tgcshenanigans.event.TGCSClientEvents;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import net.minecraft.Util;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import org.joml.Matrix4f;
+
+
+public class TGCSRenderTypes {
+
+    public static final RenderStateShard.TexturingStateShard DEPTHS_TEXTURING = new RenderStateShard.TexturingStateShard(
+            "depths_texturing", () -> setupGlintTexturing(8.0F), () -> RenderSystem.resetTextureMatrix()
+    );
+
+
+    public static final RenderType RENDERTYPE_DEPTHS = RenderType.create(
+            "depths",
+            DefaultVertexFormat.POSITION_TEX,
+            VertexFormat.Mode.QUADS,
+            256,
+            false,
+            false,
+            RenderType.CompositeState.builder()
+                    .setShaderState(TGCSClientEvents.RENDERTYPE_DEPTHS_SHADER)
+                    .setTextureState(
+                            RenderStateShard.MultiTextureStateShard.builder()
+                                    .add(ProphecyPanelBlockEntityRenderer.DEPTHS, false, false)
+                                    //.add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false)
+                                    .build()
+                    )
+
+
+
+                    .setTexturingState(DEPTHS_TEXTURING)
+
+                    .createCompositeState(false)
+    );
+
+
+    public static void setupGlintTexturing(float scale) {
+        long i = (long)((double) Util.getMillis());
+        float f = (float)(i % 110000L) / 110000.0F;
+        float f1 = (float)(i % 30000L) / 30000.0F;
+        Matrix4f matrix4f = new Matrix4f().translation(-f, f1, 0.0F).scale(scale);
+        RenderSystem.setTextureMatrix(matrix4f);
+    }
+
+}

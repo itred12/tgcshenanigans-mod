@@ -26,8 +26,6 @@ public class TGCSBlocks {
 
     public static final DeferredBlock<Block> PROPHECY_PANEL_NEW = registerBlock("panel_prophecy",
             () -> new ProphecyPanelBlock(BlockBehaviour.Properties.of()
-                    .sound(SoundType.GLASS)
-                    .noOcclusion()
             )
     );
 

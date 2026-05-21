@@ -1,6 +1,8 @@
 package com.itred.tgcshenanigans.block.entity.renderer;
 
+import com.itred.tgcshenanigans.Util;
 import com.itred.tgcshenanigans.block.entity.ProphecyPanelBlockEntity;
+import com.itred.tgcshenanigans.client.render.TGCSRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,8 +18,7 @@ import org.joml.Matrix4f;
 
 public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<ProphecyPanelBlockEntity> {
 
-    public static final ResourceLocation END_SKY_LOCATION = ResourceLocation.withDefaultNamespace("textures/environment/end_sky.png");
-    public static final ResourceLocation END_PORTAL_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/end_portal.png");
+    public static final ResourceLocation DEPTHS = Util.modLocation("textures/entity/depths_blue.png");
 
     // Add the constructor parameter for the lambda below. You may also use it to get some context
     // to be stored in local fields, such as the entity renderer dispatcher, if needed.
@@ -51,24 +52,27 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
 
     private void renderFace(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3, Direction direction) {
         if (blockEntity.shouldRenderFace(direction)) {
-            consumer.addVertex(pose, x0, y0, z0);
-            consumer.addVertex(pose, x1, y0, z1);
-            consumer.addVertex(pose, x1, y1, z2);
-            consumer.addVertex(pose, x0, y1, z3);
+
+            // Applies scaling in reverse(?)
+            float iScale = 0.125f;
+            consumer.addVertex(pose, x0, y0, z0).setUv(0, 0);
+            consumer.addVertex(pose, x1, y0, z1).setUv(iScale, 0);
+            consumer.addVertex(pose, x1, y1, z2).setUv(iScale, iScale);
+            consumer.addVertex(pose, x0, y1, z3).setUv(0, iScale);
         }
 
     }
 
     protected float getOffsetUp() {
-        return 0.75F;
+        return 1.0f;
     }
 
     protected float getOffsetDown() {
-        return 0.375F;
+        return 0.0f;
     }
 
     protected RenderType renderType() {
-        return RenderType.endPortal();
+        return TGCSRenderTypes.RENDERTYPE_DEPTHS;
     }
 
 
