@@ -1,7 +1,9 @@
 package com.itred.tgcshenanigans.mixin;
 
 import com.itred.tgcshenanigans.Config;
-import com.itred.tgcshenanigans.event.common.configurable.DurabilityRework;
+import com.itred.tgcshenanigans.config.server.DurabilityRework;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,7 +14,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Consumer;
 
@@ -20,7 +21,7 @@ import java.util.function.Consumer;
 public class ItemStackMixin {
 
     @Inject(method = "hurtAndBreak(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isDamageableItem()Z"))
-    private <T extends LivingEntity> void tgcshenanigans$disableDurability(int p_220158_, ServerLevel p_346256_, LivingEntity p_220160_, Consumer<Item> p_348596_, CallbackInfo ci) {
+    private  void tgcshenanigans$disableDurability(int p_220158_, ServerLevel p_346256_, LivingEntity p_220160_, Consumer<Item> p_348596_, CallbackInfo ci) {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (Config.DURABILITY_REWORK.get() && DurabilityRework.shouldBeUnbreakable(stack) && p_220160_ instanceof ServerPlayer player) {
@@ -29,12 +30,13 @@ public class ItemStackMixin {
 
     }
 
-    @Inject(method = "isDamageableItem", at = @At("HEAD"), cancellable = true)
-    private void tgcshenanigans$disableDurability(CallbackInfoReturnable<Boolean> cir) {
+    @WrapMethod(method = "isDamageableItem")
+    private boolean tgcshenanigans$disableDurability(Operation<Boolean> original) {
         ItemStack stack = (ItemStack) (Object) this;
         if (Config.DURABILITY_REWORK.get() && DurabilityRework.shouldBeUnbreakable(stack)) {
-            cir.setReturnValue(false);
+            return false;
         }
+        return original.call();
     }
 
 }

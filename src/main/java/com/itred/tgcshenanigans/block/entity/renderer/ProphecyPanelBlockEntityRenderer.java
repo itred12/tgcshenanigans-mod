@@ -1,6 +1,6 @@
 package com.itred.tgcshenanigans.block.entity.renderer;
 
-import com.itred.tgcshenanigans.Util;
+import com.itred.tgcshenanigans.TGCSUtils;
 import com.itred.tgcshenanigans.block.entity.ProphecyPanelBlockEntity;
 import com.itred.tgcshenanigans.client.render.TGCSRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,7 +18,7 @@ import org.joml.Matrix4f;
 
 public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<ProphecyPanelBlockEntity> {
 
-    public static final ResourceLocation DEPTHS = Util.modLocation("textures/entity/depths_blue.png");
+    public static final ResourceLocation DEPTHS = TGCSUtils.modLocation("textures/entity/depths_blue.png");
 
     // Add the constructor parameter for the lambda below. You may also use it to get some context
     // to be stored in local fields, such as the entity renderer dispatcher, if needed.

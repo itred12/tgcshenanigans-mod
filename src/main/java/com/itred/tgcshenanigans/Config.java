@@ -1,7 +1,7 @@
 package com.itred.tgcshenanigans;
 
 import com.electronwill.nightconfig.core.EnumGetMethod;
-import com.itred.tgcshenanigans.config.BlueAxolotlSpawnSfx;
+import com.itred.tgcshenanigans.config.server.BlueAxolotlPing;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -45,7 +45,7 @@ public class Config {
 
     // Client
         // Blue Axolotl
-        public static final ModConfigSpec.EnumValue<BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING_SOUND;
+        public static final ModConfigSpec.EnumValue<BlueAxolotlPing.BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING_SOUND;
 
     // Startup
         //Stat changes
@@ -165,11 +165,11 @@ public class Config {
                     )
                     .defineEnum(
                             "shinyPingForBlueAxolotl",
-                            BlueAxolotlSpawnSfx.PLA,
+                            BlueAxolotlPing.BlueAxolotlSpawnSfx.PLA,
                             EnumGetMethod.ORDINAL_OR_NAME_IGNORECASE,
-                            BlueAxolotlSpawnSfx.NONE,
-                            BlueAxolotlSpawnSfx.BW,
-                            BlueAxolotlSpawnSfx.PLA
+                            BlueAxolotlPing.BlueAxolotlSpawnSfx.NONE,
+                            BlueAxolotlPing.BlueAxolotlSpawnSfx.BW,
+                            BlueAxolotlPing.BlueAxolotlSpawnSfx.PLA
                     );
 
         CLIENT_CONFIG = CLIENT_CONFIG_BUILDER.build();

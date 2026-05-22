@@ -1,6 +1,6 @@
 package com.itred.tgcshenanigans.client.render;
 
-import com.itred.tgcshenanigans.Util;
+import com.itred.tgcshenanigans.TGCSUtils;
 import com.itred.tgcshenanigans.data.TGCSAttachments;
 import com.itred.tgcshenanigans.item.BluntCleaverItem;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -27,8 +27,8 @@ import org.joml.Matrix4fStack;
 public class CustomCrosshairRenderer {
 
 
-    public static final ResourceLocation LINE_LOCATION_WITH_MARKER = Util.modLocation("textures/gui/ratiocrosshairtex.png");
-    public static final ResourceLocation LINE_LOCATION = Util.modLocation("textures/gui/ratiocrosshairtexnored.png");
+    public static final ResourceLocation LINE_LOCATION_WITH_MARKER = TGCSUtils.modLocation("textures/gui/ratiocrosshairtex.png");
+    public static final ResourceLocation LINE_LOCATION = TGCSUtils.modLocation("textures/gui/ratiocrosshairtexnored.png");
 
     protected static boolean isVanillaCrosshairDisabled = false;
 

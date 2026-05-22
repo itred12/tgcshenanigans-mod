@@ -1,25 +1,37 @@
 package com.itred.tgcshenanigans.event;
 
-import com.itred.tgcshenanigans.Config;
+import com.itred.tgcshenanigans.TGCSUtils;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.Util;
+import com.itred.tgcshenanigans.block.TGCSBlockEntities;
+import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRenderer;
+import com.itred.tgcshenanigans.client.render.CustomArmorModelRenderer;
+import com.itred.tgcshenanigans.client.render.CustomCrosshairRenderer;
 import com.itred.tgcshenanigans.event.client.BluntCleaverClientUtils;
 import com.itred.tgcshenanigans.event.client.OriginsKeyPressListener;
-import com.itred.tgcshenanigans.event.client.configurable.BlueAxolotlPing;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.ShaderInstance;
+import com.itred.tgcshenanigans.event.client.TGCSShaders;
+import com.itred.tgcshenanigans.particle.RatioParticle;
+import com.itred.tgcshenanigans.particle.TGCSParticles;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterShadersEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.level.LevelEvent;
 
-import javax.annotation.Nullable;
-import java.io.IOException;
+import java.util.Map;
 
 @EventBusSubscriber(modid = ThisGCsShenanigans.MODID, value = Dist.CLIENT)
 public class TGCSClientEvents {
@@ -31,50 +43,57 @@ public class TGCSClientEvents {
             NeoForge.EVENT_BUS.register(OriginsKeyPressListener.class);
         }
 
+
         NeoForge.EVENT_BUS.register(BluntCleaverClientUtils.class);
+        modBus.register(TGCSShaders.class);
+        modBus.addListener(TGCSClientEvents::registerReloadListener);
 
     }
 
     @SubscribeEvent
-    public static void worldStaticMechanics(LevelEvent.Load event) {
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(TGCSBlockEntities.PROPHECY_PANEL.get(), ProphecyPanelBlockEntityRenderer::new);
+    }
 
-        if (Config.ENABLE_BLUE_AXOLOTL_PING.get()) {
-            NeoForge.EVENT_BUS.register(BlueAxolotlPing.class);
+    // Everyone say "Thank you Sophisticated Backpacks"
+    public static void registerReloadListener(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener((ResourceManagerReloadListener) resourceManager -> {
+            registerArmorLayer();
+        });
+    }
+
+    @SuppressWarnings("java:S3740") //explanation below
+    private static void registerArmorLayer() {
+        EntityRenderDispatcher renderManager = Minecraft.getInstance().getEntityRenderDispatcher();
+        Map<PlayerSkin.Model, EntityRenderer<? extends Player>> skinMap = renderManager.getSkinMap();
+        for (EntityRenderer<? extends Player> renderer : skinMap.values()) {
+            if (renderer instanceof LivingEntityRenderer<?, ?> livingEntityRenderer) {
+                //noinspection rawtypes ,unchecked - this is not going to fail as the LivingRenderer makes sure the types are right, but there doesn't seem to be a way to us inference here
+                livingEntityRenderer.addLayer(new CustomArmorModelRenderer(livingEntityRenderer));
+            }
         }
 
+        renderManager.renderers.forEach((e, r) -> {
+            if (r instanceof LivingEntityRenderer<?, ?> livingEntityRenderer) {
+                //noinspection rawtypes ,unchecked - this is not going to fail as the LivingRenderer makes sure the types are right, but there doesn't seem to be a way to us inference here
+                livingEntityRenderer.addLayer(new CustomArmorModelRenderer(livingEntityRenderer));
+            }
+        });
+    }
+
+    public static final LayeredDraw.Layer NEW_CROSSHAIR = CustomCrosshairRenderer::render;
+
+    @SubscribeEvent
+    public static void registerHudOverlays(RegisterGuiLayersEvent ev) {
+        ev.registerAbove(VanillaGuiLayers.CROSSHAIR, TGCSUtils.modLocation("custom_crosshair"), NEW_CROSSHAIR);
     }
 
     @SubscribeEvent
-    public static void unloadWorldStaticMechanics(LevelEvent.Unload event) {
-        NeoForge.EVENT_BUS.unregister(BlueAxolotlPing.class);
+    public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(TGCSParticles.RATIO_PARTICLE.get(), RatioParticle.Provider::new);
     }
 
-    @Nullable
-    private static ShaderInstance depthsShader;
 
-    // Just kinda winging this one
-    @SubscribeEvent
-    public static void registerShaders(RegisterShadersEvent event) throws IOException {
-        event.registerShader(
-                new ShaderInstance(
-                        event.getResourceProvider(),
-                        Util.modLocation("rendertype_depths"),
-                        DefaultVertexFormat.POSITION_TEX
-                ),
-                shaderInstance -> depthsShader = shaderInstance
-
-        );
-    }
-
-    public static final RenderStateShard.ShaderStateShard RENDERTYPE_DEPTHS_SHADER = new RenderStateShard.ShaderStateShard(
-            TGCSClientEvents::getDepthsShader
-    );
-
-
-    @Nullable
-    public static ShaderInstance getDepthsShader() {
-        return depthsShader;
-    }
 
 
 }

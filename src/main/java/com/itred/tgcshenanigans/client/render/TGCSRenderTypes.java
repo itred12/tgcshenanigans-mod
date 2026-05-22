@@ -1,7 +1,7 @@
 package com.itred.tgcshenanigans.client.render;
 
 import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRenderer;
-import com.itred.tgcshenanigans.event.TGCSClientEvents;
+import com.itred.tgcshenanigans.event.client.TGCSShaders;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -26,7 +26,7 @@ public class TGCSRenderTypes {
             false,
             false,
             RenderType.CompositeState.builder()
-                    .setShaderState(TGCSClientEvents.RENDERTYPE_DEPTHS_SHADER)
+                    .setShaderState(TGCSShaders.RENDERTYPE_DEPTHS_SHADER)
                     .setTextureState(
                             RenderStateShard.MultiTextureStateShard.builder()
                                     .add(ProphecyPanelBlockEntityRenderer.DEPTHS, false, false)
