@@ -46,6 +46,8 @@ public class Config {
     // Client
         // Blue Axolotl
         public static final ModConfigSpec.EnumValue<BlueAxolotlPing.BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING_SOUND;
+        // Animation speed
+        public static final ModConfigSpec.DoubleValue BLOCK_ANIMATION_SPEED;
 
     // Startup
         //Stat changes
@@ -171,6 +173,13 @@ public class Config {
                             BlueAxolotlPing.BlueAxolotlSpawnSfx.BW,
                             BlueAxolotlPing.BlueAxolotlSpawnSfx.PLA
                     );
+
+            BLOCK_ANIMATION_SPEED = CLIENT_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.client.block_animation_speed")
+                    .comment("Multiplies the speed of certain block animations. Set to 0 to disable entirely.",
+                            "",
+                            "WARNING: Some passive animations may cause eyestrain at higher speeds. Increase this value at your own risk.")
+                    .defineInRange("blockAnimationSpeed", 1.0, 0, 10.0);
 
         CLIENT_CONFIG = CLIENT_CONFIG_BUILDER.build();
 

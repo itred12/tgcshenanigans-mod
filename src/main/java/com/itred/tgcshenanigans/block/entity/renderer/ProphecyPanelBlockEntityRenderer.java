@@ -1,6 +1,7 @@
 package com.itred.tgcshenanigans.block.entity.renderer;
 
 import com.itred.tgcshenanigans.TGCSUtils;
+import com.itred.tgcshenanigans.block.ProphecyPanelBlock;
 import com.itred.tgcshenanigans.block.entity.ProphecyPanelBlockEntity;
 import com.itred.tgcshenanigans.client.render.TGCSRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -46,43 +47,112 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     // - packedOverlay: The current overlay value of the block entity, usually OverlayTexture.NO_OVERLAY.
     public void render(@NotNull ProphecyPanelBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Matrix4f matrix4f = poseStack.last().pose();
-        //ThisGCsShenanigans.LOGGER.info(String.valueOf(blockEntity.getBlockPos()));
         this.renderCube(blockEntity, matrix4f, bufferSource.getBuffer(this.renderType()));
     }
 
     private void renderCube(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer) {
-        float f = this.getOffsetDown();
-        float f1 = this.getOffsetUp();
 
-        this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, Direction.SOUTH);
-        this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, Direction.NORTH);
-        this.renderFace(blockEntity, pose, consumer, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, Direction.EAST);
-        this.renderFace(blockEntity, pose, consumer, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, Direction.WEST);
-        this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, f, f, 0.0F, 0.0F, 1.0F, 1.0F, Direction.DOWN);
-        this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, f1, f1, 1.0F, 1.0F, 0.0F, 0.0F, Direction.UP);
+        // The position of any given corner of the prophecy panel is deterministic, based on its world position.
+        // This lets us make any given block "connect" with any other on a whim.
 
+
+        Direction.Axis axis = blockEntity.getBlockState().getValue(ProphecyPanelBlock.AXIS);
+        int axisOffset = axis.isHorizontal() ? 0 : 1;
+
+
+        BlockPos blockPos = blockEntity.getBlockPos();
+        int offsetX = Math.abs(blockPos.getX()) % SCALE;
+        int offsetY = Math.abs(blockPos.getY()) % SCALE;
+        int offsetZ = Math.abs(blockPos.getZ()) % SCALE;
+
+        this.renderFace(
+                blockEntity, pose, consumer,
+                0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F,
+                Direction.SOUTH,
+                offsetX - offsetZ + axisOffset,
+                offsetY
+                );
+
+        this.renderFace(
+                blockEntity, pose, consumer,
+                // Inverse of south
+                1.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F,
+                Direction.NORTH,
+                offsetX - offsetZ + axisOffset,
+                offsetY
+        );
+
+        this.renderFace(
+                blockEntity, pose, consumer,
+                // Inverse of west, lines up with north
+                1.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F,
+                Direction.EAST,
+                offsetZ - offsetX + 1 + axisOffset,
+                offsetY
+        );
+
+        this.renderFace(
+                blockEntity, pose, consumer,
+                0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F,
+                Direction.WEST,
+                offsetZ - offsetX + 1 + axisOffset,
+                offsetY
+        );
+
+        this.renderFace(
+                blockEntity, pose, consumer,
+                0.0F, 1.0F, 0F, 0F, 0.0F, 0.0F, 1.0F, 1.0F,
+                Direction.DOWN,
+                offsetX + axisOffset,
+                offsetZ
+        );
+
+        this.renderFace(
+                blockEntity, pose, consumer,
+                0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F,
+                Direction.UP,
+                offsetX + axisOffset,
+                offsetZ
+        );
 
     }
 
-    private void renderFace(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3, Direction direction) {
+    private void renderFace(
+            ProphecyPanelBlockEntity blockEntity,
+            Matrix4f pose,
+            VertexConsumer consumer,
+            float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3,
+            Direction direction,
+            int relativeXOffset,
+            int relativeYOffset
+    ) {
         if (blockEntity.shouldRenderFace(direction)) {
 
-            // Applies scaling in reverse(?)
             float iScale = 0.25f / SCALE;
 
-            //ThisGCsShenanigans.LOGGER.info(String.valueOf(offsetX));
-            int extraOffset = direction.getAxis() == Direction.Axis.Z ? 0 : 1;
+            consumer.addVertex(pose, x0, y0, z0)
+                    .setUv(
+                            (relativeXOffset) * iScale ,
+                            (relativeYOffset) * iScale
+                    );
 
-            Vec2 offsetVector = getTargetBlockPositionFromFace(direction, blockEntity.getBlockPos());
-            float relativeZ = Math.abs(blockEntity.getBlockPos().get(direction.getAxis()) % SCALE) - extraOffset;
-            float offsetX = (Math.abs(offsetVector.x) + relativeZ) % SCALE;
-            float offsetY = (Math.abs(offsetVector.y)) % SCALE;
+            consumer.addVertex(pose, x1, y0, z1)
+                    .setUv(
+                            (1 + relativeXOffset) * iScale,
+                            (relativeYOffset) * iScale
+                    );
 
+            consumer.addVertex(pose, x1, y1, z2)
+                    .setUv(
+                            (1 + relativeXOffset) * iScale,
+                            (1 + relativeYOffset) * iScale
+                    );
 
-            consumer.addVertex(pose, x0, y0, z0).setUv((offsetX) * iScale , (offsetY) * iScale);
-            consumer.addVertex(pose, x1, y0, z1).setUv((1 + offsetX) * iScale , (offsetY) * iScale);
-            consumer.addVertex(pose, x1, y1, z2).setUv((1 + offsetX) * iScale, (1 + offsetY) * iScale);
-            consumer.addVertex(pose, x0, y1, z3).setUv((offsetX) * iScale  , (1 + offsetY) * iScale);
+            consumer.addVertex(pose, x0, y1, z3)
+                    .setUv(
+                            (relativeXOffset) * iScale,
+                            (1 + relativeYOffset) * iScale
+            );
 
         }
 
@@ -133,5 +203,6 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     public AABB getRenderBoundingBox(ProphecyPanelBlockEntity blockEntity) {
         return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }
+
 
 }
