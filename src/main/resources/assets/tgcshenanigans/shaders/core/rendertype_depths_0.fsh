@@ -32,10 +32,10 @@ void main() {
 
 
 
-    mat2 scale = mat2((4 / 4.0) * 0.5);
+    mat2 scale = mat2((4 / 4.0) * 2);
 
 
-    vec4 color = textureProj(Sampler0, TextureMat * vec4(uv0, 1, 1));
+    vec4 color = textureProj(Sampler0, texCoord0 * translate * mat4(scale) );
     /*
     if (color.a < 0.1) {
         discard;

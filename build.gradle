@@ -169,6 +169,7 @@ dependencies {
 
     // implementation(files("../projectjjk-1.2.0-1.21.1-fabric-beta.jar"))
     // implementation(files("../fabric-api-0.116.11+1.21.1.jar"))
+    //compileOnly(files("../neverend-1.0.jar"))
 
     // Example project dependency using a sister or child project:
     // implementation project(":myproject")

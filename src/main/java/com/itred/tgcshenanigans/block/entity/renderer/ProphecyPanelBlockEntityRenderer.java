@@ -9,9 +9,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
@@ -25,6 +28,15 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     public ProphecyPanelBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 
+        // THE PLAN
+    // Modulo can be used to determine, from any scale, where the block entity is on the texture
+    // I.e., if the texture is scaled 2x, then there's four possible locations:
+    // Top left corner, top right corner,
+    // Bottom left corner, bottom right corner
+    private static final int SCALE = 2;
+
+    // So taking mod 2 from the block's x and y location, which of these four corners can be found as the block's corner
+
     // This method is called every frame in order to render the block entity. Parameters are:
     // - blockEntity:   The block entity instance being rendered. Uses the generic type passed to the super interface.
     // - partialTick:   The amount of time, in fractions of a tick (0.0 to 1.0), that has passed since the last tick.
@@ -34,12 +46,14 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     // - packedOverlay: The current overlay value of the block entity, usually OverlayTexture.NO_OVERLAY.
     public void render(@NotNull ProphecyPanelBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Matrix4f matrix4f = poseStack.last().pose();
+        //ThisGCsShenanigans.LOGGER.info(String.valueOf(blockEntity.getBlockPos()));
         this.renderCube(blockEntity, matrix4f, bufferSource.getBuffer(this.renderType()));
     }
 
     private void renderCube(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer) {
         float f = this.getOffsetDown();
         float f1 = this.getOffsetUp();
+
         this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, Direction.SOUTH);
         this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, Direction.NORTH);
         this.renderFace(blockEntity, pose, consumer, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, Direction.EAST);
@@ -47,20 +61,44 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
         this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, f, f, 0.0F, 0.0F, 1.0F, 1.0F, Direction.DOWN);
         this.renderFace(blockEntity, pose, consumer, 0.0F, 1.0F, f1, f1, 1.0F, 1.0F, 0.0F, 0.0F, Direction.UP);
 
-        ;
+
     }
 
     private void renderFace(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3, Direction direction) {
         if (blockEntity.shouldRenderFace(direction)) {
 
             // Applies scaling in reverse(?)
-            float iScale = 0.125f;
-            consumer.addVertex(pose, x0, y0, z0).setUv(0, 0);
-            consumer.addVertex(pose, x1, y0, z1).setUv(iScale, 0);
-            consumer.addVertex(pose, x1, y1, z2).setUv(iScale, iScale);
-            consumer.addVertex(pose, x0, y1, z3).setUv(0, iScale);
+            float iScale = 0.25f / SCALE;
+
+            //ThisGCsShenanigans.LOGGER.info(String.valueOf(offsetX));
+            int extraOffset = direction.getAxis() == Direction.Axis.Z ? 0 : 1;
+
+            Vec2 offsetVector = getTargetBlockPositionFromFace(direction, blockEntity.getBlockPos());
+            float relativeZ = Math.abs(blockEntity.getBlockPos().get(direction.getAxis()) % SCALE) - extraOffset;
+            float offsetX = (Math.abs(offsetVector.x) + relativeZ) % SCALE;
+            float offsetY = (Math.abs(offsetVector.y)) % SCALE;
+
+
+            consumer.addVertex(pose, x0, y0, z0).setUv((offsetX) * iScale , (offsetY) * iScale);
+            consumer.addVertex(pose, x1, y0, z1).setUv((1 + offsetX) * iScale , (offsetY) * iScale);
+            consumer.addVertex(pose, x1, y1, z2).setUv((1 + offsetX) * iScale, (1 + offsetY) * iScale);
+            consumer.addVertex(pose, x0, y1, z3).setUv((offsetX) * iScale  , (1 + offsetY) * iScale);
+
         }
 
+
+
+    }
+
+    private Vec2 getTargetBlockPositionFromFace(Direction face, BlockPos blockPos) {
+
+        Vec3i normal = face.getNormal();
+
+        if (face.getAxis().isHorizontal()) {
+            return new Vec2(normal.getX() == 0 ? blockPos.getX() : blockPos.getZ(), blockPos.getY());
+        } else {
+            return new Vec2(blockPos.getX(), blockPos.getZ());
+        }
     }
 
     protected float getOffsetUp() {
