@@ -21,7 +21,7 @@ public class TGCSRenderTypes {
 
     public static final RenderType RENDERTYPE_DEPTHS = RenderType.create(
             "depths",
-            DefaultVertexFormat.POSITION_TEX,
+            DefaultVertexFormat.POSITION_TEX_COLOR,
             VertexFormat.Mode.QUADS,
             256,
             false,
@@ -47,8 +47,8 @@ public class TGCSRenderTypes {
         float f1 = (float)(i % 30000L) / 30000.0F;
 
         Matrix4f matrix4f = new Matrix4f().translation(-f * speed, f1 * speed, 0).scale(scale / 2);
-
         RenderSystem.setTextureMatrix(matrix4f);
+
     }
 
 }

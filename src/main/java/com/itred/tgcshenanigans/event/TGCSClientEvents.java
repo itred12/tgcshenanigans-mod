@@ -3,7 +3,9 @@ package com.itred.tgcshenanigans.event;
 import com.itred.tgcshenanigans.TGCSUtils;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.block.TGCSBlockEntities;
+import com.itred.tgcshenanigans.block.TGCSBlocks;
 import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRenderer;
+import com.itred.tgcshenanigans.client.TGCSClientItemExtensions;
 import com.itred.tgcshenanigans.client.render.CustomArmorModelRenderer;
 import com.itred.tgcshenanigans.client.render.CustomCrosshairRenderer;
 import com.itred.tgcshenanigans.event.client.BluntCleaverClientUtils;
@@ -28,6 +30,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -91,6 +94,17 @@ public class TGCSClientEvents {
     @SubscribeEvent
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(TGCSParticles.RATIO_PARTICLE.get(), RatioParticle.Provider::new);
+    }
+
+    @SubscribeEvent // on the mod event bus only on the physical client
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(
+                // The only instance of our IClientItemExtensions, and as such, the only instance of our BEWLR.
+                new TGCSClientItemExtensions(),
+                // A vararg list of items that use this BEWLR.
+                TGCSBlocks.PROPHECY_PANEL_NEW.asItem(),
+                TGCSBlocks.PROPHECY_PANEL_GREEN.asItem()
+        );
     }
 
 

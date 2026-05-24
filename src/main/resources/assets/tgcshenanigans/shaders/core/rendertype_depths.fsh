@@ -6,41 +6,19 @@ uniform sampler2D Sampler0;
 
 uniform mat4 TextureMat;
 uniform vec4 ColorModulator;
-uniform float FogStart;
-uniform float FogEnd;
-uniform float GlintAlpha;
-uniform float GameTime;
 
-
-in vec4 texCoord0;
-in vec2 uv0;
+in vec2 texCoord0;
+in vec4 fragmentColor;
 
 out vec4 fragColor;
 
+// Basically identical to the enchantment glint shader, but we dont care about fog, I don't think
+
 void main() {
 
-    vec2 offset = vec2(-1, 1);
-    int speed = 20;
-
-
-    mat4 translate = mat4(
-        1.0, 0.0, 0.0, (2.0 / 1.5) * (GameTime * speed * offset.x),
-        0.0, 1.0, 0.0, (2.0 / 1.5) * (GameTime * speed * offset.y),
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 1.0
-    );
-
-
-
-    mat2 scale = mat2((4 / 4.0) * 0.5);
-
-
-    vec4 color = textureProj(Sampler0, TextureMat * vec4(uv0, 1, 1));
-    /*
+    vec4 color = texture(Sampler0, texCoord0) * fragmentColor;
     if (color.a < 0.1) {
         discard;
     }
-    */
-
-    fragColor = vec4(color.rgb, color.a);
+    fragColor = color;
 }

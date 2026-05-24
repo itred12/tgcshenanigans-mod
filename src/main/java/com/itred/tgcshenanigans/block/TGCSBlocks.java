@@ -2,6 +2,7 @@ package com.itred.tgcshenanigans.block;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.TGCSItems;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -18,14 +19,21 @@ public class TGCSBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS_REGISTRY = DeferredRegister.createBlocks(ThisGCsShenanigans.MODID);
 
-    public static final DeferredBlock<Block> PROPHECY_PANEL = registerBlock("prophecy_panel",
+    public static final DeferredBlock<Block> PROPHECY_PANEL_OLD = registerBlock("prophecy_panel_old",
             () -> new GlazedTerracottaBlock(BlockBehaviour.Properties.of()
                     .sound(SoundType.GLASS)
             )
     );
 
-    public static final DeferredBlock<Block> PROPHECY_PANEL_NEW = registerBlock("panel_prophecy",
-            () -> new ProphecyPanelBlock(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<AbstractProphecyPanelBlock> PROPHECY_PANEL_NEW = registerBlock("prophecy_panel",
+            () -> new AbstractProphecyPanelBlock(BlockBehaviour.Properties.of(),
+                    FastColor.ABGR32.color(255, 255, 255, 255)
+            )
+    );
+
+    public static final DeferredBlock<AbstractProphecyPanelBlock> PROPHECY_PANEL_GREEN = registerBlock("prophecy_panel_green",
+            () -> new AbstractProphecyPanelBlock(BlockBehaviour.Properties.of(),
+                    FastColor.ABGR32.color(255, 0, 255, 0)
             )
     );
 

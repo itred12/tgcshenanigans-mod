@@ -24,7 +24,8 @@ public class TGCSCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
 
                         // Add blocks ehre
-                        output.accept(TGCSBlocks.PROPHECY_PANEL);
+                        output.accept(TGCSBlocks.PROPHECY_PANEL_NEW);
+                        output.accept(TGCSBlocks.PROPHECY_PANEL_GREEN);
 
 
                         // Add items here

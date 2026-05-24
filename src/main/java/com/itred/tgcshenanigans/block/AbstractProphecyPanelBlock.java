@@ -4,6 +4,7 @@ import com.itred.tgcshenanigans.block.entity.ProphecyPanelBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -19,17 +20,29 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ProphecyPanelBlock extends BaseEntityBlock {
+public class AbstractProphecyPanelBlock extends BaseEntityBlock {
 
-    public static final MapCodec<ProphecyPanelBlock> CODEC = simpleCodec(ProphecyPanelBlock::new);
+
+    public static final MapCodec<AbstractProphecyPanelBlock> CODEC = simpleCodec(AbstractProphecyPanelBlock::new);
 
     // The physical shape of the block, basically its collision box
     protected static final VoxelShape PHYSICAL_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
-    protected ProphecyPanelBlock(Properties properties) {
+    private int color = FastColor.ABGR32.color(255, 255, 255, 255);
+
+    public int getColor() {
+        return color;
+    }
+
+    protected AbstractProphecyPanelBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y));
+    }
+
+    protected AbstractProphecyPanelBlock(Properties properties, int color) {
+        this(properties);
+        this.color = color;
     }
 
     @Override
@@ -39,6 +52,7 @@ public class ProphecyPanelBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
+
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
     }
 
@@ -59,7 +73,7 @@ public class ProphecyPanelBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        return new ProphecyPanelBlockEntity(blockPos, blockState);
+        return new ProphecyPanelBlockEntity(blockPos, blockState, this.color);
     }
 
 

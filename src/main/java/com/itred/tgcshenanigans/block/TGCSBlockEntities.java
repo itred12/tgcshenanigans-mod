@@ -21,7 +21,8 @@ public class TGCSBlockEntities {
                             ProphecyPanelBlockEntity::new,
                             // A vararg of blocks that can have this block entity.
                             // This assumes the existence of the referenced blocks as DeferredBlock<Block>s.
-                            TGCSBlocks.PROPHECY_PANEL_NEW.get()
+                            TGCSBlocks.PROPHECY_PANEL_NEW.get(),
+                            TGCSBlocks.PROPHECY_PANEL_GREEN.get()
                     )
                     // Build using null; vanilla does some datafixer shenanigans with the parameter that we don't need.
                     .build((Type<?>) null)

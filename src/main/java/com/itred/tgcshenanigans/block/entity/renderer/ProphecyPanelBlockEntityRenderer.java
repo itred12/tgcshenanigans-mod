@@ -1,7 +1,7 @@
 package com.itred.tgcshenanigans.block.entity.renderer;
 
 import com.itred.tgcshenanigans.TGCSUtils;
-import com.itred.tgcshenanigans.block.ProphecyPanelBlock;
+import com.itred.tgcshenanigans.block.AbstractProphecyPanelBlock;
 import com.itred.tgcshenanigans.block.entity.ProphecyPanelBlockEntity;
 import com.itred.tgcshenanigans.client.render.TGCSRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,10 +12,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
@@ -47,16 +45,16 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     // - packedOverlay: The current overlay value of the block entity, usually OverlayTexture.NO_OVERLAY.
     public void render(@NotNull ProphecyPanelBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Matrix4f matrix4f = poseStack.last().pose();
-        this.renderCube(blockEntity, matrix4f, bufferSource.getBuffer(this.renderType()));
+        this.renderCube(blockEntity, matrix4f, bufferSource.getBuffer(this.renderType()), blockEntity.getColor());
     }
 
-    private void renderCube(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer) {
+    private void renderCube(ProphecyPanelBlockEntity blockEntity, Matrix4f pose, VertexConsumer consumer, int color) {
 
         // The position of any given corner of the prophecy panel is deterministic, based on its world position.
         // This lets us make any given block "connect" with any other on a whim.
 
 
-        Direction.Axis axis = blockEntity.getBlockState().getValue(ProphecyPanelBlock.AXIS);
+        Direction.Axis axis = blockEntity.getBlockState().getValue(AbstractProphecyPanelBlock.AXIS);
         int axisOffset = axis.isHorizontal() ? 0 : 1;
 
 
@@ -70,7 +68,8 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F,
                 Direction.SOUTH,
                 offsetX - offsetZ + axisOffset,
-                offsetY
+                offsetY,
+                color
                 );
 
         this.renderFace(
@@ -79,7 +78,8 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                 1.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F,
                 Direction.NORTH,
                 offsetX - offsetZ + axisOffset,
-                offsetY
+                offsetY,
+                color
         );
 
         this.renderFace(
@@ -88,7 +88,8 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                 1.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F,
                 Direction.EAST,
                 offsetZ - offsetX + 1 + axisOffset,
-                offsetY
+                offsetY,
+                color
         );
 
         this.renderFace(
@@ -96,7 +97,8 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F,
                 Direction.WEST,
                 offsetZ - offsetX + 1 + axisOffset,
-                offsetY
+                offsetY,
+                color
         );
 
         this.renderFace(
@@ -104,16 +106,31 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                 0.0F, 1.0F, 0F, 0F, 0.0F, 0.0F, 1.0F, 1.0F,
                 Direction.DOWN,
                 offsetX + axisOffset,
-                offsetZ
+                offsetZ + 1,
+                color
         );
 
-        this.renderFace(
-                blockEntity, pose, consumer,
-                0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F,
-                Direction.UP,
-                offsetX + axisOffset,
-                offsetZ
-        );
+        // TODO: FIX THIS VERY VERY TEMP FIX FOR HELD ITEM VERSIONS OF THE BLOCK
+        if (blockEntity.getLevel() != null) {
+            this.renderFace(
+                    blockEntity, pose, consumer,
+                    1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F,
+                    Direction.UP,
+                    offsetX + (1 - axisOffset),
+                    offsetZ ,
+                    color
+            );
+        } else {
+            this.renderFace(
+                    blockEntity, pose, consumer,
+                    1.0F, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F,
+                    Direction.UP,
+                    offsetX + 1,
+                    offsetZ + 1 ,
+                    color
+            );
+        }
+
 
     }
 
@@ -124,35 +141,40 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
             float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3,
             Direction direction,
             int relativeXOffset,
-            int relativeYOffset
+            int relativeYOffset,
+            int color
     ) {
         if (blockEntity.shouldRenderFace(direction)) {
 
             float iScale = 0.25f / SCALE;
 
-            consumer.addVertex(pose, x0, y0, z0)
+            consumer.addVertex(pose, x0, y0, z0).setColor(color)
                     .setUv(
-                            (relativeXOffset) * iScale ,
+                            (relativeXOffset) * iScale,
                             (relativeYOffset) * iScale
                     );
 
-            consumer.addVertex(pose, x1, y0, z1)
+            consumer.addVertex(pose, x1, y0, z1).setColor(color)
                     .setUv(
                             (1 + relativeXOffset) * iScale,
                             (relativeYOffset) * iScale
                     );
 
-            consumer.addVertex(pose, x1, y1, z2)
+            consumer.addVertex(pose, x1, y1, z2).setColor(color)
                     .setUv(
                             (1 + relativeXOffset) * iScale,
                             (1 + relativeYOffset) * iScale
                     );
 
-            consumer.addVertex(pose, x0, y1, z3)
+            consumer.addVertex(pose, x0, y1, z3).setColor(color)
                     .setUv(
                             (relativeXOffset) * iScale,
                             (1 + relativeYOffset) * iScale
-            );
+                    );
+
+
+
+
 
         }
 
@@ -160,16 +182,6 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
 
     }
 
-    private Vec2 getTargetBlockPositionFromFace(Direction face, BlockPos blockPos) {
-
-        Vec3i normal = face.getNormal();
-
-        if (face.getAxis().isHorizontal()) {
-            return new Vec2(normal.getX() == 0 ? blockPos.getX() : blockPos.getZ(), blockPos.getY());
-        } else {
-            return new Vec2(blockPos.getX(), blockPos.getZ());
-        }
-    }
 
     protected float getOffsetUp() {
         return 1.0f;
@@ -179,7 +191,7 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
         return 0.0f;
     }
 
-    protected RenderType renderType() {
+    public static RenderType renderType() {
         return TGCSRenderTypes.RENDERTYPE_DEPTHS;
     }
 
