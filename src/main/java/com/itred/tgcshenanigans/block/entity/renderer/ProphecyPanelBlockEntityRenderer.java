@@ -175,8 +175,23 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
         float southOffset = isSouth ? 1.0F : 0.5625F;
         float northOffset = isNorth ? 0.0F : 0.4375F;
 
+        /*
+        float westUVOffset = 0.1f;
+        float southUVOffset = 1f;
+        float eastUVOffset  = 0.7f;
+        float northUVOffset = -0.2f;
+         */
+
+        float westUVOffset = -0.125f * 5;
+        float southUVOffset = -0.125f * 6;
+        float eastUVOffset  = -0.125f * 4.5f;
+        float northUVOffset = -0.125f * 4;
         float frac716 = 0.4375f;
         float frac916 = 0.5625f;
+        // ITS THE FACE SIZE OFFSET
+        // Nope nvm
+        //TODO: Hail mary idea: adjust the UV to follow the path around the pane when it connects at a face
+        // TODO: Alternate idea: maybe having the edges of the pane that stick out tile properly *could* work?????
 
         // A glass pane is 2 pixels wide if it's not attaching to anything, starting at x=8 and ending at the end of x=9
         // It's 8 pixels wide if it's attaching on the left or the right,
@@ -192,8 +207,9 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
         // Also need to adjust the UV depending on where it's connected.
         // The left and the right connect to the middle, rather than vice-versa, to allow the middle to still unrender when its covered by connecting at its face
 
-        if (!isSouth) {
+        float southRightOffset = 0.0f;
 
+        if (!isSouth) {
             // South face middle
             this.renderFace(
                     blockEntity, pose, consumer,
@@ -202,11 +218,13 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     1.0F - faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
                     Direction.SOUTH,
                     offsetX - offsetZ + axisOffset,
-                    offsetY + 1,
+                    offsetY,
                     color,
-                    frac716 + faceSizeOffset, frac916 - faceSizeOffset,
-                    0, 1
+                    -(frac916 - faceSizeOffset + southUVOffset + southRightOffset),-(frac716 + faceSizeOffset + southUVOffset + southRightOffset),
+                    0.0F, 1.0F
             );
+        } else {
+            southRightOffset = 1.0f;
         }
 
         if (isWest) {
@@ -218,10 +236,10 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     1.0F - faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
                     Direction.SOUTH,
                     offsetX - offsetZ + axisOffset,
-                    offsetY + 1,
+                    offsetY,
                     color,
                     // Apply a UV offset if the pane is only connected at the west OR the east to keep the texture aligned with everything else
-                    0.0F, frac716 + faceSizeOffset + connectedSizeCorrection,
+                    -(1.0F + southUVOffset),-(frac916 - faceSizeOffset + southUVOffset),
                     0.0F, 1.0F
             );
 
@@ -233,10 +251,10 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     0.0F + faceSizeOffset, 1.0F - faceSizeOffset,
                     0.0F + faceDepthOffset, 0.0F + faceDepthOffset, 0.0F + faceDepthOffset, 0.0F + faceDepthOffset,
                     Direction.NORTH,
-                    offsetX - offsetZ + axisOffset,
+                     offsetX - offsetZ + axisOffset,
                     offsetY,
                     color,
-                    frac916 - faceSizeOffset - connectedSizeCorrection, 0.0F,
+                    frac916 - faceSizeOffset + northUVOffset,1.0F + northUVOffset,
                     0.0F, 1.0F
             );
         }
@@ -250,10 +268,10 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     1.0F - faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
                     Direction.SOUTH,
                     offsetX - offsetZ + axisOffset,
-                    offsetY + 1,
+                    offsetY,
                     color,
-                    frac916 - faceSizeOffset - connectedSizeCorrection, 1.0F,
-                    0, 1
+                    -(frac716 + faceSizeOffset + southUVOffset),-(0.0F + southUVOffset),
+                    0.0F, 1.0F
             );
             // North face left
             this.renderFace(
@@ -266,12 +284,12 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     offsetX - offsetZ + axisOffset,
                     offsetY,
                     color,
-                    1.0F, frac716 + faceSizeOffset + connectedSizeCorrection,
+                    0.0F + northUVOffset, frac716 + faceSizeOffset + northUVOffset,
                     0.0F, 1.0F
             );
         }
 
-        if (!isNorth) {
+        if (true) {
             // North face middle
             this.renderFace(
                     blockEntity, pose, consumer,
@@ -283,13 +301,13 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     offsetX - offsetZ + axisOffset,
                     offsetY,
                     color,
-                    frac716 + faceSizeOffset, frac916 - faceSizeOffset,
+                    frac716 + faceSizeOffset + northUVOffset, frac916 - faceSizeOffset + northUVOffset,
                     0.0F, 1.0F
             );
 
         }
 
-        if (!isEast) {
+        if (true) {
             // East face middle
             this.renderFace(
                     blockEntity, pose, consumer,
@@ -300,13 +318,30 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     frac916 - faceSizeOffset, frac716 + faceSizeOffset,
                     frac716 + faceSizeOffset, frac916 - faceSizeOffset,
                     Direction.EAST,
-                    offsetZ - offsetX + 1 + axisOffset,
+                    offsetZ - offsetX + axisOffset,
                     offsetY,
                     color,
-                    frac716 + faceSizeOffset, frac916 - faceSizeOffset,
+                    frac716 + eastUVOffset, frac916 + eastUVOffset,
                     0, 1
             );
 
+        }
+
+        if (!isWest) {
+            // West face middle
+            this.renderFace(
+                    blockEntity, pose, consumer,
+                    0.0F + faceDepthOffset, 0.0F + faceDepthOffset,
+                    0.0F + faceSizeOffset, 1.0F - faceSizeOffset,
+                    frac716 + faceSizeOffset, frac916 - faceSizeOffset,
+                    frac916 - faceSizeOffset, frac716 + faceSizeOffset,
+                    Direction.WEST,
+                    offsetZ - offsetX + axisOffset,
+                    offsetY,
+                    color,
+                    -(frac916 - faceSizeOffset + westUVOffset),-(frac716 + faceSizeOffset + westUVOffset),
+                    0, 1
+            );
         }
 
         if (isNorth) {
@@ -316,14 +351,27 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     // Inverse of west, lines up with north
                     1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
                     0.0F + faceSizeOffset, 1.0F - faceSizeOffset,
-
-                    frac716 + faceSizeOffset, 0.0F + faceSizeOffset,
-                    0.0F + faceSizeOffset, frac716 + faceSizeOffset,
+                    frac716 + faceSizeOffset + connectedSizeCorrection, 0.0F + faceSizeOffset,
+                    0.0F + faceSizeOffset, frac716 + faceSizeOffset + connectedSizeCorrection,
                     Direction.EAST,
-                    offsetZ - offsetX + 1 + axisOffset,
+                    offsetZ - offsetX + axisOffset,
                     offsetY,
                     color,
-                    frac916 - faceSizeOffset, 1.0F,
+                    frac916 + eastUVOffset, 1.0F + eastUVOffset,
+                    0, 1
+            );
+            // West face left
+            this.renderFace(
+                    blockEntity, pose, consumer,
+                    0.0F + faceDepthOffset, 0.0F + faceDepthOffset,
+                    0.0F + faceSizeOffset, 1.0F - faceSizeOffset,
+                    0.0F + faceSizeOffset, frac716 + faceSizeOffset + connectedSizeCorrection,
+                    frac716 + faceSizeOffset + connectedSizeCorrection, 0.0F + faceSizeOffset,
+                    Direction.WEST,
+                    offsetZ - offsetX + axisOffset,
+                    offsetY,
+                    color,
+                    -(1.0F + westUVOffset), -(frac916 + westUVOffset),
                     0, 1
             );
         }
@@ -335,45 +383,38 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
                     // Inverse of west, lines up with north
                     1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
                     0.0F + faceSizeOffset, 1.0F - faceSizeOffset,
-                    1.0F - faceSizeOffset, frac916 - faceSizeOffset,
-                    frac916 - faceSizeOffset, 1.0F - faceSizeOffset,
+                    1.0F - faceSizeOffset, frac916 - faceSizeOffset - connectedSizeCorrection,
+                    frac916 - faceSizeOffset - connectedSizeCorrection, 1.0F - faceSizeOffset,
                     Direction.EAST,
-                    offsetZ - offsetX + 1 + axisOffset,
+                    offsetZ - offsetX + axisOffset,
                     offsetY,
                     color,
-                    0.0F, frac716 + faceSizeOffset,
+                    0.0F + eastUVOffset, frac716 + eastUVOffset,
                     0, 1
             );
-        }
-
-
-
-
-
-
-        // Prevent this face from rendering if it's covered by another pane/block, unless if theres a block to its left or right that it's also connecting with
-        if (!isEast || (isNorth || isSouth)) {
-
-            // If this is connecting to a face to the north or the south, move it in a bit to prevent clipping into the other pane
-            float eastFaceOffset = northOffset + faceSizeOffset + (isSouth ^ isNorth ? 0.125f : 0);
-
-
-
-        }
-
-
-
-        if (!isWest || (isNorth || isSouth)) {
-
+            // West face right
             this.renderFace(
                     blockEntity, pose, consumer,
-                    0.0F + faceDepthOffset, 0.0F + faceDepthOffset, 0.0F + faceSizeOffset, 1.0F - faceSizeOffset, northOffset + faceSizeOffset, southOffset - faceSizeOffset, southOffset - faceSizeOffset, northOffset + faceSizeOffset,
+                    0.0F + faceDepthOffset, 0.0F + faceDepthOffset,
+                    0.0F + faceSizeOffset, 1.0F - faceSizeOffset,
+                    frac916 - faceSizeOffset - connectedSizeCorrection, 1.0F - faceSizeOffset,
+                    1.0F - faceSizeOffset, frac916 - faceSizeOffset - connectedSizeCorrection,
                     Direction.WEST,
-                    offsetZ - offsetX + 1 + axisOffset,
+                    offsetZ - offsetX + axisOffset,
                     offsetY,
-                    color
+                    color,
+                    -(frac716 + westUVOffset), -(0.0F + westUVOffset),
+                    0, 1
             );
+
         }
+
+
+
+
+
+
+
 
 
 
