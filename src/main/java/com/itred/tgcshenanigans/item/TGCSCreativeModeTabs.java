@@ -24,8 +24,23 @@ public class TGCSCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
 
                         // Add blocks ehre
-                        output.accept(TGCSBlocks.PROPHECY_PANEL_NEW);
-                        output.accept(TGCSBlocks.PROPHECY_PANEL_GREEN);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_MONOCHROME);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_WHITE);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_ORANGE);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_MAGENTA);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_LIGHT_BLUE);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_YELLOW);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_PINK);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_GRAY);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_LIGHT_GRAY);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_CYAN);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_PURPLE);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_BLUE);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_BROWN);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_GREEN);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_RED);
+                        output.accept(TGCSBlocks.BLOCK_PROPHECY_BLACK);
+
 
 
                         // Add items here

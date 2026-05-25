@@ -102,10 +102,26 @@ public class TGCSClientEvents {
                 // The only instance of our IClientItemExtensions, and as such, the only instance of our BEWLR.
                 new TGCSClientItemExtensions(),
                 // A vararg list of items that use this BEWLR.
-                TGCSBlocks.PROPHECY_PANEL_NEW.asItem(),
-                TGCSBlocks.PROPHECY_PANEL_GREEN.asItem()
+                TGCSBlocks.BLOCK_PROPHECY_MONOCHROME.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_WHITE.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_ORANGE.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_MAGENTA.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_LIGHT_BLUE.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_YELLOW.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_LIME.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_PINK.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_GRAY.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_LIGHT_GRAY.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_CYAN.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_PURPLE.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_BLUE.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_BROWN.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_GREEN.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_RED.asItem(),
+                TGCSBlocks.BLOCK_PROPHECY_BLACK.asItem()
         );
     }
+
 
 
 

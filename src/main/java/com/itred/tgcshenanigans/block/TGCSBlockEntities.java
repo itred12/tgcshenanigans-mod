@@ -21,8 +21,25 @@ public class TGCSBlockEntities {
                             ProphecyPanelBlockEntity::new,
                             // A vararg of blocks that can have this block entity.
                             // This assumes the existence of the referenced blocks as DeferredBlock<Block>s.
-                            TGCSBlocks.PROPHECY_PANEL_NEW.get(),
-                            TGCSBlocks.PROPHECY_PANEL_GREEN.get()
+                            TGCSBlocks.BLOCK_PROPHECY_MONOCHROME.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_WHITE.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_ORANGE.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_MAGENTA.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_LIGHT_BLUE.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_YELLOW.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_LIME.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_PINK.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_GRAY.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_LIGHT_GRAY.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_CYAN.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_PURPLE.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_BLUE.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_BROWN.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_GREEN.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_RED.get(),
+                            TGCSBlocks.BLOCK_PROPHECY_BLACK.get(),
+
+                            TGCSBlocks.PANE_PROPHECY_MONOCHROME.get()
                     )
                     // Build using null; vanilla does some datafixer shenanigans with the parameter that we don't need.
                     .build((Type<?>) null)

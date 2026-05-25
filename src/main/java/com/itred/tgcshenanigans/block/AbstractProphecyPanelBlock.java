@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +30,7 @@ public class AbstractProphecyPanelBlock extends BaseEntityBlock {
     protected static final VoxelShape PHYSICAL_SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
 
-    private int color = FastColor.ABGR32.color(255, 255, 255, 255);
+    protected int color = FastColor.ABGR32.color(255, 255, 255, 255);
 
     public int getColor() {
         return color;
@@ -52,7 +53,6 @@ public class AbstractProphecyPanelBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis());
     }
 
@@ -72,9 +72,25 @@ public class AbstractProphecyPanelBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected @NotNull VoxelShape getVisualShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        return Shapes.empty();
+    }
+
+    @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
         return new ProphecyPanelBlockEntity(blockPos, blockState, this.color);
     }
+
+    @Override
+    protected float getShadeBrightness(@NotNull BlockState p_308911_, @NotNull BlockGetter p_308952_, @NotNull BlockPos p_308918_) {
+        return 1.0F;
+    }
+
+    @Override
+    protected boolean propagatesSkylightDown(@NotNull BlockState p_309084_, @NotNull BlockGetter p_309133_, @NotNull BlockPos p_309097_) {
+        return true;
+    }
+
 
 
 

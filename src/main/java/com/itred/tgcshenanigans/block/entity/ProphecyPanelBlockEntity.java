@@ -31,9 +31,6 @@ public class ProphecyPanelBlockEntity extends BlockEntity {
 
 
 
-
-
-
 }
 
 
