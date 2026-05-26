@@ -2,7 +2,7 @@ package com.itred.tgcshenanigans.client.render;
 
 import com.itred.tgcshenanigans.TGCSUtils;
 import com.itred.tgcshenanigans.data.TGCSAttachments;
-import com.itred.tgcshenanigans.item.BluntCleaverItem;
+import com.itred.tgcshenanigans.item.custom.BluntCleaverItem;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Axis;
 import net.minecraft.client.Camera;

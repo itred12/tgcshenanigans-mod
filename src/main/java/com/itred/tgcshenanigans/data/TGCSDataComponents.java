@@ -1,8 +1,8 @@
 package com.itred.tgcshenanigans.data;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.item.CrystallineDiscItem;
-import com.itred.tgcshenanigans.item.CrystallineDiscItem.CrystallineDiscSong;
+import com.itred.tgcshenanigans.item.custom.CrystallineDiscItem;
+import com.itred.tgcshenanigans.item.custom.CrystallineDiscItem.CrystallineDiscSong;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;

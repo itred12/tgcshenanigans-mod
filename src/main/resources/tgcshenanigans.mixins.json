@@ -17,6 +17,8 @@
     "requireAnnotations": true
   },
   "client": [
-    "client.GuiGraphicsMixin"
+    "client.GuiGraphicsMixin",
+    "client.HumanoidArmorLayerMixin",
+    "client.ItemRendererMixin"
   ]
 }

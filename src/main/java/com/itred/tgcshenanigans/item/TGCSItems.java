@@ -1,6 +1,10 @@
 package com.itred.tgcshenanigans.item;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
+import com.itred.tgcshenanigans.item.custom.BluntCleaverItem;
+import com.itred.tgcshenanigans.item.custom.CrystallineDiscItem;
+import com.itred.tgcshenanigans.item.custom.ShadowArmorItem;
+import com.itred.tgcshenanigans.item.custom.SpottedTieItem;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -41,10 +45,41 @@ public class TGCSItems {
 
     // ""Armor""
     public static final DeferredItem<Item> SPOTTED_TIE = ITEMS_REGISTRY.register("spotted_tie", () -> new SpottedTieItem(new Item.Properties()));
+    public static final DeferredItem<ArmorItem> SHADOW_HELM = ITEMS_REGISTRY.register("shadow_helmet",
+            () -> new ShadowArmorItem(TGCSArmorMaterials.SHADOW_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
+                    new Item.Properties().durability(
+                            ArmorItem.Type.HELMET.getDurability(19)
+                    )
+            )
+    );
+    public static final DeferredItem<ArmorItem> SHADOW_CHESTPLATE = ITEMS_REGISTRY.register("shadow_chestplate",
+            () -> new ShadowArmorItem(TGCSArmorMaterials.SHADOW_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().durability(
+                            ArmorItem.Type.CHESTPLATE.getDurability(19)
+                    )
+            )
+    );
+    public static final DeferredItem<ArmorItem> SHADOW_LEGGINGS = ITEMS_REGISTRY.register("shadow_leggings",
+            () -> new ShadowArmorItem(TGCSArmorMaterials.SHADOW_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().durability(
+                            ArmorItem.Type.LEGGINGS.getDurability(19)
+                    )
+            )
+    );
+    public static final DeferredItem<ArmorItem> SHADOW_BOOTS = ITEMS_REGISTRY.register("shadow_boots",
+            () -> new ShadowArmorItem(TGCSArmorMaterials.SHADOW_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
+                    new Item.Properties().durability(
+                            ArmorItem.Type.BOOTS.getDurability(19)
+                    )
+            )
+    );
+
+
 
     // Materials
     public static final DeferredItem<Item> AMETHYST_PLATE = ITEMS_REGISTRY.register("amethyst_plate", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DISC_LABEL = ITEMS_REGISTRY.register("disc_label", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SHADOW_CRYSTAL = ITEMS_REGISTRY.register("shadow_crystal", () -> new Item(new Item.Properties()));
 
     // Music discs
     public static final DeferredItem<Item> DISC_FIREPLACE = newMusicDisc("music_disc_fireplace", TGCSSounds.MUSIC_DISC_FIREPLACE_KEY);

@@ -35,6 +35,14 @@ public class TGCSItemModelProvider extends ItemModelProvider {
 
         basicItem(TGCSItems.AMETHYST_PLATE.get());
 
+        basicItem(TGCSItems.SHADOW_HELM.get());
+        basicItem(TGCSItems.SHADOW_CHESTPLATE.get());
+        basicItem(TGCSItems.SHADOW_LEGGINGS.get());
+        basicItem(TGCSItems.SHADOW_BOOTS.get());
+
+        basicItem(TGCSItems.SHADOW_CRYSTAL.get());
+
+
     }
 
     private void fromParent(DeferredItem<?> item, String parent) {

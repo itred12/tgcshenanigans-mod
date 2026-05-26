@@ -1,6 +1,7 @@
-package com.itred.tgcshenanigans.item;
+package com.itred.tgcshenanigans.item.custom;
 
 import com.itred.tgcshenanigans.data.TGCSDataComponents;
+import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.tag.TGCSBiomeTags;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;

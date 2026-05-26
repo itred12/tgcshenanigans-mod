@@ -1,5 +1,9 @@
 {
-  "parent": "builtin/entity",
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "tgcshenanigans:block/sanctuary_glass",
+    "particle": "minecraft:block/obsidian"
+  },
   "display": {
     "gui": {
       "rotation": [ 30, 135, 0 ],

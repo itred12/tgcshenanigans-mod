@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.item;
+package com.itred.tgcshenanigans.item.custom;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;

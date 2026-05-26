@@ -6,6 +6,7 @@ import com.itred.tgcshenanigans.tag.TGCSItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -46,6 +47,18 @@ public class TGCSItemTagProvider extends ItemTagsProvider {
         tag(TGCSItemTags.UNBREAKABLE_MATERIALS)
                 .add(Items.NETHERITE_INGOT);
 
+        this.tag(ItemTags.HEAD_ARMOR)
+                .replace(false)
+                .add(TGCSItems.SHADOW_HELM.get());
+        this.tag(ItemTags.CHEST_ARMOR)
+                .replace(false)
+                .add(TGCSItems.SHADOW_CHESTPLATE.get());
+        this.tag(ItemTags.LEG_ARMOR)
+                .replace(false)
+                .add(TGCSItems.SHADOW_LEGGINGS.get());
+        this.tag(ItemTags.FOOT_ARMOR)
+                .replace(false)
+                .add(TGCSItems.SHADOW_BOOTS.get());
 
         // Aizo found in Bastion chests
 

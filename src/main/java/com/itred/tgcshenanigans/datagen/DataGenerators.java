@@ -82,6 +82,8 @@ public class DataGenerators {
         // Blockstate models (client side)
         generator.addProvider(event.includeClient(), new TGCSBlockStateProvider(pack, existingFileHelper));
 
+        // Lang (client side)
+        generator.addProvider(event.includeClient(), new TGCSLanguageProvider(pack));
 
 
 

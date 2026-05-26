@@ -47,6 +47,11 @@ public class TGCSCreativeModeTabs {
                         output.accept(TGCSItems.BLUNT_CLEAVER);
                         output.accept(TGCSItems.SPOTTED_TIE);
 
+                        output.accept(TGCSItems.SHADOW_HELM);
+                        output.accept(TGCSItems.SHADOW_CHESTPLATE);
+                        output.accept(TGCSItems.SHADOW_LEGGINGS);
+                        output.accept(TGCSItems.SHADOW_BOOTS);
+
                         output.accept(TGCSItems.AMETHYST_PLATE);
                         // output.accept(TGCSItems.DISC_LABEL);
 

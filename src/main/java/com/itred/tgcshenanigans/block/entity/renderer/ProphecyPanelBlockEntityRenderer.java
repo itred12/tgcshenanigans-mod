@@ -22,7 +22,7 @@ import org.joml.Matrix4f;
 
 public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<ProphecyPanelBlockEntity> {
 
-    public static final ResourceLocation DEPTHS = TGCSUtils.modLocation("textures/entity/depths_monochrome.png");
+    public static final ResourceLocation DEPTHS = TGCSUtils.modLocation("textures/misc/depths_monochrome.png");
 
     // Add the constructor parameter for the lambda below. You may also use it to get some context
     // to be stored in local fields, such as the entity renderer dispatcher, if needed.
@@ -46,7 +46,7 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     // - bufferSource:  The buffer source to get vertex buffers from.
     // - packedLight:   The light value of the block entity.
     // - packedOverlay: The current overlay value of the block entity, usually OverlayTexture.NO_OVERLAY.
-    public void render(@NotNull ProphecyPanelBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(@NotNull ProphecyPanelBlockEntity blockEntity, float partialTick, PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         Matrix4f matrix4f = poseStack.last().pose();
         if (blockEntity.getBlockState().getBlock() instanceof AbstractProphecyPaneBlock) {
             this.renderPane(blockEntity, matrix4f, bufferSource.getBuffer(this.renderType()), FastColor.ABGR32.fromArgb32(blockEntity.getColor()));
@@ -138,7 +138,10 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
         if (blockEntity.getLevel() != null) {
             this.renderFace(
                     blockEntity, pose, consumer,
-                    1.0F - faceSizeOffset, 0.0F + faceSizeOffset, 1.0F - faceSizeOffset, 1.0F - faceSizeOffset, 0.0F + faceDepthOffset, 0.0F + faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
+                    1.0F - faceSizeOffset, 0.0F + faceSizeOffset,
+                    1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
+                    0.0F + faceSizeOffset, 0.0F + faceSizeOffset,
+                    1.0F - faceSizeOffset, 1.0F - faceSizeOffset,
                     Direction.UP,
                     offsetX + (1 - axisOffset),
                     offsetZ,
@@ -147,7 +150,10 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
         } else {
             this.renderFace(
                     blockEntity, pose, consumer,
-                    1.0F - faceSizeOffset, 0.0F + faceSizeOffset, 1.0F - faceSizeOffset, 1.0F - faceSizeOffset, 0.0F + faceDepthOffset, 0.0F + faceDepthOffset, 1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
+                    1.0F - faceSizeOffset, 0.0F + faceSizeOffset,
+                    1.0F - faceDepthOffset, 1.0F - faceDepthOffset,
+                    0.0F + faceSizeOffset, 0.0F + faceSizeOffset,
+                    1.0F - faceSizeOffset, 1.0F - faceSizeOffset,
                     Direction.UP,
                     offsetX + 1,
                     offsetZ + 1 ,
@@ -335,7 +341,7 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
 
 
     @Override
-    public boolean shouldRenderOffScreen(ProphecyPanelBlockEntity blockEntity) {
+    public boolean shouldRenderOffScreen(@NotNull ProphecyPanelBlockEntity blockEntity) {
         return BlockEntityRenderer.super.shouldRenderOffScreen(blockEntity);
     }
 
@@ -345,12 +351,12 @@ public class ProphecyPanelBlockEntityRenderer implements BlockEntityRenderer<Pro
     }
 
     @Override
-    public boolean shouldRender(ProphecyPanelBlockEntity blockEntity, Vec3 cameraPos) {
+    public boolean shouldRender(@NotNull ProphecyPanelBlockEntity blockEntity, @NotNull Vec3 cameraPos) {
         return BlockEntityRenderer.super.shouldRender(blockEntity, cameraPos);
     }
 
     @Override
-    public AABB getRenderBoundingBox(ProphecyPanelBlockEntity blockEntity) {
+    public @NotNull AABB getRenderBoundingBox(@NotNull ProphecyPanelBlockEntity blockEntity) {
         return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }
 

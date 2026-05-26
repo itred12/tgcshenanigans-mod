@@ -2,6 +2,8 @@ package com.itred.tgcshenanigans.block;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.item.TGCSItems;
+import com.itred.tgcshenanigans.item.custom.ProphecyPanelItem;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -30,14 +32,8 @@ public class TGCSBlocks {
 
 
 
-    public static final DeferredBlock<AbstractProphecyPanelBlock> BLOCK_PROPHECY_MONOCHROME = registerBlock("block_prophecy",
-            () -> new AbstractProphecyPanelBlock(
-                    BlockBehaviour.Properties.of()
-                            .noOcclusion()
-                            .isViewBlocking((state, level, pos) -> false),
-                    FastColor.ABGR32.color(255, 255, 255, 255)
-            )
-    );
+    public static final DeferredBlock<AbstractProphecyPanelBlock> BLOCK_PROPHECY_MONOCHROME = baseProphecyPanelBlock("block_prophecy", FastColor.ABGR32.color(255, 255, 255, 255));
+
     public static final DeferredBlock<AbstractProphecyPanelBlock> BLOCK_PROPHECY_WHITE = newProphecyPanel(DyeColor.WHITE);
     public static final DeferredBlock<AbstractProphecyPanelBlock> BLOCK_PROPHECY_ORANGE = newProphecyPanel(DyeColor.ORANGE);
     public static final DeferredBlock<AbstractProphecyPanelBlock> BLOCK_PROPHECY_MAGENTA = newProphecyPanel(DyeColor.MAGENTA);
@@ -88,14 +84,21 @@ public class TGCSBlocks {
 
 
     private static DeferredBlock<AbstractProphecyPanelBlock> newProphecyPanel(DyeColor color) {
-        return registerBlock("block_prophecy_" + color.getName(),
+        return baseProphecyPanelBlock("block_prophecy_" + color.getName(), color.getMapColor().calculateRGBColor(MapColor.Brightness.HIGH));
+    }
+
+    private static DeferredBlock<AbstractProphecyPanelBlock> baseProphecyPanelBlock(String name, int color) {
+        DeferredBlock<AbstractProphecyPanelBlock> toReturn = BLOCKS_REGISTRY.register(name,
                 () -> new AbstractProphecyPanelBlock(
                         BlockBehaviour.Properties.of()
                                 .noOcclusion()
                                 .isViewBlocking((state, level, pos) -> false),
-                        color.getMapColor().calculateRGBColor(MapColor.Brightness.HIGH)
-                )
+                        color)
         );
+        TGCSItems.ITEMS_REGISTRY.register(name, () -> new ProphecyPanelItem(toReturn.get(), new Item.Properties()
+                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)));
+        return toReturn;
+
     }
 
     private static DeferredBlock<AbstractProphecyPanelBlock> newProphecyPane(DyeColor color) {

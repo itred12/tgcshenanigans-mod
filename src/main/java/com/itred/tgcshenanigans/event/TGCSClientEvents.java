@@ -8,13 +8,16 @@ import com.itred.tgcshenanigans.block.entity.renderer.ProphecyPanelBlockEntityRe
 import com.itred.tgcshenanigans.client.TGCSClientItemExtensions;
 import com.itred.tgcshenanigans.client.render.CustomArmorModelRenderer;
 import com.itred.tgcshenanigans.client.render.CustomCrosshairRenderer;
+import com.itred.tgcshenanigans.client.render.TGCSRenderTypes;
 import com.itred.tgcshenanigans.event.client.BluntCleaverClientUtils;
 import com.itred.tgcshenanigans.event.client.OriginsKeyPressListener;
 import com.itred.tgcshenanigans.event.client.TGCSShaders;
 import com.itred.tgcshenanigans.particle.RatioParticle;
 import com.itred.tgcshenanigans.particle.TGCSParticles;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -26,10 +29,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
@@ -50,6 +50,7 @@ public class TGCSClientEvents {
         NeoForge.EVENT_BUS.register(BluntCleaverClientUtils.class);
         modBus.register(TGCSShaders.class);
         modBus.addListener(TGCSClientEvents::registerReloadListener);
+        modBus.addListener(TGCSClientEvents::registerRenderBuffers);
 
     }
 
@@ -120,6 +121,15 @@ public class TGCSClientEvents {
                 TGCSBlocks.BLOCK_PROPHECY_RED.asItem(),
                 TGCSBlocks.BLOCK_PROPHECY_BLACK.asItem()
         );
+    }
+
+    // register custom enchant glint
+    public static void registerRenderBuffers(RegisterRenderBuffersEvent event) {
+        Map<RenderType, ByteBufferBuilder> glints = TGCSRenderTypes.getGlintTypesAndBuffers();
+
+        for (Map.Entry<RenderType, ByteBufferBuilder> entry : glints.entrySet()) {
+            event.registerRenderBuffer(entry.getKey());
+        }
     }
 
 

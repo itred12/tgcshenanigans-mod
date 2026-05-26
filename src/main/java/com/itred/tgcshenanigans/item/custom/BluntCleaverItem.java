@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.item;
+package com.itred.tgcshenanigans.item.custom;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.data.TGCSAttachments;
@@ -33,7 +33,7 @@ public class BluntCleaverItem extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 
@@ -50,7 +50,7 @@ public class BluntCleaverItem extends SwordItem {
     }
 
     @Override
-    public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
+    public boolean onEntitySwing(@NotNull ItemStack stack, @NotNull LivingEntity entity, @NotNull InteractionHand hand) {
         if (entity instanceof Player player && canTriggerRatio(player)) {
 
         }
