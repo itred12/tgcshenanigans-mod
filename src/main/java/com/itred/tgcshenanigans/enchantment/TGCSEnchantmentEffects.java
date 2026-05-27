@@ -11,9 +11,6 @@ public class TGCSEnchantmentEffects {
 
     public static final DeferredRegister<MapCodec<? extends EnchantmentEntityEffect>> ENCHANTMENT_EFFECT_REGISTRY = DeferredRegister.create(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, ThisGCsShenanigans.MODID);
 
-
-
-
     public static void registerAll(IEventBus bus) {
         ENCHANTMENT_EFFECT_REGISTRY.register(bus);
     }

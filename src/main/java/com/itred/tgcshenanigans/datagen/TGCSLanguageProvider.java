@@ -43,7 +43,9 @@ public class TGCSLanguageProvider extends LanguageProvider {
 
         addCreativeTab(TGCSCreativeModeTabs.GENERAL_ITEMS_TAB, "This GC's Shenanigans");
 
-        addEnchantment(TGCSEnchantmentRegistryProvider.DEEP_BREATH, "Deep Breath");
+        addEnchantment(TGCSEnchantmentRegistryProvider.DEEP_BREATH,
+                "Deep Breath",
+                "Greatly increases the damage of the item, but this bonus diminishes as the item deals damage, recharging over time (even when not held!).");
 
         add(TGCSItems.AMETHYST_PLATE.get(), "Amethyst Plate");
         addWithTooltip(TGCSItems.BLUNT_CLEAVER,
@@ -113,6 +115,15 @@ public class TGCSLanguageProvider extends LanguageProvider {
             addConfig(Config.MULTISHOT_NO_IFRAMES, "Multishot Semi-Rework");
             addConfig(Config.MULTISHOT_EXTRA_ARROW_DAMAGE_MULTIPLIER, "Multishot Multihit Damage Multiplier");
 
+        addConfigSection("moditemconfig", "Mod Additions Config");
+        addConfigSection("deepbreathconfig", "Deep Breath Enchantment");
+            addConfig(Config.DEEP_BREATH_DAMAGE_PER_LEVEL, "Damage Per Level");
+            addConfig(Config.DEEP_BREATH_STACK_COUNT_PER_LEVEL, "Stack Count Per Level");
+            addConfig(Config.DEEP_BREATH_MINIMUM_EXTRA_DAMAGE, "Minimum Extra Damage");
+            addConfig(Config.DEEP_BREATH_COOLDOWN_TIME, "Max Recharge Time");
+            addConfig(Config.DEEP_BREATH_COOLDOWN_TIME_DELAY, "Recharge Delay");
+
+
         // Client config
         addConfig(Config.BLUE_AXOLOTL_PING_SOUND, "Blue Axolotl Sound Effect");
         addConfig(Config.BLOCK_ANIMATION_SPEED, "Block Animation Speed");
@@ -174,8 +185,9 @@ public class TGCSLanguageProvider extends LanguageProvider {
         add(tab.get().getDisplayName().getString(), tabTranslatedName);
     }
 
-    private void addEnchantment(ResourceKey<Enchantment> enchantment, String translation) {
+    private void addEnchantment(ResourceKey<Enchantment> enchantment, String translation, String descriptionTranslation) {
         this.add(ENCHANTMENT_PREFIX + "." + enchantment.location().toLanguageKey(), translation);
+        this.add(ENCHANTMENT_PREFIX + "." + enchantment.location().toLanguageKey() + ".desc", descriptionTranslation);
     }
 
     /// Adds an item with several translation keys. Every key after the first will be \<item_name\>.tooltip_\<N\>,

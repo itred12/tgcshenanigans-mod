@@ -17,7 +17,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
-public class TweakCrossbow implements IConfiguredEventHandler {
+public class RangedWeaponDamageTweak implements IConfiguredEventHandler {
 
 
     // TODO: fix damage reduction applying for old bow shots– try to interpret damage timestamp
@@ -91,7 +91,6 @@ public class TweakCrossbow implements IConfiguredEventHandler {
     public boolean shouldEnable() {
         return
                 !BOW_DAMAGE_MULT.get().equals(BOW_DAMAGE_MULT.getDefault())
-                || !MULTISHOT_EXTRA_ARROW_DAMAGE_MULT.get().equals(MULTISHOT_EXTRA_ARROW_DAMAGE_MULT.getDefault())
                 || MULTISHOT_NO_IFRAMES.get();
     }
 

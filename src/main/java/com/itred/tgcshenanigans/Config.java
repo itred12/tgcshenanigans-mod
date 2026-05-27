@@ -48,6 +48,15 @@ public class Config {
         public static final ModConfigSpec.BooleanValue MULTISHOT_NO_IFRAMES;
         public static final ModConfigSpec.DoubleValue MULTISHOT_EXTRA_ARROW_DAMAGE_MULTIPLIER;
 
+        // Mod item config
+        public static final ModConfigSpec.DoubleValue DEEP_BREATH_DAMAGE_PER_LEVEL;
+        public static final ModConfigSpec.DoubleValue DEEP_BREATH_STACK_COUNT_PER_LEVEL;
+        public static final ModConfigSpec.DoubleValue DEEP_BREATH_MINIMUM_EXTRA_DAMAGE;
+        public static final ModConfigSpec.DoubleValue DEEP_BREATH_COOLDOWN_TIME;
+        public static final ModConfigSpec.DoubleValue DEEP_BREATH_COOLDOWN_TIME_DELAY;
+
+
+
     // Client
         // Blue Axolotl
         public static final ModConfigSpec.EnumValue<BlueAxolotlPing.BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING_SOUND;
@@ -174,6 +183,53 @@ public class Config {
                     .defineInRange("multishotExtraArrowDamageMultiplier", 0.5, 0.01, 5);
 
         SERVER_CONFIG_BUILDER.pop();
+
+        SERVER_CONFIG_BUILDER.push("moditemconfig");
+
+            SERVER_CONFIG_BUILDER.push("deepbreathconfig");
+
+            DEEP_BREATH_DAMAGE_PER_LEVEL = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.deep_breath_damage_per_level")
+                    .comment("The amount of added damage the Deep Breath enchantment gives to weapons per-level.",
+                            "",
+                            "For reference, the vanilla Smite enchantment gives +2.5 extra damage per-level. The vanilla Sharpness enchantment gives +0.5 extra damage per-level.")
+                    .worldRestart()
+                    .defineInRange("deepBreathDamagePerLevel", 2.0, 0.5, 5);
+
+            DEEP_BREATH_STACK_COUNT_PER_LEVEL = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.deep_breath_stack_count_per_level")
+                    .comment("The \"max damage stack\" count added by each level of the Deep Breath enchantment.",
+                            "",
+                            "This is the maximum amount of damage you can deal with this enchantment before its bonus goes to the minimum.")
+                    .worldRestart()
+                    .defineInRange("deepBreathStackCountPerLevel", 20.0, 1.0, 50.0);
+
+            DEEP_BREATH_MINIMUM_EXTRA_DAMAGE = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.deep_breath_minimum_extra_damage")
+                    .comment("A multiplier for the damage bonus of the Deep Breath enchantment once it runs out of stacks.",
+                            "",
+                            "At 0.5, it will give half of its damage bonus at a minimum. At 0, it will give none of its damage bonus at a minimum.",
+                            "",
+                            "I recommend keeping this value below ~0.2, to avoid making Sharpness obsolete.")
+                    .worldRestart()
+                    .defineInRange("deepBreathMinimumExtraDamage", 0.1, 0.0, 1.0);
+
+            DEEP_BREATH_COOLDOWN_TIME = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.deep_breath_cooldown_time")
+                    .comment("The amount of time it takes, in seconds, from 0 stacks, for the Deep Breath enchantment to fully recharge its damage bonus.")
+                    .worldRestart()
+                    .defineInRange("deepBreathCooldownTime", 25.0, 1.0, 240.0);
+
+            DEEP_BREATH_COOLDOWN_TIME_DELAY = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.deep_breath_cooldown_time_delay")
+                    .comment("The amount of time it takes, in seconds, for the Deep Breath enchantment to start recharging stacks after the weapon it's on was last used to hit something.")
+                    .worldRestart()
+                    .defineInRange("deepBreathCooldownTimeDelay", 1, 0.0, 10.0);
+
+            SERVER_CONFIG_BUILDER.pop();
+        SERVER_CONFIG_BUILDER.pop();
+
+
 
         SERVER_CONFIG  = SERVER_CONFIG_BUILDER.build();
 

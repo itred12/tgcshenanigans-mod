@@ -1,7 +1,7 @@
 package com.itred.tgcshenanigans.client.render;
 
+import com.itred.tgcshenanigans.config.server.DeepBreathEnchantmentHitEvent;
 import com.itred.tgcshenanigans.data.TGCSDataComponents;
-import com.itred.tgcshenanigans.event.common.DeepBreathEnchantmentHitEvent;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderType;
@@ -16,7 +16,7 @@ public class CustomCooldownHandler {
 
         if (stack.has(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE) && stack.has(TGCSDataComponents.DEEP_BREATH_STACK_CAP)) {
 
-            int damageCap = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACK_CAP, 10);
+            double damageCap = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_STACK_CAP, 10.0);
 
             // Using the player's tick counter since we dont have server access
             // Seems to be tracked... Decently equally between both sides???
@@ -27,7 +27,7 @@ public class CustomCooldownHandler {
             long lastDamageTime = stack.getOrDefault(TGCSDataComponents.DEEP_BREATH_LAST_DEALT_DAMAGE, 0L);
 
 
-            float cooldownProgress = 1 - (DeepBreathEnchantmentHitEvent.getDeepBreathStacks(player.level(), stack, damageCap) / damageCap);
+            double cooldownProgress = 1 - (DeepBreathEnchantmentHitEvent.getDeepBreathStacks(player.level(), stack, damageCap) / damageCap);
 
             // ThisGCsShenanigans.LOGGER.info("Progress: " + String.valueOf(cooldownProgress));
             // ThisGCsShenanigans.LOGGER.info("Current time: " + String.valueOf(time));

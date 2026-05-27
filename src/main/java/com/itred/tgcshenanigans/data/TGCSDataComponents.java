@@ -40,10 +40,10 @@ public class TGCSDataComponents {
             song -> song.persistent(CrystallineDiscSong.CODEC).networkSynchronized(CrystallineDiscItem.CrystallineDiscSong.STREAM_CODEC));
 
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DEEP_BREATH_STACKS = registerComponent(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> DEEP_BREATH_STACKS = registerComponent(
             "deepbreath_damage_stacks",
             builder ->
-                    builder.networkSynchronized(ByteBufCodecs.FLOAT)
+                    builder.networkSynchronized(ByteBufCodecs.DOUBLE)
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Long>> DEEP_BREATH_LAST_DEALT_DAMAGE = registerComponent(
@@ -52,9 +52,9 @@ public class TGCSDataComponents {
                     builder.networkSynchronized(ByteBufCodecs.VAR_LONG)
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DEEP_BREATH_STACK_CAP = registerComponent(
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> DEEP_BREATH_STACK_CAP = registerComponent(
             "deepbreath_stack_cap",
-            builder -> builder.persistent(Codec.INT)
+            builder -> builder.persistent(Codec.DOUBLE)
     );
 
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> registerComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
