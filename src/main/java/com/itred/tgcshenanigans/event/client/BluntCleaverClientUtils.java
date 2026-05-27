@@ -18,7 +18,7 @@ public class BluntCleaverClientUtils {
     public static void onAttributeTooltip(AddAttributeTooltipsEvent event) {
         ItemStack stack = event.getStack();
         if (stack.is(TGCSItems.BLUNT_CLEAVER)) {
-            event.addTooltipLines(Component.translatable("item.tgcshenanigans.blunt_cleaver.tooltip_1")
+            event.addTooltipLines(Component.translatable("item.tgcshenanigans.blunt_cleaver.tooltip")
                     .withStyle(ChatFormatting.RED));
         }
     }

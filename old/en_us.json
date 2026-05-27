@@ -125,6 +125,7 @@
   "power.tgcshenanigans.dove/dove_lightbody.description": "Your body is much lighter, designed for flight. You don't take any fall damage, and exhaust slower from moving around.",
 
   "power.tgcshenanigans.dove/dove_airefficiency.name": "Catch the Winds",
-  "power.tgcshenanigans.dove/dove_airefficiency.description": "You can move just as fast in the air as you can on the ground– any movement speed bonuses will also apply to air speed."
+  "power.tgcshenanigans.dove/dove_airefficiency.description": "You can move just as fast in the air as you can on the ground– any movement speed bonuses will also apply to air speed.",
+  "gui.tgcshenanigans.amethyst_plate_anvilcrafting_details": "Can also be crafted by crushing four amethyst shards with a falling anvil."
 
 }

@@ -2,7 +2,7 @@ package com.itred.tgcshenanigans.event.common;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.data.TGCSDataComponents;
-import com.itred.tgcshenanigans.enchantment.TGCSEnchantments;
+import com.itred.tgcshenanigans.datagen.registry.TGCSEnchantmentRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,7 +46,7 @@ public class DeepBreathEnchantmentHitEvent {
 
         EnchantmentHelper.runIterationOnItem(stack, (enchantmentHolder, i) -> {
 
-            if (!enchantmentHolder.is(TGCSEnchantments.DEEP_BREATH)) {
+            if (!enchantmentHolder.is(TGCSEnchantmentRegistryProvider.DEEP_BREATH)) {
                 return;
             }
 
@@ -74,11 +74,11 @@ public class DeepBreathEnchantmentHitEvent {
         // Getting the level of other enchantments from the event wont provide the full list of enchants on the item in question,
         // So we first make sure that this enchantment is (at least a part of) the target for the event
         // (I think??)
-        if (!event.isTargetting(TGCSEnchantments.DEEP_BREATH)) {
+        if (!event.isTargetting(TGCSEnchantmentRegistryProvider.DEEP_BREATH)) {
             return;
         }
 
-        int enchLevel = event.getEnchantments().getLevel(enchantmentRegistryLookup.getOrThrow(TGCSEnchantments.DEEP_BREATH));
+        int enchLevel = event.getEnchantments().getLevel(enchantmentRegistryLookup.getOrThrow(TGCSEnchantmentRegistryProvider.DEEP_BREATH));
 
         if (enchLevel == 0) {
             ThisGCsShenanigans.LOGGER.info("DEBUG: Removed no-longer-used data from an item that formerly had the Deep Breath enchantment!");

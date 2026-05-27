@@ -2,7 +2,6 @@ package com.itred.tgcshenanigans.event;
 
 import com.itred.tgcshenanigans.event.common.BluntCleaverUtils;
 import com.itred.tgcshenanigans.event.common.DeepBreathEnchantmentHitEvent;
-import com.itred.tgcshenanigans.event.common.TweakCrossbow;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -14,7 +13,6 @@ public class TGCSCommonEvents {
         // Deep breath enchantment
         NeoForge.EVENT_BUS.register(DeepBreathEnchantmentHitEvent.class);
         NeoForge.EVENT_BUS.register(BluntCleaverUtils.class);
-        NeoForge.EVENT_BUS.register(TweakCrossbow.class);
     }
 
 

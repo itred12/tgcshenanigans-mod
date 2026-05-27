@@ -5,6 +5,7 @@
   "mixins": [
     "AxolotlMixin",
     "AxolotlVariantMixin",
+    "FallingBlockEntityMixin",
     "IItemExtensionMixin",
     "ItemStackMixin",
     "compat.originsneoforge.ActionOverTimePowerMixin",

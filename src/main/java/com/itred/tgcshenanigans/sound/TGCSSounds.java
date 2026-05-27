@@ -1,5 +1,6 @@
 package com.itred.tgcshenanigans.sound;
 
+import com.itred.tgcshenanigans.TGCSUtils;
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -8,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -19,14 +21,14 @@ public class TGCSSounds {
     public static final Supplier<SoundEvent> BLUEAXOLOTL_PLA = registerLocalSoundEvent("sound.effect.blueaxolotl_pla");
     public static final Supplier<SoundEvent> BLUEAXOLOTL_BW = registerLocalSoundEvent("sound.effect.blueaxolotl_bw");
 
-    public static final Supplier<SoundEvent> MUSIC_DISC_AIZO = registerLocalSoundEvent("sound.disc.kinggnu_aizo");
-    public static final Supplier<SoundEvent> MUSIC_DISC_FIREPLACE = registerLocalSoundEvent("sound.disc.tobyfox_fireplace");
-    public static final Supplier<SoundEvent> MUSIC_DISC_ICYSANCTUM = registerLocalSoundEvent("sound.disc.drazorleaf_icysanctum");
-    public static final Supplier<SoundEvent> MUSIC_DISC_CATSWING = registerLocalSoundEvent("sound.disc.tobyfox_catswing");
-    public static final Supplier<SoundEvent> MUSIC_DISC_FROMNOWON = registerLocalSoundEvent("sound.disc.tobyfox_fromnowon");
-    public static final Supplier<SoundEvent> MUSIC_DISC_DEATHODYSSEY = registerLocalSoundEvent("sound.disc.heavenpierceher_deathodyssey");
-    public static final Supplier<SoundEvent> MUSIC_DISC_DAUGHTEROFHALLOWNEST = registerLocalSoundEvent("sound.disc.christopherlarkin_daughterofhallownest");
-    public static final Supplier<SoundEvent> MUSIC_DISC_REMEMBER = registerLocalSoundEvent("sound.disc.coldrain_remember");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_AIZO = registerForHolder("disc", "kinggnu_aizo");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_FIREPLACE = registerForHolder("disc", "tobyfox_fireplace");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_ICYSANCTUM = registerForHolder("disc","drazorleaf_icysanctum");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_CATSWING = registerForHolder("disc","tobyfox_catswing");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_FROMNOWON = registerForHolder("disc","tobyfox_fromnowon");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_DEATHODYSSEY = registerForHolder("disc","heavenpierceher_deathodyssey");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_DAUGHTEROFHALLOWNEST = registerForHolder("disc","christopherlarkin_daughterofhallownest");
+    public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_DISC_REMEMBER = registerForHolder("disc","coldrain_remember");
 
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_AIZO_KEY = createSong("aizo");
     public static final ResourceKey<JukeboxSong> MUSIC_DISC_FIREPLACE_KEY = createSong("fireplace");
@@ -47,11 +49,20 @@ public class TGCSSounds {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));
     }
 
+    private static ResourceKey<SoundEvent> createSoundEventKey(String name) {
+        return ResourceKey.create(Registries.SOUND_EVENT, ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name));
+    }
+
     // Sound events registered this way tesselate as you move away from the source (as long as they're encoded in mono!).
     // Anything non-game-music should use this.
     private static Supplier<SoundEvent> registerLocalSoundEvent(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(ThisGCsShenanigans.MODID, name);
         return SOUND_EVENTS_REGISTRY.register(name, () -> SoundEvent.createVariableRangeEvent(id));
+    }
+
+    private static DeferredHolder<SoundEvent, SoundEvent> registerForHolder(String category, String name) {
+        ResourceLocation path = TGCSUtils.modLocation("sounds." + category + "." + name);
+        return SOUND_EVENTS_REGISTRY.register(name, () -> SoundEvent.createVariableRangeEvent(path));
     }
 
     public static void registerAll(IEventBus bus) {

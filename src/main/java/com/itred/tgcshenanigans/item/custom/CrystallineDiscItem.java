@@ -77,12 +77,12 @@ public class CrystallineDiscItem extends Item {
         if (stack.has(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT)) {
 
             CrystallineDiscSong song = stack.getOrDefault(TGCSDataComponents.CRYSTALLINE_DISC_SONG_COMPONENT, CrystallineDiscSong.AIZO);
-            tooltipComponents.add(Component.translatable("item.tgcshenanigans.crystalline_disc_voiceless.description_" + song.name)
+            tooltipComponents.add(Component.translatable("item.tgcshenanigans.crystalline_disc_voiceless.tooltip_" + song.name)
                     .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 
         } else  {
 
-            tooltipComponents.add(Component.translatable("item.tgcshenanigans.crystalline_disc_voiceless.description")
+            tooltipComponents.add(Component.translatable("item.tgcshenanigans.crystalline_disc_voiceless.tooltip")
                     .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
         }
 

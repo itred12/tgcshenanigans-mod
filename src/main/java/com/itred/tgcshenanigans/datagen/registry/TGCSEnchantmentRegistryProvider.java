@@ -1,4 +1,4 @@
-package com.itred.tgcshenanigans.enchantment;
+package com.itred.tgcshenanigans.datagen.registry;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import net.minecraft.core.HolderGetter;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public class TGCSEnchantments {
+public class TGCSEnchantmentRegistryProvider {
 
     public static final ResourceKey<Enchantment> DEEP_BREATH;
 
@@ -30,7 +30,7 @@ public class TGCSEnchantments {
                                 Enchantment.dynamicCost(25, 7),
                                 2,
                                 EquipmentSlotGroup.MAINHAND
-                        )).exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE)).build(TGCSEnchantments.DEEP_BREATH.location())
+                        )).exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE)).build(TGCSEnchantmentRegistryProvider.DEEP_BREATH.location())
         );
     }
 

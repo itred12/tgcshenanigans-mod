@@ -1,7 +1,7 @@
 {
   "comparator_output": 15,
   "description": {
-    "translate": "item.tgcshenanigans.music_disc_fromnowon.desc"
+    "translate": "item.tgcshenanigans.music_disc_fromnowon.credit_splash"
   },
   "length_in_seconds": 109.0,
   "sound_event": "tgcshenanigans:sound.disc.tobyfox_fromnowon"

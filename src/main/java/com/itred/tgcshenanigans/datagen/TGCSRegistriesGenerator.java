@@ -1,7 +1,8 @@
 package com.itred.tgcshenanigans.datagen;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.enchantment.TGCSEnchantments;
+import com.itred.tgcshenanigans.datagen.registry.TGCSEnchantmentRegistryProvider;
+import com.itred.tgcshenanigans.datagen.registry.TGCSJukeboxSongRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -20,7 +21,8 @@ public class TGCSRegistriesGenerator extends DatapackBuiltinEntriesProvider {
 
     static {
         BUILDER = (new RegistrySetBuilder())
-                .add(Registries.ENCHANTMENT, TGCSEnchantments::bootstrap);
+                .add(Registries.ENCHANTMENT, TGCSEnchantmentRegistryProvider::bootstrap)
+                .add(Registries.JUKEBOX_SONG, TGCSJukeboxSongRegistryProvider::bootstrap);
     }
 
 }

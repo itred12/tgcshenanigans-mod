@@ -4,6 +4,7 @@ import com.itred.tgcshenanigans.ThisGCsShenanigans;
 import com.itred.tgcshenanigans.config.server.BlueAxolotlPing;
 import com.itred.tgcshenanigans.config.server.DisableEntity;
 import com.itred.tgcshenanigans.config.server.DurabilityRework;
+import com.itred.tgcshenanigans.config.server.TweakCrossbow;
 import com.itred.tgcshenanigans.config.startup.ConfigureEntityAttributes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.config.ModConfig;
@@ -30,7 +31,8 @@ public class ConfiguredEventManager {
               ModConfig.Type.SERVER, List.of(
                       new BlueAxolotlPing(),
                       new DisableEntity(),
-                      new DurabilityRework()
+                      new DurabilityRework(),
+                      new TweakCrossbow()
               ),
 
               ModConfig.Type.CLIENT, List.of(),

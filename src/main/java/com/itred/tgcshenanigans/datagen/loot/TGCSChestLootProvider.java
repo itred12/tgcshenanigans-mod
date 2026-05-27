@@ -1,6 +1,6 @@
 package com.itred.tgcshenanigans.datagen.loot;
 
-import com.itred.tgcshenanigans.enchantment.TGCSEnchantments;
+import com.itred.tgcshenanigans.datagen.registry.TGCSEnchantmentRegistryProvider;
 import com.itred.tgcshenanigans.item.TGCSItems;
 import com.itred.tgcshenanigans.loot.TGCSLootTables;
 import net.minecraft.core.HolderLookup;
@@ -75,7 +75,7 @@ public record TGCSChestLootProvider(HolderLookup.Provider registries) implements
                 ).withPool(
                         LootPool.lootPool()
                                 .setRolls(BinomialDistributionGenerator.binomial(1, 0.2f))
-                                .add(loot(Items.BOOK, 1).apply(EnchantRandomlyFunction.randomEnchantment().withEnchantment(enchantments.getOrThrow(TGCSEnchantments.DEEP_BREATH))))
+                                .add(loot(Items.BOOK, 1).apply(EnchantRandomlyFunction.randomEnchantment().withEnchantment(enchantments.getOrThrow(TGCSEnchantmentRegistryProvider.DEEP_BREATH))))
                 )
         );
 

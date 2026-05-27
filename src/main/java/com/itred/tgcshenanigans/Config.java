@@ -43,6 +43,11 @@ public class Config {
         // Durability Rework
         public static final ModConfigSpec.BooleanValue DURABILITY_REWORK;
 
+        // Balancing
+        public static final ModConfigSpec.DoubleValue BOW_DAMAGE_MULTIPLIER;
+        public static final ModConfigSpec.BooleanValue MULTISHOT_NO_IFRAMES;
+        public static final ModConfigSpec.DoubleValue MULTISHOT_EXTRA_ARROW_DAMAGE_MULTIPLIER;
+
     // Client
         // Blue Axolotl
         public static final ModConfigSpec.EnumValue<BlueAxolotlPing.BlueAxolotlSpawnSfx> BLUE_AXOLOTL_PING_SOUND;
@@ -82,9 +87,14 @@ public class Config {
 
         // Blue Axolotl
 
+        // Translation key is "modid.configuration.sectionpath"
+        SERVER_CONFIG_BUILDER.push("blueaxolottweaks");
+
             ENABLE_BLUE_AXOLOTL_PING = SERVER_CONFIG_BUILDER
                     .translation("tgcshenanigans.config.server.blue_axolotl_ping_masterswitch")
-                    .comment("Enable or disable the sound effect that plays whenever a player is near a blue axolotl.")
+                    .comment("Enable or disable playing a sound effect when a player goes near a blue axolotl.",
+                            "",
+                            "The sound effect itself can also be enabled or disabled on the client's end, but it will always respect this option.")
                     .worldRestart()
                     .define("blueAxolotlPingMasterswitch", true);
 
@@ -101,16 +111,17 @@ public class Config {
                 .translation("tgcshenanigans.config.server.blue_axolotl_spawn_chance")
                 .comment("Modify the chance that a blue axolotl can spawn naturally. Default is 1 in 1200.")
                 .comment("")
-                .comment("Only takes effect if Blue Axolotl Natural Spawn is enabled.")
+                .comment("Only takes effect if Naturally Spawning Blue Axolotls is enabled.")
                 .defineInRange("blueAxolotlNaturalSpawnChance", 1200, 1, 8192);
 
             BLUE_AXOLOTL_SPAWNCHANCE_OFFSPRING = SERVER_CONFIG_BUILDER
                     .translation("tgcshenanigans.config.server.blue_axolotl_spawn_chance_offspring")
-                    .comment("Modify the chance that a blue axolotl can spawn naturally as offspring from two other axolotl.")
+                    .comment("Modify the chance that a blue axolotl can spawn as offspring from two other (non-blue) axolotl.")
                     .comment("")
                     .comment("Default is 1 in 1200 (Vanilla chance)")
                     .defineInRange("blueAxolotlNaturalSpawnChanceOffspring", 1200, 1, 8192);
 
+        SERVER_CONFIG_BUILDER.pop();
         // Other
 
             DISABLED_ENTITIES_LIST = SERVER_CONFIG_BUILDER
@@ -119,13 +130,15 @@ public class Config {
                             "",
                             "May have some performance cost if many types of entities are disabled.",
                             "",
-                            "Entities must be listed as \"namespace:id\", i.e., \"minecraft:chicken\".",
+                            "Entities must be listed as \"<namespace>:<id>\", i.e., \"minecraft:chicken\".",
                             "",
                             "Commands can be used to find out the names and namespaces of entities to disable them.")
                     .worldRestart()
                     .defineListAllowEmpty("disabledEntitiesList", List.of(), () -> "", Config::validateEntityName);
 
         // Durability rework
+
+        SERVER_CONFIG_BUILDER.push("itembalancing");
 
             DURABILITY_REWORK = SERVER_CONFIG_BUILDER
                     .translation("tgcshenanigans.config.server.enable_durability_rework")
@@ -140,6 +153,27 @@ public class Config {
                             "By default, this affects Tridents, Elytra, the Mace, and all Netherite gear.")
                     .worldRestart()
                     .define("durabilityRework", false);
+
+            BOW_DAMAGE_MULTIPLIER = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.bow_damage_multiplier")
+                    .comment("Multiplies the damage of arrows fired specifically from bows or bow-adjacent items by this amount.",
+                            "Can go into decimal values to reduce the damage of these weapons as needed.")
+                    .defineInRange("bowDamageMultiplier", 1.0, 0.01, 5);
+
+            MULTISHOT_NO_IFRAMES = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.multishot_no_iframes")
+                    .comment("If enabled, arrows fired out of multishot crossbows wont give invulnerability frames on hit, allowing every arrow to connect at once on a single entity.")
+                    .define("multishotNoIFrames", false);
+
+            MULTISHOT_EXTRA_ARROW_DAMAGE_MULTIPLIER = SERVER_CONFIG_BUILDER
+                    .translation("tgcshenanigans.config.server.multishot_extra_arrow_damage_multiplier")
+                    .comment("If Multishot Semi-Rework is enabled, the damage of every arrow after the first (from a single shot) that hits an entity is multiplied by this amount.",
+                            "Can go into decimal values to reduce the damage of these weapons as needed.",
+                            "",
+                            "RECOMMENDED: 0.5")
+                    .defineInRange("multishotExtraArrowDamageMultiplier", 0.5, 0.01, 5);
+
+        SERVER_CONFIG_BUILDER.pop();
 
         SERVER_CONFIG  = SERVER_CONFIG_BUILDER.build();
 
@@ -176,7 +210,7 @@ public class Config {
 
             BLOCK_ANIMATION_SPEED = CLIENT_CONFIG_BUILDER
                     .translation("tgcshenanigans.config.client.block_animation_speed")
-                    .comment("Multiplies the speed of certain block animations. Set to 0 to disable entirely.",
+                    .comment("Multiplies the speed of certain flowing block animations. Set to 0 to disable these animations entirely.",
                             "",
                             "WARNING: Some passive animations may cause eyestrain at higher speeds. Increase this value at your own risk.")
                     .defineInRange("blockAnimationSpeed", 1.0, 0, 10.0);
@@ -187,6 +221,8 @@ public class Config {
 
         // DO NOT USE TO ENABLE/DISABLE FEATURES, EASILY DESYNCED
         STARTUP_CONFIG_BUILDER = new ModConfigSpec.Builder();
+
+        STARTUP_CONFIG_BUILDER.push("mobstattweaks");
 
         // Stat changes
             ENDER_DRAGON_HEALTH = STARTUP_CONFIG_BUILDER
@@ -221,6 +257,8 @@ public class Config {
                             "",
                             "NOTE: has no effect on already-spawned wardens.")
                     .defineInRange("wardenHealthModifier", 500, 1.0, 1024.0);
+
+        STARTUP_CONFIG_BUILDER.pop();
 
         STARTUP_CONFIG = STARTUP_CONFIG_BUILDER.build();
 
