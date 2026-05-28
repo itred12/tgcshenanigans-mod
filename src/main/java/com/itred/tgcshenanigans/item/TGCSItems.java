@@ -1,10 +1,7 @@
 package com.itred.tgcshenanigans.item;
 
 import com.itred.tgcshenanigans.ThisGCsShenanigans;
-import com.itred.tgcshenanigans.item.custom.BluntCleaverItem;
-import com.itred.tgcshenanigans.item.custom.CrystallineDiscItem;
-import com.itred.tgcshenanigans.item.custom.ShadowArmorItem;
-import com.itred.tgcshenanigans.item.custom.SpottedTieItem;
+import com.itred.tgcshenanigans.item.custom.*;
 import com.itred.tgcshenanigans.sound.TGCSSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -16,6 +13,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -81,6 +79,16 @@ public class TGCSItems {
     public static final DeferredItem<Item> DISC_LABEL = ITEMS_REGISTRY.register("disc_label", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> SHADOW_CRYSTAL = ITEMS_REGISTRY.register("shadow_crystal", () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> STRIDER_GILL = ITEMS_REGISTRY.register("strider_gill", () -> new WaxPaperItem(new Item.Properties()));
+    public static final DeferredItem<Item> WAX_PAPER = ITEMS_REGISTRY.register("wax_paper", () -> new WaxPaperItem(new Item.Properties()));
+    public static final DeferredItem<Item> ENCHANTED_PARCHMENT = ITEMS_REGISTRY.register("enchanted_parchment", () -> new Item(
+            new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON)
+                    .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
+                    .component(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY)
+    ));
+
     // Music discs
     public static final DeferredItem<Item> DISC_FIREPLACE = newMusicDisc("music_disc_fireplace", TGCSSounds.MUSIC_DISC_FIREPLACE_KEY);
     public static final DeferredItem<Item> DISC_AIZO = newMusicDisc("music_disc_aizo", TGCSSounds.MUSIC_DISC_AIZO_KEY);
@@ -128,7 +136,7 @@ public class TGCSItems {
                 ) {
                     @Override
                     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-                        tooltipComponents.add(Component.translatable("item.tgcshenanigans." + name + ".description").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                        tooltipComponents.add(Component.translatable("item.tgcshenanigans." + name + ".tooltip").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                     }
                 }

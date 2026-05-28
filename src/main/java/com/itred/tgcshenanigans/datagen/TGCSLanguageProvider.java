@@ -48,6 +48,9 @@ public class TGCSLanguageProvider extends LanguageProvider {
                 "Greatly increases the damage of the item, but this bonus diminishes as the item deals damage, recharging over time (even when not held!).");
 
         add(TGCSItems.AMETHYST_PLATE.get(), "Amethyst Plate");
+        add(TGCSItems.WAX_PAPER.get(), "Wax Paper");
+        add(TGCSItems.ENCHANTED_PARCHMENT.get(), "Enchanted Parchment");
+        add(TGCSItems.STRIDER_GILL.get(), "Strider Gill");
         addWithTooltip(TGCSItems.BLUNT_CLEAVER,
                 "Blunt Cleaver", "Cannot critical hit"
         );
@@ -163,6 +166,9 @@ public class TGCSLanguageProvider extends LanguageProvider {
 
         // JEI details
         addJEIDescription("amethyst_plate_anvilcrafting_details", "Can also be crafted by crushing four amethyst shards with a falling anvil.");
+        addJEIDescription("wax_paper_enchanting_details", "Can be enchanted in an enchanting table, similar to a book. Has much higher enchantability, but will only ever recieve one enchantment.");
+        addJEIDescription("enchanted_parchment_enchanting_details", "Obtained by enchanting Wax Paper in an enchanting table. Similar to an Enchanted Book, its enchantments can be applied to tools with an anvil.");
+
 
         // Origins translations
         addOriginsOrigin("dove",

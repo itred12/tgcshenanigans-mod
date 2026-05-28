@@ -34,6 +34,8 @@ public class TGCSItemModelProvider extends ItemModelProvider {
         withOtherTexture(TGCSItems.CRYSTALLINE_DISC_REMEMBER, TGCSItems.CRYSTALLINE_DISC_VOICELESS, "template_music_disc");
 
         basicItem(TGCSItems.AMETHYST_PLATE.get());
+        basicItem(TGCSItems.WAX_PAPER.get());
+        basicItem(TGCSItems.ENCHANTED_PARCHMENT.get());
 
         basicItem(TGCSItems.SHADOW_HELM.get());
         basicItem(TGCSItems.SHADOW_CHESTPLATE.get());

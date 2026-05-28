@@ -97,12 +97,21 @@ public class TGCSRecipeProvider extends RecipeProvider implements IConditionBuil
                 recipeOutput
         );
 
+        // Wax paper
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TGCSItems.WAX_PAPER)
+                .pattern("PPP")
+                .pattern("HHH")
+                .pattern("PPP")
+                .define('P', Ingredient.of(Items.PAPER))
+                .define('H', Ingredient.of(Items.HONEYCOMB))
+                .unlockedBy("has_honeycomb", has(Items.HONEYCOMB))
+                .save(recipeOutput);
 
     }
 
     private void discRecipeSmithing(Ingredient crystallineDisc, Ingredient catalyst, DeferredItem<Item> discOutput, String name, RecipeOutput output) {
         SmithingTransformRecipeBuilder.smithing(
-                Ingredient.of(Items.PAPER),
+                Ingredient.of(TGCSItems.WAX_PAPER),
                 crystallineDisc,
                 catalyst,
                 RecipeCategory.MISC,

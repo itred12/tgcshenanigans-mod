@@ -5,6 +5,7 @@
   "mixins": [
     "AxolotlMixin",
     "AxolotlVariantMixin",
+    "EnchantmentHelperMixin",
     "FallingBlockEntityMixin",
     "IItemExtensionMixin",
     "ItemStackMixin",

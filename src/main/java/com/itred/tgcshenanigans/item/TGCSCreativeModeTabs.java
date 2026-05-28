@@ -53,6 +53,9 @@ public class TGCSCreativeModeTabs {
                         output.accept(TGCSItems.SHADOW_BOOTS);
 
                         output.accept(TGCSItems.AMETHYST_PLATE);
+                        output.accept(TGCSItems.STRIDER_GILL);
+                        output.accept(TGCSItems.WAX_PAPER);
+                        output.accept(TGCSItems.ENCHANTED_PARCHMENT);
                         // output.accept(TGCSItems.DISC_LABEL);
 
                         output.accept(TGCSItems.CRYSTALLINE_DISC_VOICELESS);

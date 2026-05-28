@@ -27,7 +27,7 @@ public class TGCSItemTagProvider extends ItemTagsProvider {
         // Add tags in the same way as block tags
         tag(TGCSItemTags.PHANTASMAL_ITEMS)
                 .add(Items.PHANTOM_MEMBRANE)
-                .add(Items.SOUL_SOIL);
+                .add(TGCSItems.STRIDER_GILL.get());
 
         tag(TGCSItemTags.CRYSTALLINE_DISC_ITEMS)
                 .add(TGCSItems.CRYSTALLINE_DISC_VOICELESS.get())
